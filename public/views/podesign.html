@@ -1,0 +1,86 @@
+
+<px-card header-text="List Of Survey">
+
+ <px-data-table id="pmview" selected-rows="{{mySelectedRows}}"  filterable table-column striped table-data="{{completedsurvey}}" >
+
+	<px-data-table-column
+              name="ticketId"
+		      label="Job Id"
+			  type="html"
+          filterable sortable>
+       </px-data-table-column>
+
+		 <px-data-table-column
+               name="siteName"
+		      label="Site Name"
+          filterable sortable>
+        </px-data-table-column>
+
+	<px-data-table-column
+               name="siteId"
+		      label="Site Id"
+          filterable sortable>
+        </px-data-table-column>
+
+
+	<px-data-table-column
+               name="surveyType"
+		      label="Project Type"
+          filterable sortable>
+        </px-data-table-column>
+
+		<px-data-table-column
+               name="surveyor"
+		      label="Assigned To"
+          filterable sortable>
+        </px-data-table-column>
+
+		<px-data-table-column
+               name="currentStage"
+		      label="Current Stage"
+          filterable sortable>
+        </px-data-table-column>
+
+		<px-data-table-column
+               name="currentStageStatus"
+		      label="Status"
+          filterable sortable>
+        </px-data-table-column>
+
+        <px-data-table-column
+			name="tranche"
+			label="Tranche"
+			filterable sortable>
+        </px-data-table-column>
+
+  </px-data-table>
+
+</px-card>
+
+
+
+<!-- <px-card>
+ <px-tab-set id="demo-tab-set" selected="{{selected}}">
+        <px-tab>Tab 1</px-tab>
+        <px-tab>Tab 2</px-tab>
+        <px-tab>Tab 3</px-tab>
+    </px-tab-set>
+ <px-tab-pages id="demo-tab-set" selected="{{selected}}">
+            <div class="tab-page">
+              <p>PX Tab Page One</p>
+              <p>Some interesting content goes here...</p>
+            </div>
+            <div class="tab-page">
+              <p>PX Tab Page Two</p>
+              <p>Cool stuff goes here...</p>
+            </div>
+            <div class="tab-page">
+              <p>PX Tab Page Three</p>
+              <p>Fun stuff goes here...</p>
+            </div>
+            <div class="tab-page">
+              <p>PX Tab Page Four</p>
+              <p>Exciting stuff goes here...</p>
+            </div>
+          </px-tab-pages>
+</px-card> -->

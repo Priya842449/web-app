@@ -1,0 +1,88 @@
+<style>
+  table {
+    width:100%;
+    padding-left: 1rem;
+  }
+  .th {
+    width:20%;
+    font-weight: bold;
+  }
+  
+  #btnApprove {
+    width:133px;
+    background:#ef674f;
+    border-radius:18px;
+    color:white;
+    margin-top: 30%;
+    text-transform:capitalize !important;
+  }
+  #btnAttch {
+    margin-right: 1.1%;
+    width:133px;
+    background:#ef674f;
+    border-radius:18px;
+    color:white;
+    text-transform:capitalize !important;
+  }
+  h3#headertext{
+    color:#ff9821
+  }
+  px-card.postAuditPx {
+    height: 540px;
+  }
+</style>
+
+<px-card class="postAuditPx" header-text='Site Post Audit Summary'>
+ <div>
+   <table>
+     <tr><td class="th">Site Id</td><td>{{siteId}}</td></tr>
+     <tr><td class="th">Site Name</td><td>{{siteName}}</td></tr>
+     <tr><td class="th">PM Name</td><td>{{surveyor}}</td></tr>
+     <tr>
+    <td class="th">Comments</td><td><textarea id="myTextarea" placeholder="Add your comments here.." rows=3 ng-model="$parent.cmts"></textarea></td>
+      <td style="float:right"><button type="submit" class="btn" id="btnApprove" ng-click="onSubmit()"  style="width:133px;"><i class="fa fa-check" ></i> Create Audit </button>
+     <td></td></tr>
+	  <tr><td class="th" >Next Stage Approver</td><td> <paper-material elevation="1" style="z-index:2;background:white;">
+		<paper-typeahead-input-customerMaster id="paperSku" max-suggestions="5" remote-url="https://dt-contractor-master-microservice-dev.run.aws-usw02-pr.ice.predix.io/contractorList/name?contractorName=%QUERY" placeholder="Search Contractor" ng-disabled="$parent.isReadonly">
+		</paper-typeahead-input-customerMaster> 
+			</paper-material> </td></tr> 
+ <td></td><tr>
+     <tr>
+     <td>
+     <simple-dialog id="attach"  class="uploadAlert" modal role="alertdialog" align="center"  >
+            <input type="file" id="file" multiple="multiple" style="width:100%" ng-disabled="$parent.isReadonly"/>   
+      <div id="showFileList"></div> 
+      <table>
+        <tr ng-repeat="x in fileArray">
+            <td><td>{{x.name}}</td><td><i class="fa fa-times" aria-hidden="true" ng-click="removeFile(x)" style="color:red"></i></td></td>
+        </tr>
+      </table>
+      <input type="button"  id="btnSearch" ng-click="upload()" value="Upload" dialog-dismiss ng-disabled="$parent.isReadonly"></input>
+          <input type="button"  id="btnSearch"  value="Close" ng-disabled="$parent.isReadonly" dialog-dismiss></input>
+     </td>
+     <td></td>
+     </tr>
+
+   </table>
+  </div> <div id="outScope"></div>
+   <simple-dialog id="invalidAlertforBoth" class="submitAlert" modal role="alertdialog" align="center">
+			<input type="button" id="cross" value="X" ng-disabled="$parent.isReadonly" dialog-dismiss></input>			
+			<h1 class="datamsg">Please Select Valid Contractor</h1>
+			<div class="buttons">
+			<paper-button class="alertButton" ng-disabled="$parent.isReadonly" dialog-dismiss >Ok</paper-button>
+			</div>
+</simple-dialog>
+  </px-card>
+  <script>
+
+    $(document).ready(function() {
+	var selectedContractorForNextStage=document.querySelector('paper-typeahead-input-customerMaster').inputValue;		
+	var scopeEle2 = angular.element(document.getElementById('outScope')).scope();
+	document.querySelector('paper-typeahead-input-customerMaster').inputValue = scopeEle2.selectedContractorForNextStage;
+        $('#btnAttch').click(function(){
+          var removeSite = document.querySelector('#attach');
+          removeSite.toggle();
+        });
+      
+    });
+  </script>

@@ -1,0 +1,287 @@
+
+<!DOCTYPE html>
+<html ng-app="">
+
+  <head>
+  <style>
+  .grid input[type="file"] {
+    margin-left: 80px;
+    font-size: 14px;
+    display: inline-block;
+}
+.ui-grid-header-cell-wrapper {
+                background:#D1D0D8;
+}
+   #excelExport{
+background:#ef674f;
+border-radius:18px;
+color:white;
+font-family: candara;
+text-transform:capitalize !important;
+}
+
+
+  </style>
+    <link rel="stylesheet" href="stylesheets/ui-grid.min.css" />
+	<link rel="stylesheet" href="stylesheets/admin.css"/>
+	<link rel="stylesheet" href="stylesheets/general.css"/>	
+	<link rel="stylesheet" href="stylesheets/please-wait.css"/>	
+	
+  </head>
+
+  <body>
+	
+	<px-card header-text="User Assigned per Stage">
+ 
+						
+<px-data-table id="viewUploadedStages"  filterable table-column striped style="display:none">
+
+
+	<px-data-table-column
+              name="jobId"
+		      label="Job Id"
+			  type="html"
+          filterable sortable>
+       </px-data-table-column> 
+		
+<!-- 		 <px-data-table-column
+               name="siteName"
+		      label="Site Name"
+          filterable sortable>
+        </px-data-table-column> -->
+	
+	<px-data-table-column
+               name="siteId"
+		      label="Site Id"
+          filterable sortable>
+        </px-data-table-column> 
+				
+	<px-data-table-column
+               name="currentStageName"
+		      label="Current Stage"
+          filterable sortable>
+        </px-data-table-column> 
+	
+	
+	<px-data-table-column
+               name="survey"
+		      label="Surveyor"
+          filterable sortable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="pmSurveyApproval"
+		      label="Survey Approver"
+          filterable sortable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="design"
+		      label="Designer"
+          filterable sortable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="pmDesignApproval"
+		      label="Design Approver"
+          filterable sortable>
+        </px-data-table-column> 
+				
+						<px-data-table-column
+               name="proposal"
+		      label="Proposal"
+          filterable sortable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="purchaseOrder"
+		      label="Purchase Order"
+          filterable sortable>
+        </px-data-table-column> 		
+				
+				<px-data-table-column
+               name="installDraw"
+		      label="Installer"
+          filterable sortable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="installDrawPM"
+		      label="Install Approver"
+          filterable sortable>
+        </px-data-table-column> 
+				
+						<px-data-table-column
+               name="installation"
+		      label="Installation"
+          filterable sortable>
+        </px-data-table-column> 
+				
+						<px-data-table-column
+               name="readyForPostAudit"
+		      label="Ready Post Audit"
+          filterable sortable>
+        </px-data-table-column> 
+				
+										<px-data-table-column
+               name="postAudit"
+		      label="Post Audit"
+          filterable sortable>
+        </px-data-table-column> 
+				
+	
+  </px-data-table>
+						
+	<px-data-table id="viewAssignedStages" selectable filterable table-column striped table-data="{{userAssignmentTable}}" >
+
+	<px-data-table-column
+              name="jobId"
+		      label="Job Id"
+			  type="html"
+          filterable sortable>
+       </px-data-table-column> 
+		
+<!-- 		 <px-data-table-column
+               name="siteName"
+		      label="Site Name"
+          filterable sortable>
+        </px-data-table-column> -->
+	
+	<px-data-table-column
+               name="siteId"
+		      label="Site Id"
+          filterable sortable>
+        </px-data-table-column> 
+				
+	<px-data-table-column
+               name="currentStageName"
+		      label="Current Stage"
+          filterable sortable>
+        </px-data-table-column> 
+	
+	
+	<px-data-table-column
+               name="survey"
+		      label="Surveyor"
+          filterable sortable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="pmSurveyApproval"
+		      label="Survey Approver"
+          filterable sortable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="design"
+		      label="Designer"
+          filterable sortable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="pmDesignApproval"
+		      label="Design Approver"
+          filterable sortable>
+        </px-data-table-column> 
+				
+						<px-data-table-column
+               name="proposal"
+		      label="Proposal"
+          filterable sortable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="purchaseOrder"
+		      label="Purchase Order"
+          filterable sortable>
+        </px-data-table-column> 		
+				
+				<px-data-table-column
+               name="installDraw"
+		      label="Installer"
+          filterable sortable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="installDrawPM"
+		      label="Install Approver"
+          filterable sortable>
+        </px-data-table-column> 
+				
+						<px-data-table-column
+               name="installation"
+		      label="Installation"
+          filterable sortable>
+        </px-data-table-column> 
+				
+						<px-data-table-column
+               name="readyForPostAudit"
+		      label="Ready Post Audit"
+          filterable sortable>
+        </px-data-table-column> 
+				
+										<px-data-table-column
+               name="postAudit"
+		      label="Post Audit"
+          filterable sortable>
+        </px-data-table-column> 
+				
+
+				
+  </px-data-table>
+
+	<form role="form" name="form1">
+    <div ng-controller="userAssignmentController as divCtrl" scroll="overflow-x:scroll;overflow-y:scroll" style="" class="">
+						<span class="resetUpload" style="display:none"><button type="button" class="btn reset" id="btnSearch" ng-click="divCtrl.reset()" ng-disabled="isReadonly"  ><i class="fa fa-refresh"></i> Reset Grid</button>
+      <button type="submit" class="btn" id="btnSearch" ng-click="submitNew()" ng-disabled="isReadonly"  ><i class="fa fa-cloud-upload"></i> Upload</button></span>
+<!--       <table>   <tr></tr>  <tr></tr><tr></tr>
+	  <tr><td><button type="button" class="btn reset resetUpload" id="btnSearch" ng-click="divCtrl.reset()" ng-show="" style="display:none"><i class="fa fa-refresh"></i> Reset Grid</button></td>
+      <td><button type="submit" class="btn resetUpload" id="btnSearch" ng-click="submitNew()" ng-show="" style="display:none"><i class="fa fa-cloud-upload"></i> Upload</button></td></tr>
+      <tr>
+	  <td><p id="uploadBar">Upload Status     :</p></td>
+	  <td><p id="uploadInpro">In Progress...</p></td>
+	  <td><p id="uploadSucc">Success !!!</p></td>
+	  <td><p id="uploadFail">Failed. Please try Again !!!</p></td> 
+	  </tr>
+	  </table> -->
+
+		<div style="display:none" class="afterUpload">
+      <div id="grid1" ui-grid="divCtrl.gridOptions" class="grid">
+      </div> <br>
+			</div> 
+			<div class="chooseFileBtn"  style="width: 96%;">
+									      <!--   <div class="chooseFileBtn" ng-show="!divCtrl.gridOptions.data.length" style="width: 96%;"> -->
+          <div class="msg">
+            <div class="center">  <h3 style="font-size:20px;font-family: 'GE Inspira Regular', sans-serif;">Select File to upload</h3>
+              <br/>
+              <input type="file" id="fileinput" accept=".xls,.xlsx,.ods" fileread="" name="file" opts="divCtrl.gridOptions" ng-click="upload()" multiple="true" ng-disabled="isReadonly"/> 
+			           <button id="excelExport" class="btn" ng-click="exportExcel()" style=" margin-top:8px;" ng-disabled="isReadonly">Export</button>	
+								 <br>
+								 <span id="err" style="color:red">{{errorMsg}}</span>
+			</div>
+          </div>
+        </div>
+
+    </div>
+
+	</form>
+
+	</px-card>
+	
+	
+ 		   <simple-dialog id="uploadAlert" class="submitAlert" modal role="alertdialog" align="center">
+			  <input type="button" id="cross" value="X" dialog-dismiss ng-disabled="isReadonly" ></input>
+			 <!--  //alert(/surveydetails/{{redirectPage}}); -->
+			
+		<h1 class="datamsg">Data Uploaded Successfully</h1>
+			<div class="buttons">
+			
+			   <!-- <paper-button  class="alertButton" onclick="window.location = '/pmviewsurvey'">OK</paper-button> -->
+		<paper-button class="alertButton" id="okRedirect" dialog-dismiss ng-disabled="isReadonly">Ok</paper-button>
+			</div>
+		  </simple-dialog>
+		  
+
+  </body>
+ 
+</html>

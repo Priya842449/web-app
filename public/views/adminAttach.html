@@ -1,0 +1,318 @@
+<style>
+paper-input-container {
+    width: 160px;
+    border-radius: 5px;
+    border: 1px solid #f7f7fc;
+    display: block;
+    padding: 0px 0;
+}
+
+paper-material {
+    width: 160px;
+}
+
+.paper-item-0 {
+    width: 127px;
+}
+.th
+{
+font-weight: bold;
+}
+#btnApprove
+{
+width:133px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+text-transform:capitalize !important;
+}
+#btnAttch{
+margin-right: 1.1%;
+width:133px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+text-transform:capitalize !important;
+}
+.btnClass
+{
+width:133px;
+height: 28px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+text-transform:capitalize !important;
+}
+
+h3#headertext{
+	color:#ff9821
+}
+.dropdown-content{
+    margin-left: 291px;
+    margin-top: 46px !important;
+}
+
+
+
+select:hover, select:focus {
+    border: 1px solid #efeff4;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    background-color: #f7f7fc;
+}
+select {
+    width: 113px;
+    border-radius: 3px;
+    padding: 0 3em 0 1em;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+    line-height: calc(2em - 2px);
+    cursor: pointer;
+    background-color: #ffffff;
+    background-image: url('../images/arrow.png');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 1em) 50%;
+    color: #3b3b3f;
+	height: 25px;
+}
+.error
+{
+	color:red;
+	font-family: 'GE Inspira Regular', sans-serif;
+
+}
+</style>
+
+<link rel="import" href="bower_components/paper-card/paper-card.html">
+		  <link rel="import" href="bower_components/iron-icons/iron-icons.html">
+  <link rel="import" href="bower_components/iron-icon/iron-icon.html">
+  <link rel="import" href="bower_components/paper-listbox/paper-listbox.html">
+  <link rel="import" href="bower_components/paper-item/paper-item.html">
+  <link rel="import" href="bower_components/paper-button/paper-button.html">
+  
+  <link rel="import" href="bower_components/paper-tabs/paper-tabs.html">
+
+  <link rel="import" href="bower_components/paper-dropdown-menu/paper-dropdown-menu.html">	
+	
+
+
+<px-card header-text='Upload Floor Plan'>
+
+
+
+    <div>
+        <table>
+            <tr>
+                <td class="th">Site Name :</td>
+                <td class="th">
+                    <paper-material class="draggable1" elevation="1" style="z-index:4;background:white;width:160px;">
+                        <paper-typeahead-input-site id="paperSite" max-suggestions="10" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/site?filter=siteName=/.*%QUERY.*/&fields=siteId,siteName" placeholder="Site name" ng-disabled="$parent.isReadonly" style="font-size:10px;margin-bottom: 5px;">
+                            <!-- <paper-typeahead-input-site id="paperSite" max-suggestions="5" remote-url="views/site.json?filter=siteName=%QUERY*&fields=siteId,siteName"   placeholder="Search by Site Name"> -->
+                        </paper-typeahead-input-site>
+                    </paper-material>
+                </td>
+            </tr>
+            <tr>
+
+                <tr>
+                    <td class="th stationTd" style="display: none">Station Name :</td>
+                    <td class="th stationTd" style="display: none">
+                        <select ng-model="selectedStation" ng-change="getStation(selectedStation)" ng-disabled="$parent.isReadonly" ng-options="data.stationName for data in stationForSelect">
+	</select>
+                    </td>
+                    <td class="th stationTd buttonTd" style="display: none">
+                        <button type="submit" class="btn addStationButton" ng-disabled="$parent.isReadonly" ng-click="addStation()" style="font-size: 13px; width: 106px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+text-transform:capitalize !important;
+"><i class="fa fa-add" ></i>Add Station </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="th bldgfloorTd" style="display: none">Floor No. :</td>
+                    <td class="th bldgfloorTd" style="display: none">
+                        <select id="" ng-model="selectedFloor" ng-change="getFloor(selectedFloor)" ng-disabled="$parent.isReadonly">
+		<option ng-repeat="x in floor">{{x.floorNo}}</option>
+	</select>
+                    </td>
+                    <td class="th floorTd buttonTd" style="display: none">
+                        <button type="submit" class="btn addFloorButton" ng-click="addFloor()" style="font-size: 13px; width: 106px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+text-transform:capitalize !important;
+" ng-disabled="$parent.isReadonly"><i class="fa fa-add" ></i>Add Floor </button></td>
+                </tr>
+                <tr>
+                    <td class="th sectionTd" style="display: none">Section Id :</td>
+                    <td class="th sectionTd" style="display: none">
+                        <select id="" class="section" ng-model="selectedSection" ng-change="getSection(selectedSection)" ng-disabled="$parent.isReadonly">
+						<option ng-repeat="x in section">{{x.sectionId}}</option>
+        </select>
+
+ </td>
+  <td class="th sectionTd buttonTd" style="display: none">
+	<button type="submit" class="btn addSectionButton" ng-click="addFloor()"  style="font-size: 13px; width: 106px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+text-transform:capitalize !important;
+" ng-disabled="$parent.isReadonly"><i class="fa fa-add" ></i>Add Section </button></td>
+                    <!-- <td class="th bldgfloorTd" style="display: none">
+<paper-input label="Floor Number" id="floorNo"></paper-input>
+ </td> --></tr>
+ 		<paper-spinner style="position: absolute;
+    z-index: 10000;
+    margin-top: 9%;
+    right: 48%;" ></paper-spinner>
+<!-- <tr>
+	  <td>
+	<button type="submit" class="btn" id="btnApprove" ng-click="onSubmit()"  style="width:133px;"><i class="fa fa-check" ></i>Submit </button>
+
+
+
+
+
+ <td><button  class="btn"  id="btnAttch"><i class="fa fa-paperclip"> Attachment</i></button></td>
+
+	</tr>
+	 -->
+
+
+
+ <td class="bldgfloorTd" style="display: none">
+
+<!--  <simple-dialog id="attach"  class="uploadAlert" modal role="alertdialog" align="center"  > -->
+
+<!-- 	<input type="button"  id="btnSearch" ng-click="upload()" value="Upload" dialog-dismiss></input>
+      <input type="button"  id="btnSearch"  value="Close" dialog-dismiss></input> -->
+	  
+ 
+ </td>
+ <td></td>
+ </tr>
+ <tr>
+	  <td class="bldgfloorTd" style="display: none">
+<!-- 	<button type="submit" class="btn" id="btnApprove" ng-click="onSubmit()"  style="width:133px;"><i class="fa fa-check" ></i>Submit </button> -->
+<!-- <button type="submit" class="btn" id="btnApprove" ng-click="upload()"  style="width:133px;"><i class="fa fa-check" ></i>Submit </button> -->
+
+
+</td>
+
+ <!-- <td><button  class="btn"  id="btnAttch"><i class="fa fa-paperclip"> Attachment</i></button></td> -->
+
+	</tr>
+	
+
+        </table>
+        <div class="FloorImgDiv" style="display: none">
+            <button type="submit" class="btnClass" id="btnEdit" ng-click="edit()"><i class="fa fa-edit" ng-disabled="$parent.isReadonly" ></i>Edit </button>
+            <button type="submit" class="btnClass" id="btnDelete" ng-click="deleteSection()"><i class="fa fa-delete" ng-disabled="$parent.isReadonly" ></i>Delete </button>
+            <!-- <paper-card heading="Floor Plan" id="blobStoreImg" style="width:200px;color:white">
+  <div class="card-content">
+    Emmentaler or Emmental is a yellow, medium-hard cheese that originated in the area around Emmental, Switzerland. It is one of the cheeses of Switzerland, and is sometimes known as Swiss cheese.
+  </div>
+  <div class="card-actions">
+    <paper-button>Share</paper-button>
+    <paper-button>Explore!</paper-button>
+  </div>
+</paper-card> -->
+<div id="showImage" style="display:none">
+
+</div>
+	
+ </div>
+ </div>
+</px-card>
+
+<simple-dialog id="addStationDialog" class="uploadAlert" modal role="alertdialog" align="center">
+    <h1>Add Station</h1>
+    <paper-input label="Enter Station Name" id="statnName" ng-disabled="$parent.isReadonly"></paper-input>
+    <input type="button" id="btnSearch" class="addStanButton" ng-click="addNewStation()" value="Add" dialog-dismiss ng-disabled="$parent.isReadonly"></input>
+    <input type="button" id="btnSearch" value="Close" ng-click="closeStation()" dialog-dismiss ng-disabled="$parent.isReadonly"></input>
+    <br />
+    <br/>
+    <span class="error">{{errorMsg}}</span>
+</simple-dialog>
+
+<simple-dialog id="addFloorDialog" class="uploadAlert" modal role="alertdialog" align="center">
+    <h1>Add Floor</h1>
+    <paper-input label="Enter Floor Name" id="floorName" ng-disabled="$parent.isReadonly"></paper-input>
+    <input type="button" id="btnSearch" class="AddFlrBtn" ng-click="addNewFloor()" value="Add" ng-disabled="$parent.isReadonly"></input>
+    <input type="button" id="btnSearch" value="Close" ng-click="closeFloor()" dialog-dismiss ng-disabled="$parent.isReadonly"></input>
+
+			<br />
+			<br/>
+			<span class="error">{{errorFloorMsg}}</span>
+</simple-dialog>
+
+<simple-dialog id="addSectionDialog" class="uploadAlert" modal role="alertdialog" align="center">
+    <h1>Add Section</h1>
+    <paper-input label="Enter Section Name" id="sectionName" ng-disabled="$parent.isReadonly"></paper-input>
+    <input type="file" id="file" multiple="multiple" style="width:100%" ng-disabled="$parent.isReadonly" />
+    <div id="showFileList"></div>
+    <table>
+        <tr ng-repeat="x in fileArray">
+            <td>
+                <td>{{x.name}}</td>
+                <td><i class="fa fa-times" aria-hidden="true" ng-click="removeFile(x)" style="color:red"></i></td>
+            </td>
+        </tr>
+    </table>
+    <input type="button" id="btnSearch" class="AddSecBtn" ng-click="addNewSection()" value="Add" ng-disabled="$parent.isReadonly" dialog-dismiss></input>
+    <input type="button" id="btnSearch" value="Close" ng-click="closeSection()" ng-disabled="$parent.isReadonly" dialog-dismiss></input>
+
+			<br />
+			<br/>
+			<span class="error">{{errorSecMsg}}</span>
+</simple-dialog>
+
+<simple-dialog id="editSectionDialog" class="uploadAlert" modal role="alertdialog" align="center">
+    <h1>Edit Section</h1>
+    <!-- <paper-input label="Enter Section Name" id="sectionName"></paper-input>	 -->
+    <input type="file" id="file" multiple="multiple" style="width:100%" ng-disabled="$parent.isReadonly" />
+    <div id="showFileList"></div>
+    <table>
+        <tr ng-repeat="x in fileArray">
+            <td>
+                <td>{{x.name}}</td>
+                <td><i class="fa fa-times" aria-hidden="true" ng-click="removeFile(x)" style="color:red"></i></td>
+            </td>
+        </tr>
+    </table>
+    <input type="button" id="btnSearch" ng-click="editSection()" value="Edit" dialog-dismiss ng-disabled="$parent.isReadonly"></input>
+    <input type="button" id="btnSearch" value="Close" dialog-dismiss ng-disabled="$parent.isReadonly"></input>
+</simple-dialog>
+<script>
+$(document).ready(function() {
+<!--  var bldg = document.querySelector('#bldgNo'); -->
+ 
+
+    $('#btnAttch').click(function(){
+      var removeSite = document.querySelector('#attach');
+					removeSite.toggle();
+    });
+	 $('.addStationButton').click(function(){
+      var addStatn = document.querySelector('#addStationDialog');
+					addStatn.toggle();
+    });
+
+		$('.addFloorButton').click(function(){
+			//alert('in')
+      var addFloor = document.querySelector('#addFloorDialog');
+					addFloor.toggle();
+    });
+		$('.addSectionButton').click(function(){
+			//alert('in')
+      var addSection = document.querySelector('#addSectionDialog');
+					addSection.toggle();
+    });
+		$('#btnEdit').click(function(){
+			//alert('in')
+      var editSection = document.querySelector('#editSectionDialog');
+					editSection.toggle();
+    });
+});
+
+
+
+</script>

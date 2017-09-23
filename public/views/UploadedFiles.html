@@ -1,0 +1,81 @@
+<style>
+#data {
+		font-size:14px;
+		overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:50px;
+    display:inline-block;"
+}
+#data:hover{
+    overflow: visible; 
+    white-space: normal; 
+    width: auto;
+    background-color:#FFF;
+}
+    .buttonStyle {
+    position: relative;
+    background: transparent;
+    border: none;
+    color: red;
+    font-weight: 900;
+    cursor: pointer;
+     left: 50px;
+    bottom: 40px;
+        /*position: relative;
+    bottom: 20px;
+    background: transparent;
+    border: none;
+    color: red;
+    font-weight: 900;cursor:pointer;*/
+    }
+    
+    
+.tooltip:hover:after{
+    background: #333;
+    background: rgba(0,0,0,.8);
+    border-radius: 5px;
+    top: 26px;
+    color: #fff;
+    content: attr(title);
+    left: 20%;
+    padding: 5px 15px;
+    position: absolute;
+    z-index: 98;
+    width: 220px;
+}
+
+.tooltip:hover:before{
+    border: solid;
+    border-color: #333 transparent;
+    border-width: 6px 6px 6px 0;
+    top: 20px;
+    content: "";
+    left: 50%;
+    position: absolute;
+    z-index: 99;
+}
+    .fileContainer {
+        width: 120px;
+        display: inline-block;
+    }
+   .fileContainer .mainContain {
+       margin-bottom: 25px;
+    }
+    
+</style>
+    <div class="fileContainer" data-ng-repeat="data in finalData">
+        <div class="mainContain">
+            
+    <button class="buttonStyle" ng-style="{visibility:visible}" id="{{data.blobUrl}}" ng-click="deleteThisFile(data.fileName, $index)" visible="deleteButton">X</button> 
+        <i class="{{data.class}}" style="color:cadetblue;display:inline-block;"></i><br>
+        <a id="data1" title="{{data.fileName}}" ng-href="{{data.blobUrl}}" style="font-size:14px;margin-left:25px;" download>{{data.fileName.substring(0,10)}}</a>
+            </div>
+    
+        </div>
+        
+<simple-dialog id="deleteAlert"  class="uploadAlert" modal role="alertdialog" align="center"  >
+    <h1 class="datamsg">Delete the File?</h1>
+	<input type="button" id="btnSearch" class="uploadButton" ng-click="deleteConfirm()" value="Yes" dialog-dismiss></input>
+	<input type="button" id="btnSearch" class="closePopup" value="No" dialog-dismiss></input>
+</simple-dialog>

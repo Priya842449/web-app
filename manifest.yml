@@ -1,0 +1,13 @@
+---
+applications:
+  - name: digital-twin-web-wf-test
+    buildpack: predix_openresty_buildpack
+    path: dist
+    memory: 64M
+    stack: cflinuxfs2
+    services:
+            - GECURRENT_DigitalTwin_REDIS_SERVICE
+            - GECURRENT_DigitalTwin_VIEW_SERVICE
+    env:
+      UAA_SERVER_URL: https://1871e445-6cba-482c-9a3f-04971d3aee7c.predix-uaa.run.aws-usw02-pr.ice.predix.io
+      REDIS: redis-1

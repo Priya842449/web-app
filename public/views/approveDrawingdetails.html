@@ -1,0 +1,323 @@
+<style>
+:not([style-scope]):not(.style-scope):root .fa-3x {
+    padding-right: 1%;
+    font-size: 3em;
+}
+</style>
+<!-- <style>
+#data {
+		font-size:14px;
+		overflow: hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    width:50px;
+    display:inline-block;"
+}
+#data:hover{
+    overflow: visible;
+    white-space: normal;
+    width: auto;
+    background-color:#FFF;
+}
+</style> -->
+<style>
+    table {
+        width: 100%;
+        padding-left: 1rem;
+        font-family: Arial;
+    }
+
+    .th {
+        width: 20%;
+    }
+
+    #btnSubmit {
+        width: 133px;
+        background: #ef674f;
+        border-radius: 18px;
+        color: white;
+        font-family: candara;
+        text-transform: capitalize !important;
+    }
+
+
+
+    .datamsg {
+        margin-top: 10px;
+        /*font-size: 15px;*/
+        color: #000000;
+    }
+
+    .buttons {
+        margin-right: 68px;
+    }
+
+    .submitAlert {
+        outline: none;
+        z-index: 103;
+        height: 171px;
+        position: absolute;
+        top: 83.5px;
+        left: 508.102px;
+        box-sizing: border-box;
+        max-height: 366px;
+        max-width: 1286px;
+        border-radius: 13px !important;
+    }
+
+    .buttonStyle {
+        visibility: hidden;
+    }
+
+     .btnClass {
+            width: 133px;
+            height: 28px;
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            text-transform: capitalize !important;
+            margin-right: 25%;
+            margin-top: 23px;
+    }
+
+    .btnClassSUbmit {
+            width: 133px;
+            height: 28px;
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            text-transform: capitalize !important;
+            margin-right: 0%;
+            margin-top: 23px;
+    }
+
+
+      #btnSB {
+        width: 133px;
+        background: #ef674f;
+        border-radius: 18px;
+        color: white;
+        font-family: candara;
+        text-transform: capitalize !important;
+    }
+        #btnApprove {
+        width: 133px;
+        background: #ef674f;
+        border-radius: 18px;
+        color: white;
+        font-family: candara;
+        text-transform: capitalize !important;
+    }
+    .fileContainer {
+        width: 120px;
+         float: left;
+    }
+   .fileContainer .mainContain {
+        /*float: left;*/
+       margin-bottom: 25px;
+    }
+
+	    #btnSubmit {
+        width: 133px;
+        background: #ef674f;
+        border-radius: 18px;
+        font-size: 12px;
+        color: white;
+        font-family: 'GE Inspira Regular', sans-serif;
+        text-transform: capitalize !important;
+    }
+
+	.sentSucces {
+        color: red;
+    }
+
+    .sentFail {
+        color: red
+    }
+
+</style>
+
+
+<!-- div sitesummary="" data="" ng-include="'views/siteSummarySurvey.html'"></div> -->
+<px-card header-text='Site Install Drawing Summary'>
+    <div>
+        <table>
+            <tr>
+                <td class="th">Site Id</td>
+                <td>{{siteId}}</td>
+            </tr>
+            <tr>
+                <td class="th">Site Name</td>
+                <td>{{siteName}}</td>
+            </tr>
+            <tr>
+                <td class="th">Address</td>
+                <td>{{siteAddress}}</td>
+            </tr>
+            <tr>
+                <td class="th">PM Name</td>
+                <td>{{surveyor}}</td>
+            </tr>
+            <tr>
+                <td class="th">Current Stage</td>
+                <td>{{currentStage}}</td>
+                <td></td>
+            </tr>
+            <!--  <tr><td class="th">Completed Date</td><td>{{siteData.completedDate}}</td></tr>
+ -->
+            <!-- <tr><td class="th">Project Manager</td><td>{{siteData.siteNm}}</td></tr> -->
+            <tr></tr>
+            <tr>
+                <td class="th">Comments</td>
+                <td><textarea id="myTextarea" placeholder="Add your comments here.." rows=3 ng-model="$parent.cmts" ng-disabled="isReadonly"></textarea></td>
+                <td style="float:right">
+                    <button type="submit" class="btn btn-default btn-lg btn-upload" ng-click="Approve()" ng-disabled="disableApprove || isReadonly" style="width:133px"  id="btnSubmit" "><i class="fa fa-check "></i> Approve </button><br /><br /><br>
+				</td>
+
+                <!-- <tr><td></td><td></td><td style="padding-left:377px"><  <button type="submit" class="btn btn--primary" ng-click="submit()"><i class="fa fa-check"></i> Approve </button> -->
+
+                <!-- <button type="submit" class="btn btn-default btn-lg btn-upload" ng-click="submit()"><i class="fa fa-reply"></i> Send Back </button> --></td>
+            </tr>
+            <tr>
+                <tr>
+                    <td class="th ">Estimated Ship Date</td>
+                    <td id="estShipdate ">
+                        <!--<td style="float:right ">
+						<button type="submit " class="btn btn-default btn-lg btn-upload " ng-click="sendBack() " ng-disabled="disableSendBack || isReadonly"  style="width:133px " id="btnSB "><i class="fa fa-reply "></i> Send Back </button>
+						<!-- <br> <span ng-class="{sentSucces : isSent, sentFail: !(isSent)} ">{{msgSendBack}}Survey sent back successfully</span> -->
+						</td>
+
+						</td>
+                </tr>
+                <tr>
+                    <td class="th">Next Stage Approver</td>
+                    <td>
+                        <paper-material elevation="1" style="z-index:2;background:white;">
+                            <paper-typeahead-input-customerMaster id="paperSku" max-suggestions="5"  ng-disabled="isReadonly" remote-url="https://dt-contractor-master-microservice-dev.run.aws-usw02-pr.ice.predix.io/contractorList/name?contractorName=%QUERY" placeholder="Search Contractor">
+                            </paper-typeahead-input-customerMaster>
+                        </paper-material>
+                    </td>
+                    <!--<td>
+                        <div class="horizontal-section">
+                            <paper-radio-button id="myradio1" >Contractor Id</paper-radio-button>
+                            <paper-radio-button id="myradio2">Contractor Group</paper-radio-button>
+                        </div>
+
+                        <div id="contractorIdDiv" style="display: none;">
+                            <paper-material elevation="1" style="z-index:2;background:white;">
+                                <paper-typeahead-input-customerMaster id="paperSku" max-suggestions="5" remote-url="https://dt-contractor-master-microservice-dev.run.aws-usw02-pr.ice.predix.io/contractorList/name?contractorName=%QUERY" placeholder="Search Contractor Id">
+                                </paper-typeahead-input-customerMaster>
+                            </paper-material>
+                        </div>
+                        <div id="contractorGroupDiv" style="display: none;">
+                            <paper-material elevation="1" style="z-index:2;background:white;">
+                                <paper-typeahead-input-customerMaster id="paperSku" max-suggestions="5" remote-url="https://dt-menucontrol-microservice-dev.run.aws-usw02-pr.ice.predix.io/getBucketName?bucketName=%QUERY" placeholder="Search Contractor Group" ng-disabled="isReadonly">
+                                </paper-typeahead-input-customerMaster>
+                            </paper-material>
+                        </div>
+
+                    </td>-->
+
+
+				<td style="float:right"> <span ng-class="{sentSucces : isSent, sentFail: !(isSent)}"></span></td>
+                </tr>
+                <td></td>
+                <tr>
+                    <td></td>
+                    <tr>
+
+                        <!-- <tr>
+  <td class="th">Estimated Ship Date</td><td><input  type="date" id ="shipdate" </td></tr> -->
+        </table>
+        <div id="outScope"></div>
+        <simple-dialog id="invalidAlertforBoth" class="submitAlert" modal role="alertdialog" align="center">
+            <input type="button" id="cross" value="X" dialog-dismiss></input>
+            <h1 class="datamsg">Please Select Valid Contractor</h1>
+            <div class="buttons">
+                <paper-button class="alertButton" dialog-dismiss>Ok</paper-button>
+            </div>
+        </simple-dialog>
+    </div>
+</px-card>
+
+<px-card header-text='Files Uploaded'>
+    <div style="width:90%;">
+        <uploaded-files final-data="finalData"></uploaded-files>
+      </div>
+</px-card>
+
+
+
+
+
+<simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center">
+
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+    <!--  //alert(/surveydetails/{{redirectPage}}); -->
+    <h1 class="datamsg">Data Submitted Successfully</h1>
+    <center>
+    <div class="buttons">
+        <!-- <paper-button  class="alertButton" onclick="window.location = '/pmviewsurvey'">OK</paper-button> -->
+        <button class="btnClassSUbmit" id="okRedirect" dialog-dismiss>Ok</button>
+    </div></center>
+</simple-dialog>
+
+ <!--</simple-dialog>
+		   <simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center">
+			<input type="button" id="cross" value="X" dialog-dismiss></input>
+
+			<h1 class="datamsg">Data Submitted Successfully</h1>
+			<div class="buttons">
+			<paper-button class="alertButton" id="okRedirect" dialog-dismiss>Ok</paper-button>
+			</div>
+</simple-dialog>-->
+
+
+<simple-dialog id="submitAlertForFail" class="submitAlert" modal role="alertdialog" align="center">
+    <table>
+            <tr>
+                 <td style="float:right">
+                 <input style="margin-left:85%" type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+            <tr>
+                <td><h1 class="datamsg">{{msgSendBack}}</h1></td></tr>
+             <tr>
+			    <td><center>
+                    <button class="btnClass" id="okRedirect" dialog-dismiss>Ok</button>
+                    </center></td></tr>
+    </table>
+</simple-dialog>
+
+		   <simple-dialog id="sbAlert" class="submitAlert" modal role="alertdialog" align="center">
+		   <input type="button" id="cross" value="X" dialog-dismiss></input>
+
+			<h1 class="datamsg">Data Sent Back Successfully</h1>
+			<div class="buttons">
+					<paper-button class="alertButton" id="sbRedirect" dialog-dismiss>Ok</paper-button>
+			  <!-- <paper-button dialog-dismiss>Ok</paper-button> -->
+			</div>
+		  </simple-dialog>
+
+
+<!--<script>
+    $(document).ready(function() {
+    document.getElementById("myradio1").addEventListener("change", function(e) {
+                        //alert("radio1");
+                        if(document.getElementById("myradio1").checked=true){
+                                        document.getElementById("myradio2").checked=false;
+                        }
+                        $("#contractorGroupDiv").hide();
+                        $("#contractorIdDiv").show();
+                    });
+                    document.getElementById("myradio2").addEventListener("change", function(e) {
+                            // alert("radio2");
+                            if(document.getElementById("myradio2").checked=true){
+                                            document.getElementById("myradio1").checked=false;
+                            }
+                            $("#contractorIdDiv").hide();
+                            $("#contractorGroupDiv").show();
+                    });
+
+       });
+</script>-->
+
+

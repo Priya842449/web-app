@@ -1,0 +1,109 @@
+<style>
+:not([style-scope]):not(.style-scope):root .fa-3x {
+    padding-right: 24px;
+    font-size: 3em;
+}
+#btnSubmit{
+width:133px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+font-family: candara;
+text-transform:capitalize !important;
+}
+.th
+{
+width:20%;
+font-weight: bold;
+}
+</style>
+<px-card>
+<div design-directive="" data="" ng-include="'views/siteInstallSummary.html'"></div>
+</px-card>
+<px-card id="after1" header-text='Files To Be Uploaded'>
+
+<br/>
+  <div id="after" style="display:flex;">
+      <div style="width: 90%;">
+        <uploaded-files final-data="finalData" visible="showDelButton"></uploaded-files>
+      </div>
+
+      <div style="width: 10%;
+    display: inline-block;
+    margin-right: 30px;">
+        <paper-progress indeterminate class="slow" style="display:none"></paper-progress><br>
+          <button class="btn" modal-trigger id="btnAttch" ng-disabled="attchDisabled"><i class="fa fa-paperclip">Attachment</i></button>
+      </div>
+
+
+  </div>
+  <a id="mediaData" onclick="printClick(this.href)" ></a>&nbsp;&nbsp;&nbsp;
+	  <br>
+  <style is="custom-style">
+  paper-progress.slow {
+    --paper-progress-indeterminate-cycle-duration: 10s;
+  }
+</style>
+
+</px-card>
+
+
+<!--
+<simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center">
+                    <table>
+                            <tr>
+                                <td style="float:right">
+			                    <input type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+                            <tr>
+			                    <td><h1 class="datamsg">Data Submitted Successfully</h1></td></tr>
+                            <tr>
+			                <td><center>
+			                <button class="btn" id="btnSubmit" dialog-dismiss >Ok</button>
+			                </center></td></tr>
+                    </table>
+                    </simple-dialog>-->
+
+
+  <simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center">
+    <table>
+           <tr>
+                <td style="float:right">
+		              <input type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+                <tr>
+			              <td><h1 class="datamsg">Data Submitted Successfully</h1></td></tr>
+                <tr>
+			                <td><center>
+            	<button style="bottom: -1px; margin-top: 4px; width: 111px;" class="btn" id="btnSubmit" dialog-dismiss>Ok</button>
+          </center></td></tr>
+</table>
+	</simple-dialog>
+
+
+  		  <simple-dialog id="submitAlertForFail" class="submitAlert" modal role="alertdialog" align="center">
+           <table>
+           <tr>
+                <td style="float:right">
+		   <input type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+       <tr>
+			  <td><h1 class="datamsg">{{msgSendBack}}</h1></td></tr>
+        <tr>
+          <td>
+			<div class="buttons">
+					<paper-button class="alertButton" id="okRedirect" dialog-dismiss>Ok</paper-button>
+			</div></td></tr>
+      </table>
+		  </simple-dialog>
+
+
+ <paper-dialog id="dialog">
+</paper-dialog>
+
+<script>
+function onSubmit(){
+	 $('#btnSubmit').click(function(){
+
+    });
+	}
+	</script>
+
+

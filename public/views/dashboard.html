@@ -1,0 +1,704 @@
+<style>
+	google-map .tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: #3399ff;
+	color: #fff;;
+	font-size: 14px;
+	text-align: center;
+	border-radius: 6px;
+	padding: 5px 0;
+	/* Position the tooltip */
+	position: absolute;
+	z-index: 1;
+	}
+	google-map:hover .tooltiptext {
+	visibility: visible;
+	}
+
+	#mf1
+	{
+	font-size:21px;
+	color:#ffffff;
+	margin-top:-20px;
+	margin-left: -62px;
+	font-family: 'GE Inspira Regular', sans-serif;
+	}
+	#sku1
+	{
+	font-size:18px;
+	margin-top:-4px;
+	margin-left:-155px;
+	color:#ffffff;
+	font-family: 'GE Inspira Regular', sans-serif;
+	}
+	#skuId1
+	{
+	font-size:18px;
+	margin-top:-3px;
+	margin-left:-133px;
+	color:#2ebddc;
+	font-family: 'GE Inspira Regular', sans-serif;
+	}
+	#desc1
+	{
+	font-size:18px;
+	margin-top:-3px;
+	color:#2ebddc;
+	margin-left:-102px;
+	font-family: 'GE Inspira Regular', sans-serif;
+	}
+	#prod1
+	{
+	font-size: 21px;
+	margin-top: 20px;
+	margin-left: -17px;
+	color: #ffffff;
+	font-family: 'GE Inspira Regular', sans-serif;	
+	}
+	#id
+	{
+	font-size: 18px;
+	margin-top: -12px;
+	margin-left: -81px;
+	color: #2ebddc;
+	font-family: 'GE Inspira Regular', sans-serif;
+	}
+	#desc2
+	{
+	font-family: 'GE Inspira Regular', sans-serif;
+	font-size: 18px;
+	margin-top: -18px;
+	margin-left: -12px;
+	position:absolute;
+	color: #2ebddc
+	}
+	#pno
+	{
+	font-size:16px;
+	margin-top:14px;
+	color:#2ebddc;
+	}
+	#sno
+	{
+	font-size:16px;
+	margin-top:14px;
+	color:#2ebddc;
+	}
+	google-map {
+	height: 469px;
+	}
+	#dialog1
+	{
+	border: 2px solid;
+	<!--      border-radius: 35%; -->
+	width:520px;
+	height:388px;
+	margin-top:-390px;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin-left:264px;
+	position:absolute;
+	border-radius: 90px;
+	width:458px;
+	}
+	#dialog2
+	{
+	border: 2px solid;
+	<!--      border-radius: 35%; -->
+	width:520px;
+	height:388px;
+	margin-top:-390px;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin-left:264px;
+	position:absolute;
+	border-radius: 90px;
+	width:458px;
+	}
+	#dialog3
+	{
+	border: 2px solid;
+	<!--      border-radius: 35%; -->
+	width:520px;
+	height:388px;
+	margin-top:-390px;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin-left:264px;
+	position:absolute;
+	border-radius: 90px;
+	width:458px;
+	}
+	#dialog4
+	{
+	border: 2px solid;
+	<!--      border-radius: 35%; -->
+	width:520px;
+	height:388px;
+	margin-top:-390px;
+	background-color: rgba(0, 0, 0, 0.5);
+	margin-left:264px;
+	position:absolute;
+	border-radius: 90px;
+	width:458px;
+	}
+	.tabs-menu {
+	height: 30px;
+	float: left;
+	clear: both;
+	margin-left:-2.75rem !important;
+	}
+	.tabs-menu li {
+	height: 30px;
+	border: 2px;
+	border-radius:8px;
+	line-height: 30px;
+	float: left;
+	margin-right: 10px;
+	background-color: #ffff;
+	border-top: 1px solid #d4d4d1;
+	border-right: 1px solid #d4d4d1;
+	border-left: 1px solid #d4d4d1;
+	list-style-type:none;
+	}
+	.tabs-menu li.current {
+	position: relative;
+	background-color: #ff9821;
+	border-bottom: 1px solid #fff;
+	z-index: 5;
+	text-color:#ffff;
+	}
+	.tabs-menu li a {
+	padding: 10px;
+	color: #fff;
+	text-decoration: none; 
+	}
+	.tabs-menu .current a {
+	color: #2e7da3;
+	}
+	.tab {
+	border: 1px solid #d4d4d1;
+	background-color: #fff;
+	float: left;
+	margin-bottom: 20px;
+	width: auto;
+	}
+	.tab-content {
+	width: 1018px;
+	padding: 20px;
+	<!--     display: none; -->
+	}
+	#tab-1 {
+	display: block;   
+	}
+	#tab-2 {
+	display: none;   
+	}
+	.gm-style-iw{
+	background-color:white !important;
+	}
+</style>
+<style is="custom-style">
+	paper-tabs, paper-toolbar {
+	background-color: white;
+	color: black;
+	border-radius: 8px;
+	width: 41%;
+	height: 28px;
+	margin-top: -19.5%;
+	position: absolute;
+	margin-left: 34%;
+	border: 1px solid #115bb7;
+	box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+	font-size: 16px;
+	}
+	paper-toolbar paper-tabs {
+	box-shadow: none;
+	}
+	paper-tabs[noink][no-bar] paper-tab.iron-selected {
+	color: white;
+	background:#115bb7;
+	}
+	paper-tabs[alignBottom] {
+	box-shadow: 0px -2px 6px rgba(0, 0, 0, 0.15);
+	}
+</style>
+<style>
+	.selector {
+	position: relative;
+	left: 50%;
+	top: 50%;
+	width: 140px;
+	height: 140px;
+	margin-top: -70px;
+	margin-left: -70px;
+	}
+	.selector,
+	.selector button {
+	font-weight: 300;
+	}
+	.selector button {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+	background: white;
+	border-radius: 50%;
+	border: 0;
+	color: white;
+	font-size: 20px;
+	cursor: pointer;
+	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+	transition: all .1s;
+	border: 10px solid rgba(46, 189, 220, .5);
+	-webkit-background-clip: padding-box; /* for Safari */
+	background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
+	}
+	.selector button:hover { background: white; }
+	.selector button:focus { outline: none; }
+	.selector ul {
+	position: absolute;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	top: -20px;
+	right: -20px;
+	bottom: -20px;
+	left: -20px;
+	}
+	.selector li {
+	position: absolute;
+	width: 0;
+	height: 100%;
+	margin: 0 50%;
+	-webkit-transform: rotate(-360deg);
+	transition: all 0.8s ease-in-out;
+	}
+	.selector li input { display: none; }
+	.selector li input + label {
+	position: absolute;
+	left: 50%;
+	bottom: 100%;
+	width: 0;
+	height: 0;
+	line-height: 1px;
+	margin-left: 0;
+	background: black;
+	color:white;
+	border-radius: 50%;
+	text-align: center;
+	font-size: 1px;
+	overflow: hidden;
+	cursor: pointer;
+	box-shadow: none;
+	transition: all 0.8s ease-in-out, color 0.1s, background 0.1s;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";       /* IE 8 */
+	filter: alpha(opacity=50);  /* IE 5-7 */
+	-moz-opacity: 0.5;          /* Netscape */
+	-khtml-opacity: 0.5;        /* Safari 1.x */
+	opacity: 0.5;               /* Good browsers */
+	}
+	.selector li input + label:hover { background: grey; }
+	.selector li input:checked + label {
+	background: #5cb85c;
+	color: white;
+	}
+	.selector li input:checked + label:hover { background: #449d44; }
+	.selector.open li input + label {
+	width: 111px;
+	height: 103px;
+	line-height: 25px;
+	margin-left: -57px;
+	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+	font-size: 12px;
+	border: 9px solid rgba(46, 189, 220, .5);
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	}
+	.paper-button-0 .content.paper-button {
+	width: 161px;
+	padding: 0.7em 0.57em;
+	}
+	.th
+	{
+	width:20%;
+	font-weight: bold;
+	font-size:14px;
+	}
+	.td
+	{
+	width:20%;
+	font-size:14px;
+	}
+</style>
+</head>
+<body ng-init="loadmap()">
+	<px-card>
+	<h3 style="font-size: 22px;
+		position: absolute;
+		margin-top: 9px;">Twin</h3>
+	<paper-button raised id="btnSearch" style="margin-left: 804px;
+		margin-top: 19px;
+		position: absolute"><i class="fa fa-map-marker" aria-hidden="true" ng-disabled="isReadonly"></i> Locate the Twin</paper-button>
+        <div style="background-color:#f9f9f9">
+            <img src="images/tl_oper.png" style="height: 59px;
+			margin-left: 20%;
+			margin-top: 51px;" />
+            <div style="margin-top: 70px;">
+                <div id="imageholder" style="margin-top:-57px">
+                    <img id="imgH" style="height:245px;width:345px" />
+                    <!-- <img src="../images/demoimg.jpg"  style="height:245px;width:345px"/> -->
+                </div>
+                <paper-tabs selected="0" noink no-bar autoselect autoselect-delay="1000" ng-disabled="isReadonly">
+                    <paper-tab id="one">Fixture Information</paper-tab>
+                    <paper-tab id="two">Customer Information</paper-tab>
+                    <paper-tab id="three">Site Information</paper-tab>
+                </paper-tabs>
+                <table style="
+				position: absolute;
+				margin-top: -15.5%;
+				margin-left: 34%;" id="fixture" cellpadding=5>
+				<tr>
+					<td class="th">Serial Number :</td>
+					<td class="td"> <span style=" margin-left: -149px;">{{serialNo}}</span></td>
+				</tr>
+				<tr>
+					<td class="th">Description : </td>
+					<td class="td"> <span style=" margin-left: -149px;">{{description}}</td>
+				</tr>
+				<tr>
+					<td class="th">Location :</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td class="th">Latitude : </td>
+					<td class="td"> <span style=" margin-left: -149px;">{{lat}}</td>
+				</tr>
+				<tr>
+					<td class="th">Longitude : </td>
+					<td class="td"> <span style=" margin-left: -149px;">{{lng}}</td>
+				</tr>
+			</table>
+			<table style="
+				position: absolute;
+				margin-top: -15.5%;
+				margin-left: 34%;" id="customer" cellpadding=5>
+				<tr>
+					<td class="th">Customer Name : </td>
+					<td class="td"> <span style=" margin-left: -149px;">{{customerName}}</td>
+				</tr>
+				<tr>
+					<td class="th">Customer ID : </td>
+					<td class="td"> <span style=" margin-left: -149px;">{{customerId}}</td>
+				</tr>
+				<tr>
+					<td class="th">Address :</td>
+					<td class="td"></td>
+				</tr>
+				<tr >
+					<td class="th">City :</td>
+					<td class="td"> <span style=" margin-left: -149px;">{{customerCity}}</td>
+				</tr>
+				<tr>
+					<td class="th">Country :</td>
+					<td class="td"> <span style=" margin-left: -149px;">{{customerCountry}}</td>
+				</tr>
+			</table>
+			<table style="
+				position: absolute;
+				margin-top: -15.5%;
+				margin-left: 34%;" id="site"cellpadding=5>
+				<tr>
+					<td class="th">Site Id : </td>
+					<td class="td"> <span style=" margin-left: -149px;">{{siteId}}</td>
+				</tr>
+				<tr>
+					<td class="th">Site Name :</td>
+					<td class="td"> <span style=" margin-left: -149px;">{{siteName}}</td>
+				</tr>
+				<tr>
+					<td class="th">Site Address :</td>
+					<td class="td"></td>
+				</tr>
+				<tr>
+					<td class="th">City :</td>
+					<td class="td"> <span style=" margin-left: -149px;">{{siteCity}}</td>
+				</tr>
+				<tr>
+					<td class="th">Country :</td>
+					<td class="td"> <span style=" margin-left: -149px;">{{siteCountry}}</td>
+				</tr>
+			</table>
+		</div>
+		<div style="margin-top: -9px;position:relative;">
+			<h3 style="font-size: 22px;">Other Information</h3>
+			<img src="images/img_wireimage.png" style="margin-top:-5px;"/>
+			<div class='selector' id='selector' style="margin-top: -26%; margin-left: -7%;">
+				<ul>
+					<li>
+						<input id='c1' type='checkbox' ng-click="loadManufacture()">
+						<label for='c1'><i class="manufacture" aria-hidden="true"></i><br />Manufacturing</label>
+					</li>
+					<li>
+						<input id='c3' type='checkbox'>
+						<label for='c3'><i class="warranty" aria-hidden="true"></i><br />Warranty</label>
+					</li>
+					<li>
+						<input id='c5' type='checkbox'>
+						<label for='c5'><i class="installation" aria-hidden="true"></i><br />Installation</label>
+					</li>
+					<li>
+						<input id='c7' type='checkbox'>
+						<label for='c7'><i class="operation" aria-hidden="true"></i><br />Operation</label>
+					</li>
+				</ul>
+				<button id="circle"  style="margin-top: -14%; 
+					width: 125%;
+					margin-left: -2%;
+					height: 125%;" ng-click="loadData()"><img id="imgCircle" style="width:93%"/></button>
+			</div>
+			<simple-dialog id="dialog1" dialog1 role="alertdialog" align="center">
+				<img id="cross1"  dialog-dismiss src="../images/bt_close.png"/ style="margin-left:290px;"> 
+				<table>
+					<tr>
+						<td>
+							<p id="mf1">Manufacturing</p>
+							<br>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p id="sku1">SKU</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p id="skuId1">SKU ID</p>
+						</td>
+						<td>
+							<p style="color:#ffffff;font-size:19px;margin-top:-4px;margin-left:-79px;font-family: 'GE Inspira Regular', sans-serif;">{{skuId}}</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p id="desc1">Description</p>
+						</td>
+						<td> 
+						<td>
+							<p  style="color:#ffffff;font-size:19px;margin-top:-17px;margin-left:-191px;position:absolute;word-break: break-all;font-family: 'GE Inspira Regular', sans-serif;word-break: break-all;">{{skuDescription}}</p>
+					</tr>
+					<tr>
+						<td>
+							<p id="prod1">Product Hirearchy</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p id="id">Hierarchy Id</p>
+						</td>
+						<td>
+							<p style="color:#ffffff;font-size:19px;margin-top:6px;font-family: 'GE Inspira Regular', sans-serif;">{{productHierarchyId}}</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p id="desc2">Description</p>
+						</td>
+						<td>
+							<p style="color:#ffffff;font-size:19px;margin-top:-15px; position:absolute;font-family: 'GE Inspira Regular', sans-serif;word-break: break-all;">{{description}}</p>
+						</td>
+					</tr>
+				</table>
+			</simple-dialog>
+			<!--   For Warranty -->
+			<simple-dialog id="dialog2" dialog2 role="alertdialog" align="center">
+				<img id="cross2"  dialog-dismiss src="../images/bt_close.png"/ style="margin-left:290px;"> 
+				<table>
+					<tr>
+						<td>
+							<p id="mf1" style="margin-left: -2px;">Warranty</p>
+							<br>
+						</td>
+					</tr>
+					<!--  <tr><td><p id="prod1">Product Hirearchy</p></td></tr>
+						<tr><td><p id="id">ID</p></td> <td><p style="color:#ffffff;font-size:14px;">3012</p></td></tr>
+						<tr><td><p id="desc2">Description</p></td> <td><p style="color:#ffffff;font-size:14px;">dsaj sadjkd asddksdh sadjsakdj</p></td></tr>
+						<tr><td><p id="pno">Por Order Number</p></td> <td><p style="color:#ffffff;font-size:14px;">DG543H31</p></td></tr>
+						<tr><td><p id="sno">Sales Order Number</p></td> <td><p style="color:#ffffff;font-size:14px;">DG543H31</p></td></tr> -->
+				</table>
+			</simple-dialog>
+			<!-- ForInstallation -->
+			<simple-dialog id="dialog3" dialog3 role="alertdialog" align="center">
+				<img id="cross3"  dialog-dismiss src="../images/bt_close.png"/ style="margin-left:290px;"> 
+				<table>
+					<tr>
+						<td>
+							<p id="mf1" style="margin-left: -2px;">Installation</p>
+							<br>
+						</td>
+						<!--  <tr><td><p id="prod1">Product Hirearchy</p></td></tr>
+							<tr><td><p id="id">ID</p></td> <td><p style="color:#ffffff;font-size:14px;">3012</p></td></tr>
+							<tr><td><p id="desc2">Description</p></td> <td><p style="color:#ffffff;font-size:14px;">dsaj sadjkd asddksdh sadjsakdj</p></td></tr>
+							<tr><td><p id="pno">Por Order Number</p></td> <td><p style="color:#ffffff;font-size:14px;">DG543H31</p></td></tr>
+							<tr><td><p id="sno">Sales Order Number</p></td> <td><p style="color:#ffffff;font-size:14px;">DG543H31</p></td></tr> -->
+				</table>
+			</simple-dialog>
+			<!-- For Operation -->
+			<simple-dialog id="dialog4" dialog4 role="alertdialog" align="center">
+				<img id="cross4"  dialog-dismiss src="../images/bt_close.png"/ style="margin-left:290px;"> 
+				<table>
+					<tr>
+						<td>
+							<p id="mf1" style="margin-left: -2px;">Operation</p>
+							<br>
+						</td>
+					</tr>
+					<!--  <tr><td><p id="prod1">Product Hirearchy</p></td></tr>
+						<tr><td><p id="id">ID</p></td> <td><p style="color:#ffffff;font-size:14px;">3012</p></td></tr>
+						<tr><td><p id="desc2">Description</p></td> <td><p style="color:#ffffff;font-size:14px;">dsaj sadjkd asddksdh sadjsakdj</p></td></tr>
+						<tr><td><p id="pno">Por Order Number</p></td> <td><p style="color:#ffffff;font-size:14px;">DG543H31</p></td></tr>
+						<tr><td><p id="sno">Sales Order Number</p></td> <td><p style="color:#ffffff;font-size:14px;">DG543H31</p></td></tr> -->
+				</table>
+			</simple-dialog>
+		</div>
+		<div style="margin-top: 12%;">
+			<h3 style="font-size: 22px;">Geo Location</h3>
+			<px-card>
+				<div id="tabs-container">
+					<ul class="tabs-menu">
+						<li class="current"><a href="#tab-1">Indoor</a></li>
+						<li><a href="#tab-2">Outdoor </a></li>
+					</ul>
+					<div class="tab">
+						<div id="tab-1" class="tab-content">
+						</div>
+						<div id="tab-2" class="tab-content">
+							<google-map latitude="37.77493" longitude="-122.41942" fit-to-markers></google-map>
+						</div>
+					</div>
+				</div>
+		</div>
+	</div>
+	<!--   -->
+	</px-card>
+	<simple-dialog id="modal" modal role="alertdialog" align="center">
+		<input type="button" id="cross" value="X" dialog-dismiss></input>
+		<h3 id="popUpH3">Search using below Options</h3>
+		<div>
+			<paper-material class="draggable" elevation="1" style="z-index:5;background:white;">
+				<paper-typeahead-input-customer id="paperName" max-suggestions="10"  remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/customer?filter=customerName1=%QUERY*&fields=customerId,customerName1" placeholder="Customer name" style="font-size:10px ;margin-bottom: 5px;">
+					<!-- <paper-typeahead-input-customer max-suggestions="5" remote-url="views/customer.json?filter=customerName1=%QUERY*&fields=customerId,customerName1" placeholder="Enter Customer Name" style="font-size:10px"> -->
+				</paper-typeahead-input-customer>
+			</paper-material>
+			<paper-material class="draggable" elevation="1" style="z-index:4;background:white">
+				<paper-typeahead-input-customer-city id="paperCity" max-suggestions="10"   remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/customer?filter=customerAddress=%QUERY*&fields=customerId,customerAddress" placeholder="Customer city" style="font-size:10px;margin-bottom: 5px;" >
+					<!-- <paper-typeahead-input-customer max-suggestions="5" remote-url="views/customer.json?filter=customerName1=%QUERY*&fields=customerId,customerName1" placeholder="Enter Customer Name" style="font-size:10px"> -->
+				</paper-typeahead-input-customer-city>
+			</paper-material>
+			<paper-material class="draggable1" elevation="1" style="z-index:3;background:white;">
+				<paper-typeahead-input-site id="paperSite" max-suggestions="10" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/site?filter=siteName=%QUERY*&fields=siteId,siteName"   placeholder="Site name" style="font-size:10px;margin-bottom: 5px;">
+					<!-- <paper-typeahead-input-site id="paperSite" max-suggestions="5" remote-url="views/site.json?filter=siteName=%QUERY*&fields=siteId,siteName"   placeholder="Search by Site Name"> -->
+				</paper-typeahead-input-site>
+			</paper-material>
+			<paper-material class="draggable1" elevation="1" style="z-index:2;background:white;">
+				<paper-typeahead-input-site-city id="paperSiteCity" max-suggestions="10"   placeholder="Site city" style="font-size:10px;margin-bottom: 5px;">
+				</paper-typeahead-input-site-city>
+			</paper-material>
+			<paper-material class="draggable3" elevation="1" style="z-index:1;background:white;">
+				<paper-typeahead-input-sku id="paperSku" max-suggestions="10"   placeholder="Sku Description" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/sku?filter=skuDescription=/.*%QUERY.*/&fields=skuDescription,skuId" style="font-size:10px;margin-bottom: 5px;">
+					<!-- <paper-typeahead-input-sku id="paperSku" max-suggestions="5"   placeholder="Search by Sku Description" remote-url="views/sku.json?filter=skuDescription=%QUERY*&fields=skuDescription,specification"> -->
+				</paper-typeahead-input-sku>
+			</paper-material>
+		</div>
+		<div class="" style="">
+			<paper-button dialog-dismiss  ng-click="abc()" id="btnSearch">Search</paper-button>
+			<paper-button ng-click="clear()" id="btnClear">Clear</paper-button>
+		</div>
+	</simple-dialog>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script>var nbOptions = 8;
+		var angleStart = -360;
+		
+		// jquery rotate animation
+		function rotate(li,d) {
+		    $({d:angleStart}).animate({d:d}, {
+		        step: function(now) {
+		            $(li)
+		               .css({ transform: 'rotate('+now+'deg)' })
+		               .find('label')
+		                  .css({ transform: 'rotate('+(-now)+'deg)' });
+		        }, duration: 0
+		    });
+		}
+		
+		// show / hide the options
+		function toggleOptions(s) {
+		    $(s).toggleClass('open');
+		    var li = $(s).find('li');
+		    var deg = $(s).hasClass('half') ? 180/(li.length-1) : 360/li.length;
+		    for(var i=0; i<li.length; i++) {
+		        var d = $(s).hasClass('half') ? (i*deg)-90 : i*deg;
+		        $(s).hasClass('open') ? rotate(li[i],d) : rotate(li[i],angleStart);
+		    }
+		}
+		
+		$('.selector button').click(function(e) {
+		    toggleOptions($(this).parent());
+		});
+		
+		setTimeout(function() { toggleOptions('.selector'); }, 100);//@ sourceURL=pen.js
+	</script>
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-36251023-1']);
+		_gaq.push(['_setDomainName', 'jqueryscript.net']);
+		_gaq.push(['_trackPageview']);
+		
+		(function() {
+		  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+		
+	</script>
+	<script>
+		$(document).ready(function() {
+		    $('#btnSearch').click(function(){
+		      var removeSite = document.querySelector('#modal');
+							removeSite.toggle();
+		    });
+		});
+	</script>
+	<script></script>
+	<!-- <script>
+		$(".tabs-menu a").click(function(event) {
+		       event.preventDefault();
+		
+		       var tab = $(this).attr("href");
+		       $(".tab-content").not(tab).css("display", "none");
+		       $(tab).fadeIn();
+			//loadMarkers();
+			//loadSurveyData();
+					 
+		   });	
+		</script> -->
+	<script>
+		$(".tabs-menu a").click(function(event) {
+			var imageCircle = document.querySelector('#selector');
+		           imageCircle.style.display = 'block';
+				
+		       event.preventDefault();
+		       $(this).parent().addClass("current");
+		       $(this).parent().siblings().removeClass("current");
+		       var tab = $(this).attr("href");
+		
+		
+		       $(".tab-content").css({"display" : "block", "visibility" : "visible"});
+			var gmap = document.querySelector('google-map');
+			gmap.resize();
+		       $(tab).siblings().fadeOut();
+			$(tab).fadeIn();
+			//loadMarkers();
+			//loadSurveyData();
+					 
+		   });	
+	</script>
+</body>

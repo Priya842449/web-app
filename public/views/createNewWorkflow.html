@@ -1,0 +1,257 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<style>
+table{
+width:100%;
+padding-left: 1rem;
+font-family:Arial;
+}
+.th
+{
+width:20%;
+font-weight: bold;
+}
+
+#btnSubmits{
+width:133px;
+background:#ef674f;
+border-radius:18px;
+    font-size: 12px;
+color:white;
+font-family: 'GE Inspira Regular', sans-serif;
+text-transform:capitalize !important;
+}
+    .submitAlert
+{
+    outline: none;
+    z-index: 103;
+    height: 171px;
+    position: absolute;
+    top: 83.5px;
+    left: 508.102px;
+    box-sizing: border-box;
+    max-height: 366px;
+    max-width: 1286px;
+	border-radius: 13px !important ;
+}
+
+.alertButtonL
+{
+	 margin-left: -170px !important;
+    color: white;
+    position: left;
+    margin-top: -13px;
+	background: #ef674f !important;
+	border-radius: 20px;
+}
+
+.alertButtonR
+{
+
+	 margin-right: -208px !important;
+    color: white;
+    position: right;
+    margin-top: -13px;
+	background: #ef674f !important;
+	border-radius: 20px;
+	 margin-top: -63px;
+    position: absolute;
+}
+</style>
+<script>
+
+</script>
+</head>
+	<body>
+      <div>
+		<px-card header-text="Customize Workflow">
+	   <form id = "newWorkflow">
+	   
+			<h3>
+							<div id="message" style="font-family: candara; color:red; font-size:20px;">
+								</div></h3>
+			<table id="tblCustomer">
+            <tr>
+				<th align="left" style="font-family: candara;width:1px" >Name :</th>
+				<td  style="font-family: candara">
+                  <input type="text"  id="workFlowName" required>
+                </td>
+			</tr>
+			<tr>
+				<th align="left" style="font-family: candara;width:1px">Customer :</th>
+				
+				<td style="font-family: candara"><paper-typeahead name="customer" id="customer" data="{{customers}}" ></paper-typeahead></td> 
+			
+			</tr>
+			<tr>
+				<th align="left" style="font-family: candara">Business :</th>
+				
+				<td style="font-family: candara">
+                 <paper-typeahead name="business" id="business" data="{{business}}"></paper-typeahead>
+                </td>
+			</tr>
+			<tr>
+				<th align="left" style="font-family: candara">Request ID :</th>
+				
+				<td style="font-family: candara">
+                    <paper-typeahead  name="requestId" id="requestId" data="{{requestId}}"></paper-typeahead>
+                </td>
+			</tr>
+			<tr>
+				<th align="left" style="font-family: candara">Workflow Stages :</th>
+				
+				<td  style="font-family: candara"></td>
+			</tr>
+          <!--   <tr>
+             <td class="th">Workflow :</td>
+                    <td class="th">
+                        <paper-material class="draggable1" elevation="1" style="z-index:4;background:white;width:100%;">
+                            <paper-typeahead-input-site id="WorkflowSite" max-suggestions="10" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/site?filter=siteName=/.*%QUERY.*/&fields=siteId,siteName" placeholder="Workflow" ng-disabled="$parent.isReadonly" style="font-size:10px;margin-bottom: 5px;">
+                                
+                            </paper-typeahead-input-site>
+                        </paper-material>
+                    </td>
+                </tr -->
+				
+		</table> 
+            
+            
+            
+
+           <px-data-table id="workFlowStage"  selectable  table-column  table-data="{{workFlowManipulatedData}}" ng-model="workflow.selected">
+
+	
+	<px-data-table-column
+               name="stages"
+		      label="Stage"
+           sortable>
+        </px-data-table-column> 
+				
+	<px-data-table-column
+               name="seq"
+		      label="Seq"
+           sortable>
+        </px-data-table-column> 
+	
+		 <px-data-table-column
+          name="rejectApplicable"
+		  label="Reject Applicable"
+		  type="dropdown"
+          filterable
+          sortable
+		  dropdown-items="{{dropdown2}}">
+        </px-data-table-column>
+                
+                
+    <px-data-table-column
+          name="nextStageReject"
+		  label="Next Stage On Reject "
+		  type="dropdown"
+          filterable
+          sortable
+		  dropdown-items="{{dropdown1}}">
+        </px-data-table-column>
+                
+    <px-data-table-column
+          name="sendBackApplicable"
+		  label="Send Back Applicable"
+		  type="dropdown"
+          filterable
+          sortable
+		  dropdown-items="{{dropdown3}}">
+        </px-data-table-column>                               
+  </px-data-table>
+            
+         
+				<div>
+					<table>
+						<tr>
+						
+                            <td style="float:left"> <br/> <br/><button type="submit" class="btn" id="btnSubmits" ng-click="saveRequestData()">
+								<i class="fa fa-cloud-upload"></i>Submit</button>
+								<br>
+							</td>
+							
+						</tr>
+					</table>
+				</div>
+			</form>
+			
+    </px-card>
+        </div>
+        
+        
+        <div>
+            <px-card header-text="Mapping Stage with Field Template">
+			
+        <div>
+            <form id = "newWorkflows"  >
+			<h3>
+							<div id="messageTemplate" style="font-family: candara; color:red; font-size:20px;">
+								</div></h3>
+			<table id="workflowTemplateTable">
+               <tr><td>Select template:</td>
+                   <td style="font-family: candara">
+                 <paper-typeahead name="template" id="template" data="{{template}}"></paper-typeahead>
+                </td>
+				</tr>
+                <tr><td>Select Stage:</td>
+					 <td style="font-family: candara">
+                 <paper-typeahead name="stageNames" id="stageNames" data="{{stageNames}}"></paper-typeahead>
+                </td>
+					</tr>
+                
+                  <tr><td>Select WorkFlow template:</td>
+                   <td style="font-family: candara">
+                 <paper-typeahead name="workflowTemplate" id="workflowTemplate" data="{{workflowTemplate}}"></paper-typeahead>
+                </td>
+				</tr>
+                   <tr><td>Card Id:</td>
+				   <td><input type="text" id="cardId"></td>
+				   </tr>
+				   <tr>
+							<td style="float:left"> <br/> <br/><button type="submit" class="btn" id="btnSubmits" ng-click="saveTemplateMapping()">
+								<i class="fa fa-cloud-upload"></i>Submit</button>
+								<br>
+							</td>
+							
+						</tr>
+                </table>
+            </form>
+            </div>
+            
+
+
+
+            
+            <!-- <form id = "mappingStage">
+				<div>
+					<table>
+						<tr>
+							<td style="float:left"> <br/> <br/><button type="submit" class="btn" id="btnSubmits" ng-click="saveTemplateMapping()">
+								<i class="fa fa-cloud-upload"></i>Submit</button>
+								<br>
+							</td>
+							
+						</tr>
+					</table>
+				</div>
+			</form> -->
+    </px-card>
+        
+        </div>
+
+
+
+
+ 	</body>
+</html>
+
+

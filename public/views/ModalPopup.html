@@ -1,0 +1,56 @@
+<style>
+    .popup-container {
+        background-color: lightgray;
+        z-index: 9999888;
+        opacity: 1;
+        position: absolute;
+        top: 50%;
+                 border-radius: 14px;
+                 border: 2px solid;
+        display: none;
+        max-width: 1008px;
+        max-height: 500px;
+        margin: 0 auto;
+        margin-left: 37%;
+        margin-right: 10%;
+         width: 17%;
+    height: 7%;
+    }
+
+    .popCloseBtn {
+        border: 0;
+        background-color: transparent;
+        font-size: medium;
+        font-weight: 800;
+        position: absolute;
+        right: 1%;
+        top: 0px;
+        background: lightslategray;
+        border-radius: 20px;
+        cursor: pointer;
+    }
+    /*img {
+        max-height:400px;
+        max-width: 1000px;
+        height: 400px;
+    }*/
+    /*.popup {
+        position: relative;
+    display: inline-block;
+    padding: 10px;
+        left: 5%;
+    }*/
+
+    .img-class {
+        position: relative;
+        margin: 10px;
+    }
+</style>
+
+</style <paper-dialog id="dialogGallary"></paper-dialog>
+<div class="popup-container" id="popup-container"><button class="popCloseBtn" ng-click="closePopup()">X</button>
+    <div class="popup" id="popup1">
+        <simple-gallery>
+            <!--<img data-original="https://dt-blobstore-microservice-dev.run.aws-usw02-pr.ice.predix.io/getBlob?directory=1827/Survey&fileName=img_14307726.jpeg&contentType=image/jpeg" data-index='s1' on-click="load_popup" src="images/greenCircle3.png" alt="Title 1">--></simple-gallery>
+    </div>
+</div>

@@ -1,0 +1,209 @@
+<head>
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+</head>
+<body>
+
+<px-card>
+
+	<div class="loader">
+		<paper-spinner style="z-index:10000;postion:relative;"></paper-spinner>		
+	</div>
+
+<div class="wrapper">
+	<div class="row">
+		<div style="float:left; width:80%;" class="col-xs-9 map-container">
+		<h4 class="heading" style="margin:0px;">Project Health Status Map</h4>
+		<!-- <h5 class="sub-heading">{{subHeadSelected}}</h5> -->
+		<div class="loade">
+			<paper-spinner id="paperSpinner" style="z-index:10000;postion:relative;" active></paper-spinner>
+		</div>	
+		<ng-map default-style="true" zoom="{{zoom}}" center="{{mapCoords}}">
+		<info-window ng-if="infowindow.open" id="myInfoWindow" position="{{[infoData.latitude,infoData.longitude]}}" visible="false">
+				<div id="abc" ng-non-bindable="">
+					 <img class="float--right" id="closee" src="../images/close-icon.png" alt="close" ng-click="closeIcon()"> 				
+					<p><span class="info-fields" style="color:1E90FF;">City: </span><strong>{{infoData.city}}</strong></p>
+					<p><span class="info-fields" style="color:1E90FF;">Contractor: </span><strong>{{infoData.contractor}}</strong></p>
+					<p><span class="info-fields" style="color:1E90FF;">Installer e-Mail ID: </span><strong>{{infoData.installerContact}}</strong></p>
+					<p><span class="info-fields" style="color:1E90FF;">{{infoData.expectedDateLabel}}: </span><strong>{{infoData.expectedDate}}</strong></p>
+					<div ng-show="{{infoData.actualDateFlag}}">
+             			<p><span class="info-fields" style="color:1E90FF;">{{infoData.actualDateLabel}}: </span><strong>{{infoData.actualDate}}</strong></p>
+         			</div>
+					<div ng-show="{{infoData.messageFlag}}">
+             			<p><span class="info-fields" style="color:1E90FF;">Message: </span><strong>{{infoData.message}}</strong></p>
+         			</div>
+					
+				</div>
+			</info-window>
+			<shape ng-repeat="cty in stagesSelected" centered="true" center="{{cty.latitude}}, {{cty.longitude}}" title="{{c.name}}" name="circle" radius="{{5000*cty.bubbleSize}}" stroke-color='#000000' fill-opacity="0.8" fill-color="{{cty.status}}" stroke-opacity="0.3" stroke-weight="1" id="{{cty.dataId}}" on-click="showStatus(event, cty)"></shape>
+			
+		</ng-map>
+		<table>
+		<label class="label--inline">
+		<tr>
+			<td><center><img src="../images/greenCircle4.png" alt="On Schedule" class="lglabel"> <b class="label--inline legend-txt">On Schedule</b><br> <b class="label--inline " > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp  Within <=5 days</b></center></td>
+			<td><center><img src="../images/yellowCircle4.png" alt="Marginal Delay" class="lglabel"> <b class="label--inline legend-txt">Marginal Delay</b><br>&nbsp;&nbsp;&nbsp <b class="label--inline " > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp  Delay >5-10 days </b></center></td>
+			<td><center><img src="../images/red-circle-2.png" alt="Behind Schedule" class="lglabel"> <b class="label--inline legend-txt">Behind Schedule</b><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp <b class="label--inline " >Delay<10-20days</b></center></td>
+			<td><img src="../images/red-circle-2.png" alt="Delay<21-30days" class="lglabel2"> <b class="label--inline legend-txt">Delay<21-30days</b>
+			<td><img src="../images/red-circle-3.png" alt="Delay>30days" class="lglabel3"> <b class="label--inline legend-txt">Delay>30days</b>
+			</tr>
+			
+		</label>
+		</table>			
+<div class="stage-data" >
+<h4 class="heading" style="margin-bottom:5px;">Project Details</h4>
+<form class="form-inline">
+        <div class="form-group">           
+            <input type="text" ng-model="search" class="form-control float--right" style="margin:0px 5px 5px 0px;" placeholder="Search">
+        </div>
+    </form>
+<table class="table table-striped">
+<thead>
+<tr>
+<th ng-show="{{stage}}" ng-click="sort('stage')">Stage
+ <span class="glyphicon sort-icon" ng-show="sortKey=='stage'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{customer}}" ng-click="sort('customer')">Customer
+<span class="glyphicon sort-icon" ng-show="sortKey=='customer'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{surveyComplete}}" ng-click="sort('surveyComplete')">Survey Complete<span class="glyphicon sort-icon" ng-show="sortKey=='surveyComplete'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{store}}" ng-click="sort('store')">Store<span class="glyphicon sort-icon" ng-show="sortKey=='store'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{city}}" ng-click="sort('city')">Store City<span class="glyphicon sort-icon" ng-show="sortKey=='city'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{state}}" ng-click="sort('state')">Store State<span class="glyphicon sort-icon" ng-show="sortKey=='state'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{storeAddress}}" ng-click="sort('storeAddress')">Store Address<span class="glyphicon sort-icon" ng-show="sortKey=='storeAddress'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{storeInShoppingPlaza}}" ng-click="sort('storeInShoppingPlaza')">Is Store In Shopping Plaza<span class="glyphicon sort-icon" ng-show="sortKey=='storeInShoppingPlaza'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{cityRestrictions}}" ng-click="sort('cityRestrictions')">City Restrictions<span class="glyphicon sort-icon" ng-show="sortKey=='cityRestrictions'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{quantity}}" ng-click="sort('quantity')">Quantity<span class="glyphicon sort-icon" ng-show="sortKey=='quantity'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{poleType}}" ng-click="sort('poleType')">Pole Type<span class="glyphicon sort-icon" ng-show="sortKey=='poleType'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{contractor}}" ng-click="sort('contractor')">Contractor<span class="glyphicon sort-icon" ng-show="sortKey=='contractor'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{installerContact}}" ng-click="sort('installerContact')">Installer Contact<span class="glyphicon sort-icon" ng-show="sortKey=='installerContact'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{mountingHeight}}" ng-click="sort('mountingHeight')">Mounting Height<span class="glyphicon sort-icon" ng-show="sortKey=='mountingHeight'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{fixtureType}}" ng-click="sort('fixtureType')">Fixture Type<span class="glyphicon sort-icon" ng-show="sortKey=='fixtureType'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{lightingDesignComplete}}" ng-click="sort('lightingDesignComplete')">Lighting Design Complete<span class="glyphicon sort-icon" ng-show="sortKey=='lightingDesignComplete'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{storeType}}" ng-click="sort('storeType')">Store Type<span class="glyphicon sort-icon" ng-show="sortKey=='storeType'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{designer}}" ng-click="sort('designer')">Designer<span class="glyphicon sort-icon" ng-show="sortKey=='designer'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{dateApproved}}" ng-click="sort('dateApproved')">Date Approved<span class="glyphicon sort-icon" ng-show="sortKey=='dateApproved'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{quoteDate}}" ng-click="sort('quoteDate')">Quote Date<span class="glyphicon sort-icon" ng-show="sortKey=='quoteDate'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{poReceived}}" ng-click="sort('poReceived')">PO Received<span class="glyphicon sort-icon" ng-show="sortKey=='poReceived'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{installer}}" ng-click="sort('installer')">Installer<span class="glyphicon sort-icon" ng-show="sortKey=='installer'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{installDrawingSent}}" ng-click="sort('installDrawingSent')">Install Drawing Sent<span class="glyphicon sort-icon" ng-show="sortKey=='installDrawingSent'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{shipped}}" ng-click="sort('shipped')">Shipped<span class="glyphicon sort-icon" ng-show="sortKey=='shipped'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{orderStatusDeliveredDt}}" ng-click="sort('orderStatusDeliveredDt')">Order StatusDelivered Date<span class="glyphicon sort-icon" ng-show="sortKey=='orderStatusDeliveredDt'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{installed}}" ng-click="sort('installed')">Installed<span class="glyphicon sort-icon" ng-show="sortKey=='installed'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+<th ng-show="{{status}}" ng-click="sort('status')">Status<span class="glyphicon sort-icon" ng-show="sortKey=='status'" ng-class="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span></th>
+</tr>
+</thead>
+<tbody><!-- |mapUnique:mapFilter -->
+<tr id="bubble" style="background-color: {{mapFilter != false ? cols.status :'white'}} !important;" dir-paginate="cols in stagesSelected|orderBy:sortKey:reverse|filter:search|mapUnique:mapFilter:mapFilterKey|itemsPerPage:5">
+<td ng-show="{{stage}}">{{cols.stage}}</td>
+<td ng-show="{{customer}}">{{cols.customer}}</td>
+<td ng-show="{{surveyComplete}}">{{cols.surveyComplete}}</td>
+<td ng-show="{{store}}">{{cols.store}}</td>
+<td ng-show="{{city}}">{{cols.city}}</td>
+<td ng-show="{{state}}">{{cols.state}}</td>
+<td ng-show="{{storeAddress}}">{{cols.storeAddress}}</td>
+<td ng-show="{{storeInShoppingPlaza}}">{{cols.storeInShoppingPlaza}}</td>
+<td ng-show="{{cityRestrictions}}">{{cols.cityRestrictions}}</td>
+<td ng-show="{{quantity}}">{{cols.quantity}}</td>
+<td ng-show="{{poleType}}">{{cols.poleType}}</td>
+<td ng-show="{{contractor}}">{{cols.contractor}}</td>
+<td ng-show="{{installerContact}}">{{cols.installerContact}}</td>
+<td ng-show="{{mountingHeight}}">{{cols.mountingHeight}}</td>
+<td ng-show="{{fixtureType}}">{{cols.fixtureType}}</td>
+<td ng-show="{{lightingDesignComplete}}">{{cols.lightingDesignComplete}}</td>
+<td ng-show="{{storeType}}">{{cols.storeType}}</td>
+<td ng-show="{{designer}}">{{cols.designer}}</td>
+<td ng-show="{{dateApproved}}">{{cols.dateApproved}}</td>
+<td ng-show="{{quoteDate}}">{{cols.quoteDate}}</td>
+<td ng-show="{{poReceived}}">{{cols.poReceived}}</td>
+<td ng-show="{{installer}}">{{cols.installer}}</td>
+<td ng-show="{{installDrawingSent}}">{{cols.installDrawingSent}}</td>
+<td ng-show="{{shipped}}">{{cols.shipped}}</td>
+<td ng-show="{{orderStatusDeliveredDt}}">{{cols.orderStatusDeliveredDt}}</td>
+<td ng-show="{{installed}}">{{cols.installed}}</td>
+<td ng-show="{{status}}">{{cols.status}}</td>
+
+</tr>
+</tbody>
+</table>
+
+<dir-pagination-controls
+       max-size="5"
+       direction-links="true"
+       boundary-links="true" >
+    </dir-pagination-controls>
+
+				</div>
+  </div>
+  <div class="col-xs-3">
+  <div class="col-xs-10 pull-right">
+			<h4>Stages</h4>
+			<div style="margin-bottom:20px;" class="form-group col-xs-10">
+			<div class="checkbox">
+			<label>
+            <input type="checkbox" ng-model="allSelected" ng-model-options="{getterSetter: true}"/>All</label>
+			</div>
+				<div class="checkbox" ng-repeat="s in checkBoxeList">
+					<label>
+					<input type="checkbox" ng-value="s.stage" ng-model="s.Selected">
+					{{::s.stage}}
+					</label>
+				</div>
+				
+				
+			</div>
+			<div class="form-group col-xs-10">
+				<label class="maplabel" for="sel1">Customer:</label>
+				<select class="form-control" ng-model="selectedCustomer">
+				<option value="All">All</option>
+				<option  ng-repeat="stype in masterData | unique:'customer'" ng-show="stype.hasOwnProperty('customer') && stype.customer != '' && stype.customer != null && stype.customer != undefined">{{stype.customer}}</option>
+				</select>
+			</div>
+			<div class="form-group col-xs-10">
+				<label class="maplabel" for="sel1">Store Type:</label>
+				<select class="form-control" ng-model="selectedStoreType">
+				<option value="All">All</option>
+				<option  ng-repeat="stype in masterData | unique:'storeType'" ng-show="stype.hasOwnProperty('storeType') && stype.storeType != ''">{{stype.storeType}}</option>
+				</select>
+			</div>
+			<div class="form-group col-xs-10">
+				<label class="maplabel" for="sel1">Store State:</label>
+				<select class="form-control" ng-model="selectedState">
+				<option value="All">All</option>
+				<option  ng-repeat="s in masterData | unique:'state'" ng-show="s.hasOwnProperty('state') && s.state != ''">{{s.state}}</option>
+				</select>
+			</div>
+			<div class="form-group col-xs-10">
+				<label class="maplabel" for="sel1">Contractor:</label>
+				<select class="form-control" ng-model="selectedContractor">
+				<option value="All">All</option>
+				<option ng-repeat="c in masterData| unique:'contractor'" ng-show="c.hasOwnProperty('contractor') && c.contractor != '' && c.contractor != null">{{c.contractor}}</option>
+				</select>
+			</div>
+			<div class="form-group col-xs-10">
+				<label class="maplabel" for="sel1">Status:</label>
+				<select class="form-control" ng-model="selectedsiteStatus">
+				<option value="All">All</option>
+				<option ng-repeat="st in masterData | unique:'status'" ng-show="st.hasOwnProperty('status') && st.status != '' && st.status != null && st.status != undefined">{{st.status}}</option>
+				</select>
+			</div>	
+			<div class="form-group col-xs-10">
+				<label class="maplabel" for="sel1">Start Date:</label>
+				<input id="startdate" class="text-input datepicker" ng-model="startDate" placeholder="Start date" type="date"/>
+			</div>
+			<div style="margin-top:10px;" class="form-group col-xs-10">
+				<label class="maplabel" for="sel1">End Date:</label>
+				<input id="enddate" class="text-input datepicker" ng-model="endDate" placeholder="End date" type="date"/>
+			</div>			
+			<div style="margin-top:10px;" class="form-group col-xs-10">
+				<button type="button" class="btn btn-primary pull-right apply" ng-click="populate()">Apply</button>
+			</div>
+			</div>
+  </div>
+		</div>
+			
+
+	</div>
+	</px-card>
+
+  </body>

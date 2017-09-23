@@ -1,0 +1,106 @@
+<!-- <link rel="stylesheet" href="stylesheets/please-wait.css"/>	 -->
+ <!--  <link rel="import" href="/bower_components/px-modal/px-modal.html"/> -->
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+
+<style>
+
+:not([style-scope]):not(.style-scope):root .fa-3x {
+  padding-right: 1%;
+  font-size: 3em;
+}
+table{
+width:70%;
+background-color:
+padding-left: 1rem;
+}
+.th
+{
+width:20%;
+font-weight: bold;
+}
+.btnClass {
+            width: 133px;
+            height: 28px;
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            text-transform: capitalize !important;
+        }
+</style>
+<div design-directive="" data="" ng-include="'views/siteDesignSummary.html'"></div>
+
+<px-card header-text='Files Uploaded by Designer'>
+<br/>
+  <div id="after" style="display:flex;">
+      <div style="width: 90%;">
+        <uploaded-files final-data="finalData" visible="showDelButton"></uploaded-files>
+      </div>
+
+      <div style="width: 10%;
+    display: inline-block;
+    margin-right: 30px;">
+        <paper-progress indeterminate class="slow" style="display:none"></paper-progress><br>
+          <button class="btn" modal-trigger id="btnAttch" ng-disabled="attchDisabled"><i class="fa fa-paperclip">Attachment</i></button>
+      </div>
+
+
+  </div>
+
+ <a id="mediaData" onclick="printClick(this.href)" ></a>&nbsp;&nbsp;&nbsp;
+ <br>
+ <style is="custom-style">
+  paper-progress.slow {
+    --paper-progress-indeterminate-cycle-duration: 10s;
+  }
+</style>
+
+
+</px-card>
+     </simple-dialog>
+
+		  <simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center">
+				<table>
+					<tr>
+                <td style="float:right">
+  		 <input type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+			<tr>
+			<td><h1 class="datamsg">Data Submitted Successfully</h1></td></tr>
+			<tr>
+				<td><center>
+			   <button class="btnClass" id="btnSubmit" dialog-dismiss>Ok</button>
+			  </center></td></tr>
+		</table>
+		  </simple-dialog>
+
+		   <simple-dialog id="submitAlertForFail" class="submitAlert" modal role="alertdialog" align="center">
+				 	<table>
+								<tr>
+                		<td style="float:right">
+		  							 <input type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+								 <tr>
+										<td><h1 class="datamsg">{{msgApprove}}</h1>
+												<h1 class="datamsg">{{msgSendBack}}</h1></td></tr>
+								<tr>
+									<td><center>
+											<button class="btnClass" id="btnSubmit" dialog-dismiss>Ok</button>
+											</center></td></tr>
+				</table>
+		  </simple-dialog>
+
+		   <simple-dialog id="sbAlert" class="submitAlert" modal role="alertdialog" align="center">
+				 <table>
+					<tr>
+                <td style="float:right">
+		   <input type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+			 	<tr>
+			<h1 class="datamsg">Data Sent Back Successfully</h1></td></tr>
+			<tr>
+					<td><center>
+					<button class="alertButton" id="sbRedirect" dialog-dismiss>Ok</button>
+			  <!-- <paper-button dialog-dismiss>Ok</paper-button> -->
+		</center></td></tr>
+				 </table>
+		  </simple-dialog>
+
+
+

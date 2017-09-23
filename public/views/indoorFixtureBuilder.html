@@ -1,0 +1,56 @@
+<style>
+#submitUpload {
+  width: 100px;
+  background: #ef674f;
+  border-radius: 18px;
+  color: white;
+  font-family: candara;
+  text-transform: capitalize !important;
+  position: relative;
+  top: 20px;
+  left: 270px;
+  cursor:pointer;
+}
+.pxCardCatalogAdmin {
+  height : 650px;
+}
+.toggleErrMsg {
+  float: left;
+    position: relative;
+    top: 35px;
+    left: 190px;
+    color: red;
+}
+</style>
+
+<px-card style="height: 54px;margin-top: -16px;" class="ng-scope">
+  <h1 style="margin-top: 14px;font-size: 22px;">Fixture Builder</h1>
+</px-card>
+
+<px-card class="pxCardCatalogAdmin">
+    <form ng-submit="saveFixtureData()" id="frmAdminCatalog" name="frmAdminCatalog">
+        <div style="display:flex" id="parentContainer">
+            <div>
+                <paper-input label="Lamp Technology" id="lampTechnology" ng-disabled="isReadonly"></paper-input>
+                <paper-input label="Lamp Code" id="lampCode" ng-disabled="isReadonly"></paper-input>
+                <paper-input label="Lamps Per Fixture (L/P)" id="lampsPerFixture" ng-disabled="isReadonly"></paper-input>
+                <paper-input label="Fixture Type" id="fixtureType" ng-disabled="isReadonly"></paper-input>
+            </div>
+            <div style="margin-left:100px;">
+                <paper-input label="Fixture Type Addl" id="fixtureTypeAddl" ng-disabled="isReadonly"></paper-input>
+                <paper-input label="Lense Type" id="lenseType" ng-disabled="isReadonly"></paper-input>
+                <paper-input label="Mounting" id="mounting" ng-disabled="isReadonly"></paper-input>
+            </div>
+        </div>
+        <br>
+        <input type="file" id="fileUpload" accept=".xls,.xlsx,.ods" name="file" multiple="multiple" ng-disabled="isReadonly"><br>
+        <span style="color:black;font-size: medium;">(Upload excel file for bulk upload)</span>
+        <div>
+            <input type="submit" id="submitUpload" value="Submit" ng-disabled="isReadonly" />
+        </div>
+        <div data-ng-show="noDataFilled" class="toggleErrMsg">
+            You have not entered any value to be saved...
+        </div>
+    </form>
+
+</px-card>

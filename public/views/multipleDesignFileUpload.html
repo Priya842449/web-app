@@ -1,0 +1,225 @@
+<style>
+   google-map {
+   height: 600px;
+   }
+   .tabs-menu {
+   height: 30px;
+   float: left;
+   clear: both;
+   margin-left:-2.75rem !important;
+   }
+   .tabs-menu li {
+   height: 30px;
+   line-height: 30px;
+   float: left;
+   margin-right: 10px;
+   background-color: #ccc;
+   border-top: 1px solid #d4d4d1;
+   border-right: 1px solid #d4d4d1;
+   border-left: 1px solid #d4d4d1;
+   list-style-type:none;
+   }
+   .tabs-menu li.current {
+   position: relative;
+   background-color: #0a9ec1;
+   border-bottom: 1px solid #fff;
+   color:white;
+   z-index: 5;
+   }
+   #btnAttch{
+	width:133px;
+	background:#ef674f;
+	border-radius:18px;
+	color:white;
+	font-family: candara;
+	text-transform:capitalize !important;
+	}
+	#btnSubmit{
+	width:133px;
+	background:#ef674f;
+	border-radius:18px;
+	color:white;
+	font-family: candara;
+	text-transform:capitalize !important;
+	}
+   .tabs-menu li a {
+   padding: 10px;
+   text-transform: uppercase;
+   color: #fff;
+   text-decoration: none; 	
+   }
+   .tabs-menu .current a {
+   color: #2e7da3;
+   }
+   .tab {
+   border: 1px solid #d4d4d1;
+   background-color: #fff;
+   float: left;
+   margin-bottom: 20px;
+   width: auto;
+   }
+   .tab-content {
+   width: 1018px;
+   padding: 20px;
+   <!--     display: none; -->
+   }
+   #tab-1 {
+   display: block;   
+   }
+   #tab-2 {
+   display: none;   
+   }
+   .gm-style-iw{
+   background-color:white !important;
+   }
+</style>
+<px-card header-text='Site Survey Summary' style="padding:0 1.3333333333rem 0rem;font-family:Arial">
+ <div>
+ <table>
+ <tr><td class="th">Site Id</td><td>{{siteId}}</td></tr>
+ <tr><td class="th">Site Name</td><td>{{siteName}}</td></tr>
+ <!-- <tr><td class="th">PM Name</td><td>{{siteData.surveyor}}</td></tr>
+ <tr><td class="th">Designer Name</td><td>{{siteData.surveyor}}</td></tr> -->
+ <tr><td><button type="submit" class="btn" id="btnSubmit" ng-click="submit()"><i class="fa fa-cloud-upload"></i> Submit </button></td></tr>
+<tr><td></td><td></td><td style="padding-left:377px"><!-- <button type="submit" class="btn btn--primary" ng-click="submit()"><i class="fa fa-check"></i> Approve </button> -->
+ </tr>
+ </table>
+ </div>
+
+
+ <px-card id="after" header-text= "Uploaded Design">
+<button class="btn " style="float:right" modal-trigger" id="btnAttch"><i class="fa fa-paperclip">Attachment</i></button>
+</px-card>
+
+<!-- <px-modal btn-modal-positive="Continue" modal-heading="Attach Files">
+    <button class="btn btn--primary modal-trigger"><i class="fa fa-paperclip"> Attachment</i></button>
+    <input type="file" id="file" multiple="multiple" style="width:100%"/>   
+	<div id="showFileList"></div> 
+	<table>
+    <tr ng-repeat="x in fileArray">
+        <td><td>{{x.name}}</td><td><i class="fa fa-times" aria-hidden="true" ng-click="removeFile(x)" style="color:red"></i></td></td>
+    </tr>
+</table>
+</px-modal> -->
+ 
+ 
+  <simple-dialog id="attach" modal role="alertdialog" align="center">
+        <input type="file" id="file" multiple="multiple" style="width:100%"/>   
+	<div id="showFileList"></div> 
+	<table>
+    <tr ng-repeat="x in fileArray">
+        <td><td>{{x.name}}</td><td><i class="fa fa-times" aria-hidden="true" ng-click="removeFile(x)" style="color:red"></i></td></td>
+    </tr>
+	</table>
+	<input type="button" id="btnSearch" ng-click="upload()" value="Upload" dialog-dismiss></input>
+	<input type="button" id="btnSearch"  value="Close" dialog-dismiss></input>
+  </simple-dialog>
+  
+  <simple-dialog id="submitAlert" modal role="alertdialog" align="center">
+			<h2>Alert</h2>
+			Data Submitted Successfully
+			<div class="buttons">
+			  <paper-button onclick="window.location = '/multipleDesignFileUpload'">OK</paper-button>
+			  <!-- <paper-button dialog-dismiss>Ok</paper-button> -->
+			</div>
+	</simple-dialog>
+	
+	  		  <simple-dialog id="submitAlertForFail" class="submitAlert" modal role="alertdialog" align="center">
+		   <input type="button" id="cross" value="X" dialog-dismiss></input>
+			
+			<h1 class="datamsg">Data is not submitted </h1>
+			<div class="buttons">
+					<paper-button class="alertButton" id="okRedirect">Ok</paper-button>
+			  <!-- <paper-button dialog-dismiss>Ok</paper-button> -->
+			</div>
+		  </simple-dialog>
+ 
+ 
+ <paper-dialog id="dialog">
+<!--     <simple-gallery > 
+	 </simple-gallery>  -->
+</paper-dialog>
+
+ 
+ <px-card>
+ 
+   <!-- <div id="tabs-container">
+      
+      <div class="tab" style="width:100%">
+         
+		   <input type="file" id="file" multiple="multiple" style="width:100%"/>
+			<div id="showFileList"></div> 
+			<div> &nbsp </div>
+		<table>
+			<tr ng-repeat="x in fileArray">
+			<td><td>{{x.name}}</td><td><i class="fa fa-times" aria-hidden="true" ng-click="removeFile(x)" style="color:red"></i></td></td>
+			</tr>
+		</table>
+		 
+      </div>
+   </div> -->
+</px-card>
+<script>
+   function gotoLink(th,e){
+   //alert('fg');
+   console.log(th.id);
+             // document.getElementById('projectid1').value  = e.innerHTML;
+   //document.getElementById('refID').value  = e.id;
+        //     Polymer.dom(document).querySelector("#five").modalButtonClicked();
+   	 //$('#lightgallery').lightGallery();
+   	 
+   	 //console.log(document.querySelector("simple-gallery").;
+   	 var ids = th.id;
+   	 var id=ids.split(',');
+   	 console.log(id.length);
+   	  var divdata = document.querySelector("#dialog");
+   					 
+   					 var gal = document.createElement("simple-gallery");
+   					 var container = gal.$.links;
+   	 for(var i=0; i<id.length; i++){
+   					
+   					var image = document.createElement('img');
+   					 image.setAttribute('data-original',id[i]);
+   					 image.setAttribute('data-index','s1');
+   					 image.setAttribute('on-click','load_popup');
+   					 image.setAttribute('src',id[i]);
+   					 image.addEventListener('click',gal.load_popup);
+   					 container.appendChild(image);
+   					
+   //	 console.log(gal.getAttribute('abc'));
+   	 }
+   	  Polymer.dom(divdata).appendChild(gal);
+     var button = e.target;
+        while (!button.hasAttribute('data-dialog') && button !== document.body) {
+          button = button.parentElement;
+        }
+   
+        if (!button.hasAttribute('data-dialog')) {
+          return;
+        }
+   
+        var id = button.getAttribute('data-dialog');
+        var dialog = document.getElementById(id);
+        if (dialog) {
+          dialog.open();
+        }
+   	 
+   	 
+            }
+</script> 
+<script>
+   function clickHandler(e) {
+    
+   }
+  $(document).ready(function() {
+    $('#btnAttch').click(function(){
+      var removeSite = document.querySelector('#attach');
+					removeSite.toggle();
+    });
+	 $('#btnSubmit').click(function(){
+	
+    });
+	
+});
+   
+</script>

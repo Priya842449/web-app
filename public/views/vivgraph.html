@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+ <!--  <link rel="import" href="bower_components/google-chart/google-chart.html"> -->
+ <style>
+table, h4, paper-button{
+	font-family: "Candara", Georgia, Serif;
+}
+</style>
+
+
+
+</STYLE>
+<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+</head>
+<body>  
+
+
+	
+	<div id="origin" class="fbox" style="height:auto; margin-left:78%;display: none;position:relative;z-index:1">
+		<table border=1 style="background:grey">
+			<tr>
+				<td style="background:#006699;width:auto; color:white;">Customer</td>
+				<td id="origin1" style="background:#006699">
+					<paper-material class="draggable" elevation="1" style="z-index:2;background:white;">  
+						<paper-typeahead-input-customer id="paperName" max-suggestions="5"  disabled remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/customer?filter=customerName1=%QUERY*&fields=customerId,customerName1" placeholder="Search By Customer Name" style="font-size:10px"> 
+						</paper-typeahead-input-customer> 
+					</paper-material> 
+					<br>
+					<br>
+					<paper-material class="draggable" elevation="1" style="z-index:2;background:white">  
+						<paper-typeahead-input-customer-city id="paperCity" max-suggestions="5"  disabled remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/customer?filter=customerAddress=%QUERY*&fields=customerId,customerAddress" placeholder="Search By Customer City" style="font-size:10px" > 
+						</paper-typeahead-input-customer-city> 
+					</paper-material>
+				</td>
+			</tr>
+			<tr>
+				<td style="background:#006666;width:auto; color:white;">Site</td>
+				<td id="origin2" style="background:#006666">		
+					<paper-material class="draggable1" elevation="1" style="z-index:2;background:white;">
+						<paper-typeahead-input-site id="paperSite" max-suggestions="5"  disabled placeholder="Search by Site Name">
+						</paper-typeahead-input-site> 
+					</paper-material> 
+					<br>
+					<br>
+					<paper-material class="draggable1" elevation="1" style="z-index:2;background:white;">
+						<paper-typeahead-input-site-city id="paperSiteCity" max-suggestions="5"  disabled placeholder="Search by Site City">
+						</paper-typeahead-input-site-city> 
+					</paper-material>
+				</td>
+			</tr>
+			<tr>
+				<td style="background:#ac7339;width:auto;z-index:-2; color:white;">Sku</td>
+				<td id="origin3" style="background:#ac7339">
+					<paper-material class="draggable3" elevation="1" style="z-index:2;background:white;">
+						<paper-typeahead-input-sku id="paperSku" max-suggestions="5"  disabled placeholder="Search by Sku Description" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/sku?filter=skuDescription=%QUERY&fields=skuDescription,specification">
+						</paper-typeahead-input-sku> 
+					</paper-material> 
+					<br>	
+					</td>
+			</tr>
+		</table>
+	</div>
+<!-- <paper-button toggles raised class="custom blue" id="toggle" ng-click="swapChartType()">Toggle Chart</paper-button>	 -->
+<!-- <paper-button toggles raised class="custom blue" id="toggle" ng-click="swapChartType()">Toggle Chart</paper-button> -->
+	<px-card style="height: 57px;width: 101%;"><h1>Contractor performance</h1>
+	<paper-button toggles raised class="custom blue" style="margin-left: 85%;top: -60px;" id="toggle" ng-click="swapChartType()">Toggle Chart</paper-button></px-card>
+	<px-card style="width:51.7%" ;margin-top: -0.4%;>
+		<div style="width:50px;top: 552px; position:absolute;left: 730px; z-index: 100;">
+			<paper-spinner active id="paperSpinner"></paper-spinner>
+		</div>	
+		<google-chart id="googleChart1" style="height:470px;width:28.5em;"></google-chart>
+	</px-card>
+	<px-card style="width: 39.5%;height: 500px;position: absolute;left: 60.1%;margin-top:-39.55%;z-index:1">
+		<paper-button ng-click="consolidate()" id="consolidate">Consolidate</paper-button>
+		
+		<google-chart id="googleChart" style="height:450px;width:28.5em;"></google-chart>
+	</px-card>
+		
+	<px-card style="width:51.7%;margin-top:-0.4%;height: 546px;">
+		
+		<google-chart id="googleChart3" style="height:470px;width:28.5em;"></google-chart>
+	</px-card>
+	<px-card style="width: 39.5%;height: 48.7%;position: absolute;left: 60.1%;margin-top:-43.12%;z-index:1;">
+		<paper-button ng-click="consolidate1()" id="consolidate">Consolidate</paper-button>
+		
+		<google-chart id="googleChart4" style="height:490px;width:28.5em;"></google-chart>
+	</px-card>
+	<script>
+		function toggle(selector) {
+			document.querySelector(selector).toggle();
+		}
+		window.addEventListener('google-map-marker-click', function(e) {
+		//alert('qq');
+			$(".marker1").contents().remove();
+		});
+		window.addEventListener('google-map-marker-dblclick', function(e) {
+		});
+		$(document).ready(function() {
+			$('#ExpCol').click(function(){
+				$('#origin').slideToggle();
+			});
+		});
+		$(document).ready(function() {
+			$('#Exppx').click(function(){
+				$('#px').slideToggle();
+			});
+		});
+	</script>
+	<script>
+		var lengthCust=0;
+		var lengthSite=0;
+		var lengthSku=0;
+		var lengthPH=0;
+		$(".draggable").draggable({
+		cursor: "crosshair",
+		revert: "invalid"
+		});
+		$("#drop").droppable({ accept: ".draggable", 
+			drop: function(event, ui) {
+				lengthCust=($(this).length)
+				$('#drop1').droppable('enable');
+				$('#drop3').droppable('enable');
+				console.log("drop");
+			if(event.toElement.className=='style-scope paper-typeahead-input-customer') {
+				var paperCust = document.querySelector('#paperName');
+				paperCust.removeAttribute('disabled');
+			} else if(event.toElement.className=='style-scope paper-typeahead-input-customer-city') {				
+				var paperCity = document.querySelector('#paperCity');
+				paperCity.removeAttribute('disabled');
+			}
+				$(this).removeClass("border").removeClass("over");
+				var dropped = ui.draggable;
+				var droppedOn = $(this);
+				$(dropped).detach().css({top: 0,left: 0}).appendTo(droppedOn);      
+			}, 
+			over: function(event, elem) {
+			    $('#drop').droppable('enable');
+				if($(this).has('.draggable').length) {
+					$(this).droppable('disable');
+				}
+				console.log("over");
+			},
+			out: function(event, elem) {
+				$(this).removeClass("over");
+			}
+		});
+		$("#drop").sortable();
+		$("#origin1").droppable({ accept: ".draggable", 
+			drop: function(event, ui) {
+				$('#drop').droppable('enable');
+				var paperName = document.querySelector('#paperName');
+				paperName.setAttribute('disabled',''); 
+				var paperCity = document.querySelector('#paperCity');
+				paperCity.setAttribute('disabled','');
+				lengthCust=0;
+				console.log("drop1");
+			    $(this).removeClass("border").removeClass("over");
+				var dropped = ui.draggable;
+				var droppedOn = $(this);
+				$(dropped).detach().css({top: 0,left: 0}).appendTo(droppedOn);      
+			},
+			over: function(event, elem) {
+				console.log("overorigin1");
+				$('#origin1').droppable('enable');
+				if(lengthSite==1) {
+					console.log('Please Remove Site First');
+					var removeSite = document.querySelector('#removeSite');
+					removeSite.toggle();
+					$(this).droppable('disable');
+				}		
+			}		
+		});					
+		$(".draggable1").draggable({ cursor: "crosshair", revert: "invalid"});		
+		$("#drop1").droppable({ accept: ".draggable1", 
+			drop: function(event, ui) {
+			    $('#drop3').droppable('enable');
+				$('#drop4').droppable('enable');
+				if(event.toElement.className=='style-scope paper-typeahead-input-site') {
+					var paperSite = document.querySelector('#paperSite');
+					paperSite.removeAttribute('disabled');
+				} else if (event.toElement.className=='style-scope paper-typeahead-input-site-city') {
+					var paperSiteCity = document.querySelector('#paperSiteCity');
+					paperSiteCity.removeAttribute('disabled');
+				}
+				lengthSite=($(this).length);
+				console.log("drop");
+			    $(this).removeClass("border").removeClass("over");
+				var dropped = ui.draggable;
+				var droppedOn = $(this);
+				$(dropped).detach().css({top: 0,left: 0}).appendTo(droppedOn);      
+			}, 
+			over: function(event, elem) {
+				$('#drop1').droppable('enable');
+				    if(lengthCust==0) {
+						var modalAlert = document.querySelector('#modalAlert');
+						modalAlert.toggle();
+					}
+					if($(this).has('.draggable1').length || lengthCust==0 ) {
+						$(this).droppable('disable');
+					}
+					$(this).addClass("over");
+					console.log("over");
+			},
+			out: function(event, elem) {
+				$(this).removeClass("over");
+			}
+		});
+		$("#drop1").sortable();
+		$("#origin2").droppable({ accept: ".draggable1", 
+			drop: function(event, ui) {
+				$('#origin1').droppable('enable');
+				lengthSite=0
+				$('#drop1').droppable('enable');
+				var paperSite = document.querySelector('#paperSite');
+				paperSite.setAttribute('disabled','');
+				var paperSiteCity = document.querySelector('#paperSiteCity');
+				paperSiteCity.setAttribute('disabled','');
+				console.log("drop");
+				$(this).removeClass("border").removeClass("over");
+				var dropped = ui.draggable;
+				var droppedOn = $(this);
+				$(dropped).detach().css({top: 0,left: 0}).appendTo(droppedOn);      
+			},
+			over: function(event, elem) {
+				console.log("overorigin1");
+				$('#origin1').droppable('enable');
+				if(lengthSku==1) {
+					console.log('Please Remove Sku First');
+					var RemoveSkuAlert = document.querySelector('#RemoveSkuAlert');
+					RemoveSkuAlert.toggle();
+					$(this).droppable('disable');
+				}	
+			}
+		});		
+		$(".draggable3").draggable({ cursor: "crosshair", revert: "invalid"});
+		$("#drop3").droppable({ accept: ".draggable3", 
+		   drop: function(event, ui) {
+				//$('#drop4').droppable('enable');
+				var paperSku = document.querySelector('#paperSku');
+				paperSku.removeAttribute('disabled');
+				lengthSku=($(this).length)
+				console.log("drop3");
+			    $(this).removeClass("border").removeClass("over");
+				var dropped = ui.draggable;
+				var droppedOn = $(this);
+				$(dropped).detach().css({top: 0,left: 0}).appendTo(droppedOn);      
+			}, 
+			over: function(event, elem) {
+				$('#drop3').droppable('enable');
+			   //alert($(this).has('.draggable').length+"length");
+			    if(lengthCust==0 || lengthSite==0) {
+				    var skuAlert = document.querySelector('#skuAlert');
+					skuAlert.toggle();
+					$(this).droppable('disable');
+			    }
+				$(this).addClass("over");
+				console.log("over");
+			},
+		    out: function(event, elem) {
+				$(this).removeClass("over");
+		    }
+	    });
+		$("#drop3").sortable();
+		$("#origin3").droppable({ accept: ".draggable3", drop: function(event, ui) {
+			$('#origin2').droppable('enable');
+			lengthSku=0;
+			var paperSku = document.querySelector('#paperSku');
+			paperSku.setAttribute('disabled','');
+			console.log("drop");
+			$(this).removeClass("border").removeClass("over");
+			var dropped = ui.draggable;
+			var droppedOn = $(this);
+			$(dropped).detach().css({top: 0,left: 0}).appendTo(droppedOn);      	 
+		}});
+	</script>	
+</body>
+</html>

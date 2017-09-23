@@ -1,0 +1,50 @@
+<link rel="stylesheet" href="stylesheets/please-wait.css"/>       
+  <link rel="import" href="/bower_components/px-modal/px-modal.html"/>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  
+<style>
+table{
+width:100%;
+padding-left: 1rem;
+font-family:Arial;
+}
+.th
+{
+width:20%;
+}
+
+:not([style-scope]):not(.style-scope):root .fa-3x {
+    padding-right: 24px;
+    font-size: 3em;
+}
+#btnAttch{
+margin-right: 0.5%;
+width:133px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+font-family: candara;
+text-transform:capitalize !important;
+}
+</style> 
+
+
+
+<div sitesummary="" data="" ng-include="'views/siteSummarySurvey.html'"></div>
+
+
+<px-card id="after" header-text="Files Uploaded by Design">
+    <button class="btn " style="float:right" modal-trigger " id="btnAttch "><i class="fa fa-paperclip " ng-disabled="isReadonly ">Attachment</i></button>
+</px-card>
+
+<paper-dialog id="dialog">
+
+</paper-dialog>
+
+<!-- <px-card id="after" header-text='Files Uploaded by Designer' >
+<a id="mediaData" onclick="printClick(this.href)" ></a>&nbsp;&nbsp;&nbsp;
+<a id="mediaData" onclick="printClick(this.href)"></a>&nbsp;&nbsp;&nbsp;
+<a id="mediaData" onclick="printClick(this.href)" ></a>
+                
+</div> 
+</px-card> -->

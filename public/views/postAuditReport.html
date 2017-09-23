@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+</head>
+<style>
+google-chart {
+  height: 400px;
+  width:  45.5em;
+}
+#btnSubmit{
+width:133px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+font-family: candara;
+text-transform:capitalize !important;
+}
+</style>
+<body>
+    <px-card header-text='Post Audit Report Summary'>
+        <table>
+            <tr>
+                <td>Site Id</td>
+                <td>&nbsp;&nbsp;<input type="text" id="txtSiteId" placeholder="Enter Site Id" ng-disabled="isReadonly"></input>
+                </td>
+            </tr>
+            <tr>
+                <tr>
+                    <td></td>
+                    <!-- <td><input type = "submit" id = "btnSubmit" onsubmit="searchBySiteId()"></td> -->
+                    <td style="float:right"><button type="submit" class="btn" id="btnSubmit" ng-click="searchBySiteId()" ng-disabled="isReadonly" style="width:133px;"><i class="fa fa-check" ></i>Submit </button></tr>
+            </tr>
+        </table>
+    </px-card>
+    <px-card>
+        <div style="width:50px;top: 360px; position:absolute;left: 563px; z-index: 100;">
+            <paper-spinner id="paperSpinner"></paper-spinner>
+        </div>
+        <div id="googleChart"></div>
+        <!-- <google-chart id = 'googleChart'></google-chart> -->
+    </px-card>
+</body>
+</html>
+
+
+
+

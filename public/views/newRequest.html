@@ -1,0 +1,316 @@
+<!-- <link rel="import" href="bower_components/paper-datatable/paper-datatable-card.html">
+<paper-datatable-card data="{{data}}" selectable multi-selection>
+	<paper-datatable-column header="Title" property="title" sortable>
+		</paper-datatable-column>
+</paper-datatable-card> -->
+
+
+
+
+<!-- <px-card>
+<div style="position: relative;padding-top: 14px;">
+	Request Type <select ng-model="selected" ng-change= requestType(selected)>
+		<option ng-repeat = "data in dropdown">{{data}}<option>
+	</select>
+	Request Description<input type="textarea">
+	</div>
+</px-card> -->
+
+<style>
+.px-data-table-cell-0.selected a{
+
+    color: white !important;
+}
+
+.submitAlert
+{
+    outline: none;
+    z-index: 103;
+    height: 171px;
+    position: absolute;
+    top: 83.5px;
+    left: 508.102px;
+    box-sizing: border-box;
+    max-height: 366px;
+    max-width: 1286px;
+	border-radius: 13px !important ;
+}
+
+.alertButtonL
+{
+	 margin-left: -170px !important;
+    color: white;
+    position: left;
+    margin-top: -13px;
+	background: #ef674f !important;
+	border-radius: 20px;
+}
+
+.alertButtonR
+{
+
+	 margin-right: -208px !important;
+    color: white;
+    position: right;
+    margin-top: -13px;
+	background: #ef674f !important;
+	border-radius: 20px;
+	 margin-top: -63px;
+    position: absolute;
+}
+
+.buttonsL{
+    margin-left: 10px;
+}
+.buttonsR{
+    <!-- margin-right: 10px; -->
+	margin-top: 14px;
+}
+</style>
+
+<px-card header-text="Site">
+    <form id="frmAllSites">
+<px-data-table filterable table-column striped selectable table-data="{{data}}" id="mytable">
+<div
+		style="width: 50px; top: 100px; position: relative; left: 500px; z-index: 100;">
+		<paper-spinner style="z-index:10000;postion:relative;" active></paper-spinner>
+
+	</div>
+
+<!-- <px-data-table-column
+          name="uri"
+		  label="URI"
+          filterable>
+        </px-data-table-column>  -->
+          <px-data-table-column
+          name="siteId"
+		   label="Site ID"
+          filterable
+          sortable>
+        </px-data-table-column>
+		<px-data-table-column
+          name="siteName"
+		  label="Site Name"
+          filterable
+		  sort-function-name="myTableCustomFunctions.sortByEmailDomain"
+          sortable>
+        </px-data-table-column>
+
+
+
+		<px-data-table-column
+          name="surveyType"
+		  label="Survey Type"
+		  type="dropdown"
+          filterable
+          sortable
+		  dropdown-items="{{dropdown}}">
+        </px-data-table-column>
+
+
+		<px-data-table-column
+          name="contractorId"
+		  type="html"
+		  label="Contractor ID"
+          filterable>
+        </px-data-table-column>
+
+
+
+		<px-data-table-column
+          name="siteAddress"
+		   label="Site Address"
+          filterable
+          sortable>
+        </px-data-table-column>
+		<px-data-table-column
+          name="siteLocation"
+		   label="Site Location"
+          filterable>
+        </px-data-table-column>
+		<px-data-table-column
+          name="siteDescription"
+		   label="Site Description"
+          filterable
+          sortable>
+        </px-data-table-column>
+		<!-- <px-data-table-column
+          name="customer"
+		   label="Customer"
+          filterable
+		  editable
+          sortable>
+        </px-data-table-column>  -->
+		<px-data-table-column
+          name="refKey"
+		   label="Ref Key"
+          filterable
+          sortable>
+        </px-data-table-column>
+
+		<px-data-table-column
+          name="customerId"
+          label="Customer ID"
+          filterable
+          sortable>
+        </px-data-table-column>
+
+
+</px-data-table>
+
+	</form>
+
+
+
+    <input type="button" class="btn" id="btnSearch" value="Save Site Request" ng-click="saveRequestData()" ng-disabled="isReadonly">
+
+
+	<px-modal id="five" modal-heading="Search By Contractor Type(Contractor Id/Contractor Group)">
+    <!-- <form id="myForm"> -->
+		<!-- <label for="projectid1">Select Search By Type</label> -->
+
+	<!-- <form> -->
+    <form id="myForm">
+
+	<div class="horizontal-section">
+
+			  <paper-radio-button id="myradio1" >Contractor Id</paper-radio-button>
+			  <paper-radio-button id="myradio2">Contractor Group</paper-radio-button>
+
+		  <!-- <paper-radio-group selected="myradio1"> -->
+			  <!-- <paper-radio-button name="myradio1" >Contractor Id</paper-radio-button>  -->
+			  <!-- <paper-radio-button name="myradio2">Contractor Group</paper-radio-button>  -->
+		  <!-- </paper-radio-group> -->
+    </div>
+
+
+	<div id="contractorIdDiv" style="display: none;">
+	<label for="projectid1">Contractor ID</label>
+	<input id="projectid1" class="text-input" type="text" ng-model="editprojectid" readonly required ng-disabled="isReadonly"/>
+     <input id="refID" class="text-input" type="hidden" ng-model="refID" readonly required ng-disabled="isReadonly" />
+		<paper-material elevation="1" style="z-index:2;background:white;">
+			<paper-typeahead-input-customerMaster id="paperSku" max-suggestions="5" remote-url="https://dt-contractor-master-microservice-dev.run.aws-usw02-pr.ice.predix.io/contractorList/name?contractorName=%QUERY" placeholder="Search Contractor Id" ng-disabled="isReadonly">
+			</paper-typeahead-input-customerMaster>
+		</paper-material>
+
+		<div style="border-top:solid 1px #d1d0d8; padding-top:5px;" class="flex flex--right">
+			  <button class="btn u-mr-" ng-click="editcancelForm()" id="Cancel" ng-disabled="isReadonly">Cancel</button>
+			  <button type="submit" class="btn btn--primary" ng-click="editsubmitForm()" id="Submit" ng-disabled="isReadonly">Submit</button>
+		</div>
+	</div>
+	</form>
+	<!-- </px-modal>  -->
+	<!-- <px-modal id="ten" modal-heading="Edit Contractor Group"> -->
+	<!-- New code 5th may 2017 start -->
+
+	<div id="contractorGroupDiv" style="display: none;">
+		<label for="projectid1">Contractor Group</label>
+		<input id="projectid2" class="text-input" type="text" ng-model="editprojectid" readonly required ng-disabled="isReadonly"/>
+		<input id="refID" class="text-input" type="hidden" ng-model="refID" readonly required ng-disabled="isReadonly" />
+			<paper-material elevation="1" style="z-index:2;background:white;">
+			<paper-typeahead-input-customerMaster id="paperSku" max-suggestions="5" remote-url="https://dt-menucontrol-microservice-dev.run.aws-usw02-pr.ice.predix.io/getBucketName?bucketName=%QUERY" placeholder="Search Contractor Group" ng-disabled="isReadonly">
+			</paper-typeahead-input-customerMaster>
+		</paper-material>
+
+	<div style="border-top:solid 1px #d1d0d8; padding-top:5px;" class="flex flex--right">
+          <button class="btn u-mr-" ng-click="editcancelForm()" id="Cancel" ng-disabled="isReadonly">Cancel</button>
+          <button type="submit" class="btn btn--primary" ng-click="editsubmitForm()" id="Submit" ng-disabled="isReadonly">Submit</button>
+    </div>
+	</div>
+
+	<!-- New code 5th may 2017 end -->
+
+	</px-modal>
+
+ <simple-dialog id="invalidAlertforBoth" class="submitAlert" modal role="alertdialog" align="center">
+			<input type="button" id="cross" value="X" dialog-dismiss></input>
+
+			<h1 class="datamsg">Please Enter Survey Type and Contractor</h1>
+			<div class="buttons">
+			<paper-button class="alertButton" dialog-dismiss >Ok</paper-button>
+			   <!-- <paper-button  class="alertButton" onclick="window.location = '/approveInstalldrawing'">OK</paper-button> -->
+			  <!-- <paper-button dialog-dismiss>Ok</paper-button> -->
+			</div>
+		  </simple-dialog>
+
+ <simple-dialog id="checkboxMessage" class="submitAlert" modal role="alertdialog" align="center">
+			<input type="button" id="cross" value="X" dialog-dismiss></input>
+
+			<h1 class="datamsg">Please assign contractor and survey type first</h1>
+			<div class="buttons">
+			<paper-button class="alertButton" dialog-dismiss  ng-click="restCheckBox()">Ok</paper-button>
+			   <!-- <paper-button  class="alertButton" onclick="window.location = '/approveInstalldrawing'">OK</paper-button> -->
+			  <!-- <paper-button dialog-dismiss>Ok</paper-button> -->
+			</div>
+		  </simple-dialog>
+
+	<simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center">
+			<input type="button" id="cross" value="X" dialog-dismiss></input>
+
+			<h1 class="datamsg">Submit ? </h1>
+			<div class="buttonsL">
+			<paper-button class="alertButtonL" id="okRedirect" dialog-dismiss >Ok</paper-button>
+			</div>
+			<div class="buttonsR">
+		<paper-button dialog-dismiss class="alertButtonR" style=" margin-top: -63px;; position: absolute;" dialog-dismiss>Cancel</paper-button>
+		</div>
+	  </simple-dialog>
+
+ <simple-dialog id="ChekBoxalert" class="submitAlert" modal role="alertdialog" align="center">
+			<input type="button" id="cross" value="X" dialog-dismiss></input>
+
+			<h1 class="datamsg">Please Select Atleast One Site</h1>
+			<div class="buttons">
+			<paper-button class="alertButton" dialog-dismiss >Ok</paper-button>
+			   <!-- <paper-button  class="alertButton" onclick="window.location = '/approveInstalldrawing'">OK</paper-button> -->
+			  <!-- <paper-button dialog-dismiss>Ok</paper-button> -->
+			</div>
+		  </simple-dialog>
+
+
+
+	<!-- <table>
+	<tr>
+    <h1 class="datamsg">Submit ? </h1>
+	</tr>
+	</table>
+	<input type="button"  id="alertButton"  value="Ok" dialog-dismiss></input>
+      <input type="button"  id="alertButton"  value="Close" dialog-dismiss></input> -->
+
+
+</px-card>
+
+<px-card id="submit-request-card" header-text = "Submitted request" ng-show="hidecard">
+     <px-data-table table-column striped table-data="{{returndata}}">
+		   <px-data-table-column
+               name="ticketId"
+		      label="Job Id"
+          filterable>
+        </px-data-table-column>
+		  <px-data-table-column
+          name="siteId"
+		  label="Site Id"
+          filterable>
+        </px-data-table-column>
+	  </px-data-table>
+</px-card>
+
+
+
+<script>
+ function gotoLink(e){
+            document.getElementById('projectid1').value  = e.innerHTML;
+			  document.getElementById('refID').value  = e.id;
+            Polymer.dom(document).querySelector("#five").modalButtonClicked();
+
+          }
+</script>
+
+<!-- <script>
+		$('#btnSearch').click(function(){
+
+     var sbRedirect=document.getElementById('submitAlert');
+		sbRedirect.toggle();
+    });
+
+</script> -->

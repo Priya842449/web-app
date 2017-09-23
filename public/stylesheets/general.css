@@ -1,0 +1,27 @@
+ 
+#uploadBar {
+    text-align: center;
+    color: black;
+	font-weight:bold !important;
+	text-align:left;
+}
+#uploadInpro {
+    text-align: center;
+    color: royalblue;
+	font-weight:bold !important;
+	text-align:left;
+}
+#uploadSucc {
+    text-align: right;
+    color: black;
+	font-weight:bold !important;
+	text-align:left;
+	color:green !important;
+}
+#uploadFail {
+    text-align: right;
+    color: black;
+	font-weight:bold !important;
+	text-align:left;
+	color:red !important;
+}

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<style>
+table{
+width:100%;
+padding-left: 1rem;
+font-family:Arial;
+}
+.th
+{
+width:20%;
+font-weight: bold;
+}
+#btnAttch{
+margin-right: 1.1%;
+width:133px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+font-family: 'GE Inspira Regular', sans-serif;
+text-transform:capitalize !important;
+}
+#btnSubmit{
+width:133px;
+background:#ef674f;
+border-radius:18px;
+    font-size: 12px;
+color:white;
+font-family: 'GE Inspira Regular', sans-serif;
+text-transform:capitalize !important;
+}
+    #btnSB {
+        width: 133px;
+        background: #ef674f;
+        border-radius: 18px;
+        font-size: 12px;
+        color: white;
+        font-family: 'GE Inspira Regular', sans-serif;
+        text-transform: capitalize !important;
+    }
+    
+    .sentSucces {
+        color: green;
+    }
+    
+    .sentFail {
+        color: red
+    }
+    
+    ;
+</style>
+<script>
+
+</script>
+</head>
+	<body>
+		<px-card header-text="Energy Code">	
+		<paper-material elevation="1" style="z-index:2;background:white;">
+			<paper-typeahead-input-energy-code id="paperSku" max-suggestions="5" remote-url="https://dt-survey-microservice-dev.run.aws-usw02-pr.ice.predix.io/GetEnergyCodes?energyCode=%QUERY" placeholder="Search Energy Code">
+			</paper-typeahead-input-energy-code> 
+		</paper-material>			
+		</px-card>
+		<px-card header-text="Energy Code Attributes">
+			<form id = "frmEnergyCodeAttributes">
+				<div>
+					<table>
+						<tr>
+							<td class="th">Kit Watt</td>
+							<!-- <td>:</td> -->
+							<td><input type = "text" id = "txtKitWatt" pattern="[0-9]+" title="Only numbers are allowed"/></td>
+						</tr>
+<!-- 				<tr>
+							<td class="th">Warranty Years</td>
+							<td>:</td>
+							<td><input type = "text" id = "txtWarrantyYears" pattern="[0-9]+" title="Only numbers are allowed"/></td>
+						</tr> -->
+						<tr>
+							<td class="th">Material Cost Per SKU</td>
+							<!-- <td>:</td> -->
+							<td><input type = "text" id = "txtMaterialCostPerSku" pattern="[0-9]+" title="Only numbers are allowed"/></td>
+						</tr>
+						<tr>
+							<td class="th">Labor Cost Per Hour</td>
+							<!-- <td>:</td> -->
+							<td><input type = "text" id = "txtLaborCostPerHour" pattern="[0-9]+" title="Only numbers are allowed"/></td>
+						</tr>
+						<tr>
+							<td class="th">Rated Life</td>
+							<!-- <td>:</td> -->
+							<td><input type = "text" id = "txtRatedLife" pattern="[0-9]+" title="Only numbers are allowed"/></td>
+						</tr>
+						<tr>
+							<td class="th">Ballast Quantity Per SKU</td>
+							<!-- <td>:</td> -->
+							<td><input type = "text" id = "txtBallastQntyPerSku" pattern="[0-9]+" title="Only numbers are allowed"/></td>
+						</tr>
+						<tr>
+							<td class="th">Ballast Cost</td>
+							<!-- <td>:</td> -->
+							<td><input type = "text" id = "txtBallastCost" pattern="[0-9]+" title="Only numbers are allowed"/></td>
+						</tr>
+						<tr>
+							<td class="th">Installation Rate Per Hour</td>
+							<!-- <td>:</td> -->
+							<td><input type = "text" id = "txtInstallationRatePerHour" pattern="[0-9]+" title="Only numbers are allowed"/></td>
+						</tr>
+						<tr>
+							<td class="th">Lamp Recycling Cost Per SKU</td>
+							<!-- <td>:</td> -->
+							<td><input type = "text" id = "txtLampRecyclingCostPerSku" pattern="[0-9]+" title="Only numbers are allowed"/></td>
+						</tr>
+						<tr>
+							<td class="th">Ballast Recycling Cost Per SKU</td>
+							<!-- <td>:</td> -->
+							<td><input type = "text" id = "txtBallastRecyclingCostPerSku" pattern="[0-9]+" title="Only numbers are allowed"/></td>
+						</tr>
+						<tr>
+							<td style="float:left"> <br/> <br/><button type="submit" class="btn" id="btnSubmit" ng-click="update()">
+								<i class="fa fa-cloud-upload"></i>Submit</button>
+								<br>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+			</form>
+		</px-card>
+		<simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center">
+			<input type="button" id="cross" value="X" dialog-dismiss></input>
+			<h1 class="datamsg">Data Submitted Successfully</h1>
+			<div class="buttons">
+            	<paper-button class="alertButton" id="okRedirect">Ok</paper-button>
+            </div>
+		</simple-dialog>
+  		<simple-dialog id="submitAlertForFail" class="submitAlert" modal role="alertdialog" align="center">
+		    <input type="button" id="cross" value="X" dialog-dismiss></input>			
+			<h1 class="datamsg">Data is not submitted</h1>
+			<div class="buttons">
+				<paper-button class="alertButton" id="notOkRedirect">Ok</paper-button>
+			</div>
+		</simple-dialog>		
+	</body>
+</html>

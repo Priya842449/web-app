@@ -1,0 +1,572 @@
+<head>
+    <style>
+        h1 {
+            line-height: 6px;
+        }
+        
+         :not([style-scope]):not(.style-scope):root .fa-3x {
+            padding-right: 1%;
+            font-size: 3em;
+        }
+        
+        .modal-body.simple-gallery img.simple-gallery {
+            width: 100%;
+            height: 356px;
+        }
+        
+        #popId {
+            height: 100px;
+            width: 100px;
+        }
+        
+        #imgdyna {
+            height: 50px;
+            width: 50px;
+        }
+        
+        .paper-button-0 .content.paper-button {
+            padding: 0;
+        }
+        
+        .paper-button-0 .content.paper-button {
+            padding: 6px;
+        }
+        
+        google-map {
+            height: 600px;
+        }
+        
+        .tabs-menu {
+            height: 30px;
+            float: left;
+            clear: both;
+            margin-left: -2.75rem !important;
+        }
+        
+        .tabs-menu li {
+            height: 30px;
+            line-height: 30px;
+            float: left;
+            margin-right: 10px;
+            background-color: #ccc;
+            border-top: 1px solid #d4d4d1;
+            border-right: 1px solid #d4d4d1;
+            border-left: 1px solid #d4d4d1;
+            list-style-type: none;
+        }
+        
+        .tabs-menu li.current {
+            position: relative;
+            background-color: #ff9821;
+            border-bottom: 1px solid #fff;
+            color: white;
+            z-index: 5;
+        }
+        
+        .tabs-menu li a {
+            padding: 10px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        .tabs-menu .current a {
+            color: #2e7da3;
+        }
+        
+        .tab {
+            border: 1px solid #d4d4d1;
+            background-color: #fff;
+            float: left;
+            margin-bottom: 20px;
+            width: auto;
+        }
+        
+        .tab-content {
+            width: 1018px;
+            padding: 20px;
+            <!-- display: none;
+            -->
+        }
+        
+        #tab-1 {
+            display: block;
+        }
+        
+        #tab-2 {
+            display: none;
+        }
+        
+        .gm-style-iw {
+            background-color: white !important;
+        }
+        
+        #indoorExport {
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            font-family: 'GE Inspira Regular', sans-serif;
+            text-transform: capitalize !important;
+        }
+        
+        #outdoorExport {
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            text-transform: capitalize !important;
+        }
+        
+        #btnAttch {
+            margin-right: 1.1%;
+            width: 133px;
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            text-transform: capitalize !important;
+        }
+        
+        #btnAddSKU {
+            margin-right: 1.1%;
+            width: 133px;
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            text-transform: capitalize !important;
+        }
+        
+        #btnSave {
+            position: absolute;
+            margin-left: -10px;
+            margin-top: -42px;
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            text-transform: capitalize !important;
+        }
+        
+        .buttonPosition {
+            font-size: 12px;
+            font-weight: bold;
+            display: inline-block;
+            position: relative;
+            bottom: 33px;
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            font-family: 'GE Inspira Regular', sans-serif;
+            text-transform: capitalize !important;
+        }
+        
+        .saveSucces {
+            color: green;
+        }
+        
+        .saveFail {
+            color: red;
+        }
+        
+        #popupScreen {
+            overflow-y: auto;
+            overflow-x: hidden;
+            height: auto;
+            max-height: 300px;
+        }
+        
+        .deleteDiv {
+            font-size: 15px;
+            position: relative;
+            background: transparent;
+            border: none;
+            color: red;
+            font-weight: 900;
+        }
+        
+        .loadFloorPlanAnchor {
+            list-style: none;
+            text-decoration: none;
+            line-height: -3px;
+            color: white;
+            position: relative;
+            top: -6px;
+            left: -8px;
+        }
+        
+        .loadFloorPlanLi {
+            padding-left: 20px;
+            line-height: 38px;
+            background: #ff9821;
+            display: inline-block;
+            height: 25px;
+            position: relative;
+        }
+        
+        .marker.black {
+            background: url(../images/marker_black.png);
+        }
+        
+        .marker {
+            width: 27px;
+            height: 40px;
+            position: absolute;
+            left: -13px;
+            top: -35px;
+            font-weight: none;
+            line-height: 0px;
+            letter-spacing: 0px;
+            text-align: none;
+        }
+        
+        .marginLeft {
+            margin-left: 10px;
+        }
+        
+        #imageNotes {
+            width: 100%;
+            height: 367px;
+        }
+    </style>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery_imageMap/jquery.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery_imageMap/jquery-ui.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery_imageMap/jquery.hammer.js"></script>
+
+    <script type="text/javascript" src="../bower_components/jquery_imageMap/imgViewer.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery_imageMap/imgNotes.js"></script>
+</head>
+<div ng-controller="designSiteDetailsCtrlWithVersion">
+    <px-card header-text="Site Design Summery ">
+        <div design-directive="" data="" ng-include="'views/siteSummary.html'"></div>
+    </px-card>
+    <px-card header-text="Uploaded Design">
+        <br/>
+        <div id="after" style="display:flex;">
+            <div style="width: 90%;">
+                <uploaded-files final-data="finalData" visible="showDelButton"></uploaded-files>
+            </div>
+
+            <div style="width: 10%;
+    display: inline-block;
+    margin-right: 30px;">
+                <paper-progress indeterminate class="slow" style="display:none"></paper-progress><br>
+                <form id="fileform">
+                    <button class="btn" modal-trigger id="btnAttch" ng-disabled="attchDisabled || isReadonly"><i class="fa fa-paperclip" >Attachment</i></button>
+                </form>
+            </div>
+        </div>
+        <br>
+        <style is="custom-style">
+            paper-progress.slow {
+                --paper-progress-indeterminate-cycle-duration: 10s;
+            }
+        </style>
+
+    </px-card>
+
+    <paper-dialog id="dialog">
+    </paper-dialog>
+    </paper-typeahead-input-sku>
+    </paper-material>
+    <px-card id="main" header-text="Main Survey Data">
+
+        <px-data-table id="mainTable" table-column sortable striped style="width:100%">
+
+        </px-data-table>
+    </px-card>
+    <px-card>
+        <br> Saved Design Versions : <select ng-options="item as item.designName for item in savedDesignList" ng-model="selectedDesign" ng-change="viewSavedVersion(selectedDesign)" style="height:25px;" ng-disabled="isReadonly"></select>
+
+        <br>
+        <br>
+        <div ng-hide="isFinalDesign">
+            <paper-button ng-click="addVersion()" class="buttonPosition" ng-disabled="isFinalDesign || onAddDisable || isReadonly" style="bottom:0px;margin-left: -2px;">Add Version</paper-button>
+            <paper-button ng-click="finalSaveVersion()" class="buttonPosition" ng-disabled="hideFinalCheckBox || isReadonly" style="bottom:0px;margin-left: -2px;">Save Version</paper-button>
+            <br>
+            <br>
+            <input type="text" ng-model="versionName" placeholder="Enter version name" ng-disabled="updateVerNameDisable || isReadonly" />
+            <br>
+            <br>
+            <div id="radioDiv" ng-hide="hideFinalCheckBox">
+
+                <!--
+                <input type="radio" ng-checked="Preferred"ng-model="versionStatus" ng-click="finalDesignChecked(selectedDesign)" value="P">Preferred
+        <input type="radio" ng-checked="Final"ng-model="versionStatus" ng-click="finalDesignChecked(selectedDesign)"  value="Y">Final
+        <input type="radio" ng-checked="Neither" ng-model="versionStatus" ng-click="finalDesignChecked(selectedDesign)"   value="N">Neither
+-->
+            </div>
+            <br>
+            <span style="color:blue;font-size:14px">{{showPrefferedMsg}}</span>
+            <br>
+
+            <br>
+            <span class="cleartoSubmit"></span>
+            <span style="color:red">{{versionValidMsg}}</span>
+            <br>
+        </div>
+
+        <div id="tabs-container">
+            <ul class="tabs-menu">
+                <li class="current"><a href="#tab-1" id="tab1" style="color:white">Indoor</a></li>
+                <li id="li2"><a href="#tab-2" style="color:white" id="tab2">Outdoor</a></li>
+            </ul>
+            <div class="tab" style="width:100%">
+                <div id="tab-1" class="tab-content" style="width:100%;">
+
+
+                    <!--*********************************************************Load Floor Plan Indoor*****************************************-->
+                    <div id="tab3" style="width:100%;">
+                        <div style="display: flex; width: 100%;">
+                            <div class="loadFloorPlanLi" style="width:115px;">
+                                <a href="" ng-click="showTab3()" class="loadFloorPlanAnchor" style="color:white;" ng-disabled="isReadonly">Load Floor Plan</a>
+
+                            </div>
+                            <div ng-show="showTabThree">
+                                <select class="marginLeft" data-ng-model="station" ng-change="getFloors(station)" ng-options="data.stationName for data in stationData" ng-disabled="isReadonly"></select>
+                                <select class="marginLeft" data-ng-show="showFloors" data-ng-model="floorsModel" ng-change="getSection(floorsModel)" ng-options="data.floorNo for data in floors" ng-disabled="isReadonly"></select>
+                                <select class="marginLeft" data-ng-show="showSections" data-ng-model="sectionsModel" ng-change="showApplyButton()" ng-options="data.sectionId for data in sections" ng-disabled="isReadonly"></select>
+                                <button class="submitButton marginLeft" ng-show="isAllSelected" ng-click="showFloorPlan(sectionsModel)" class="" ng-disabled="isReadonly">Show Floor Plan</button>
+                            </div>
+
+                        </div>
+                        <span ng-show="showMessage" class="showErrMessage" style="padding-top:10px;">{{errorMessage}}</span>
+                        <br>
+                        <br>
+
+                        <div id="imagediv" ng-show="showFloorPlanImage" style="border:3px solid;">
+                            <!-- <img id="imageNotes" style="border: 30px solid #ccc; padding:20px;"/> -->
+                        </div>
+
+                    </div>
+
+
+                    <!--**************************************************Load floor plab ends here*********************************************-->
+                    <h3>INDOOR SURVEY DATA</h3>
+                    <hr>
+                    <button id="indoorExport" class="btn " style="position: absolute;left: 1162px; margin-top: -54px;" ng-disabled="isReadonly">Export</button>
+                    <px-data-table id="indoorTable" table-column sortable striped style="width:100%">
+                    </px-data-table>
+                    <!--             <paper-button ng-click="addVersion('Indoor')" class="buttonPosition" ng-disabled="isFinalDesign">Add Version</paper-button>-->
+                    <!--              <button ng-click="addVersion('Indoor')" class="buttonPosition" ng-disabled="isFinalDesign">Add Version</button>-->
+                    <div data-ng-show="isAddVersionIndoor" id="addNewVersionIndoor">
+                        <!--               <input type="text" ng-model="versionName" placeholder="Enter version name" ng-disabled="updateVerNameDisable"/>-->
+                        <br>
+                    </div>
+
+                    <br>
+                    <div ng-show="viewVersion" id="viewVersionIndoor">
+
+                    </div>
+                    <span ng-class="{sentSucces : isSave, sentFail: !(isSave)}">{{saveMsg}}</span>
+                </div>
+
+                <div id="tab-2" class="tab-content" style="width:100%">
+                    <px-card style="padding:2px 0rem 0rem !important">
+                        <google-map id="google-map" additional-map-options='{"mapTypeId":"satellite"}' style="z-index:1">
+                        </google-map>
+                    </px-card>
+                    <px-card>
+                        <div>
+                            <h3>OUTDOOR SURVEY DATA</h3>
+                            <hr>
+                            <button id="outdoorExport" ng-disabled="isReadonly" class="btn " style="position: absolute;left: 1162px; margin-top: -54px;">Export</button>
+                            <px-data-table id="outdoorTable" table-column sortable striped style="width:100%">
+                            </px-data-table>
+
+
+                            <!--  FOR outdoor version creation-->
+
+                            <div>
+                                <!--        <button ng-click="addVersion()" class="buttonPosition" ng-disabled="isFinalDesign">Add Version</button>-->
+
+                            </div>
+                            <!--
+    <div>
+        Saved Design Versions : <select ng-options="item as item.designName for item in savedDesignList" ng-model="selectedDesign" ng-change="viewSavedVersion(selectedDesign)" style="height:25px;" ng-disabled="isFinalDesign"></select>
+    </div>
+    <br>
+-->
+
+                            <div data-ng-show="isAddVersion" id="addNewVersion">
+                                <!--       <input type="text" ng-model="versionName" placeholder="Enter version name" ng-disabled="updateVerNameDisable"/>-->
+                                <br>
+                            </div>
+                            <div ng-show="viewVersion" id="viewVersion">
+
+                            </div>
+
+                            <!--
+                   <input type="checkbox" name="chk-finalDesign" id="chk" ng-model="isFinalDesign" ng-change="finalDesignChecked(selectedDesign)" ng-hide="hideFinalCheckBox">
+<span style="bottom: 2px; position: relative; margin-left: 5px;" ng-hide="hideFinalCheckBox">Check to make it final design</span><br>
+-->
+                            <!--                   <span style="color:red">{{versionValidMsg}}</span>-->
+                            <span ng-class="{sentSucces : isSave, sentFail: !(isSave)}">{{saveMsg}}</span>
+                            <!--  FOR indor version creation-->
+
+
+                        </div>
+
+                    </px-card>
+                </div>
+            </div>
+        </div>
+    </px-card>
+
+
+
+    <!--For POP up screen-->
+    <simple-dialog id="popupScreen" class="uploadAlert" modal role="alertdialog" style="left:34%;
+    outline:none;
+    position: absolute;
+    bottom: 5%;
+    display: block;">
+        <form id="frmPopUp" name="frmPopUp">
+            <div>
+                Saved Design Versions : <select ng-options="item as item.solutionName for item in solutionList" ng-model="selectedSoln" ng-change="viewSelectedSoln(selectedSoln)" style="height:25px;" ng-disabled="isFinalDesign||isReadonly"></select>
+
+                <button id="addFields" ng-click="addSolFields($event)" class="buttonPosition" style="bottom:0px;background:#ff9821;border-radius:6px;" ng-disabled="isReadonly">Add</button>
+            </div>
+            <div id="mainContainer">
+                <div id="retrofit-container">
+                </div>
+                <div id="replace-container">
+                </div>
+                <div id="install-container">
+                </div>
+                <div id="donothing-container">
+                </div>
+                <div id="remove-container">
+                </div>
+            </div>
+            <span style="color:red">{{showDuplicateMsg}}</span>
+            <br>
+            <div align="center">
+                <input type="button" ng-click="okPopup()" value="OK" dialog-dismiss id="okPopup" class="buttonPosition" style="bottom:0px" ng-disabled="isReadonly"></input>
+                <button ng-click="cancelPopup()" class="buttonPosition" style="bottom:0px" ng-disabled="isReadonly">Cancel</button>
+                <input type="button" ng-click="updateAll()" value="UpdateAll" dialog-dismiss id="okPopup" class="buttonPosition" style="bottom:0px" ng-disabled="isReadonly"></input>
+            </div>
+        </form>
+    </simple-dialog>
+
+    <!--For POP up screen-->
+    <simple-dialog id="UpdateConfirm" class="uploadAlert" modal role="alertdialog" style="left:34%;
+            outline:none;
+            position: absolute;
+            bottom: 5%;
+            display: block; height: 150px;" align="center">
+        <h3>Do you want to update all the records?</h3>
+        <input type="button" ng-click="updateConfirm()" value="OK" dialog-dismiss class="alertButton" style="position:relative;left:0px;"></input>
+        <button ng-click="cancelUpdate()" class="alertButton" style="position:relative;left:0px;">Cancel</button>
+    </simple-dialog>
+
+</div>
+<script>
+    var clicks = 0;
+    var temp = '';
+    var gal1 = ''
+
+    function gotoLink(th, e) {
+        var ids = th.id;
+        var id = ids.split(',');
+        //alert(temp +'temp')
+
+        if (temp == ids || temp == '') {
+            clicks++;
+        } else if (temp != ids && temp != '') {
+            clicks = 1;
+        }
+
+        temp = th.id;
+        console.log(id.length);
+
+        var divdata = document.querySelector("#dialog");
+        Polymer.dom(divdata).innerHTML = '';
+
+        var gal = document.createElement("simple-gallery");
+        gal1 = gal;
+        // alert(gal);
+        var container = ''
+        container = gal.$.links;
+
+        for (var i = 0; i < id.length; i++) {
+            var image = document.createElement('img');
+            image.setAttribute('data-original', id[i]);
+            image.setAttribute('data-index', 's' + (i + 1));
+            image.setAttribute('on-click', 'load_popup');
+            image.setAttribute('src', id[i]);
+            image.setAttribute('id', 'popId');
+            image.addEventListener('click', gal.load_popup);
+            container.appendChild(image);
+        }
+
+        console.log(gal)
+        Polymer.dom(divdata).appendChild(gal);
+        console.log(divdata);
+        var button = e.target;
+        while (!button.hasAttribute('data-dialog') && button !== document.body) {
+            button = button.parentElement;
+        }
+        if (!button.hasAttribute('data-dialog')) {
+            return;
+        }
+        var id = button.getAttribute('data-dialog');
+        var dialog = document.getElementById(id);
+        if (dialog) {
+            dialog.open();
+        }
+
+
+    }
+</script>
+<script>
+    if ($('#tab1:visible').length == 0) {
+
+        $("#tab-2").fadeIn()
+
+        $("#li2").addClass("current");
+    }
+
+    function clickHandler(e) {
+
+    }
+</script>
+
+<script>
+    var progress, button;
+    var repeat, maxRepeat = 5,
+        animating = false;
+
+    function nextProgress() {
+        animating = true;
+        if (progress.value < progress.max) {
+            progress.value += (progress.step || 1);
+        } else {
+            if (++repeat >= maxRepeat) {
+                animating = false;
+                button.disabled = false;
+                return;
+            }
+            progress.value = progress.min;
+        }
+        requestAnimationFrame(nextProgress);
+    }
+
+    function callControllerFn(columnId) {
+        <!-- console.log('e----------- ',this) -->
+        var scopeEle2 = angular.element(document.getElementById('btnid')).scope();
+        //alert(this.columnCount);
+        scopeEle2.clickMe(columnId);
+    }
+
+    function startProgress() {
+        repeat = 0;
+        progress.value = progress.min;
+        button.disabled = true;
+        if (!animating) {
+            nextProgress();
+        }
+    }
+
+    window.addEventListener('WebComponentsReady', function() {
+        progress = document.querySelector('paper-progress');
+        button = document.querySelector('paper-button');
+    });
+</script>

@@ -1,0 +1,269 @@
+<head>
+
+<style>
+.modal-body.simple-gallery img.simple-gallery {
+    width: 100%;
+    height: 356px;
+}
+#popId
+{
+	height:100px;
+	width:100px;
+}
+#imgdyna
+{
+	height:50px;
+	width:50px;
+}
+.paper-button-0 .content.paper-button {
+    padding:0;
+}
+.paper-button-0 .content.paper-button {
+    width: 52px;
+    padding: -1.3em 0.57em;
+    height: 40px;
+}
+   google-map {
+   height: 600px;
+   }
+   .tabs-menu {
+   height: 30px;
+   float: left;
+   clear: both;
+   margin-left:-2.75rem !important;
+   }
+   .tabs-menu li {
+   height: 30px;
+   line-height: 30px;
+   float: left;
+   margin-right: 10px;
+   background-color: #ccc;
+   border-top: 1px solid #d4d4d1;
+   border-right: 1px solid #d4d4d1;
+   border-left: 1px solid #d4d4d1;
+   list-style-type:none;
+   }
+   .tabs-menu li.current {
+   position: relative;
+   background-color: #0a9ec1;
+   border-bottom: 1px solid #fff;
+   color:white;
+   z-index: 5;
+   }
+   .tabs-menu li a {
+   padding: 10px;
+   text-transform: uppercase;
+   color: #fff;
+   text-decoration: none; 	
+   }
+   .tabs-menu .current a {
+   color: #2e7da3;
+   }
+   .tab {
+   border: 1px solid #d4d4d1;
+   background-color: #fff;
+   float: left;
+   margin-bottom: 20px;
+   width: auto;
+   }
+   .tab-content {
+   width: 1018px;
+   padding: 20px;
+   <!--     display: none; -->
+   }
+   #tab-1 {
+   display: block;   
+   }
+   #tab-2 {
+   display: none;   
+   }
+   .gm-style-iw{
+   background-color:white !important;
+   }
+</style>
+
+<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+</head>
+
+ 
+<div sitesummary="" data="" ng-include="'views/siteSummarySurvey.html'"></div>
+<paper-dialog id="dialog">
+<!--     <simple-gallery > 
+	 </simple-gallery>  -->
+    </paper-dialog>
+<px-card id="main">
+<!-- <a href='#' id='bower_components/polymer-gallary/images/img03.jpg,bower_components/polymer-gallary/images/img01.jpg,https://dt-blobstore-microservice.run.asv-pr.ice.predix.io/getBlob?SiteId=95&directory=tester&filename=TestImg.jpg' onclick ='gotoLink(this,event)'><paper-button data-dialog='dialog'><img  src="https://dt-blobstore-microservice.run.asv-pr.ice.predix.io/getBlob?SiteId=95&directory=tester&filename=TestImg.jpg" /></paper-button></a> -->
+<h1>Main</h1>
+ <px-data-table id="mainTable" table-column sortable striped style="width:100%" >
+
+                  </px-data-table>
+</px-card>
+<px-card>
+   <div id="tabs-container">
+      <ul class="tabs-menu">
+         <li class="current"><a href="#tab-1" id="tab1" style="color:white">Indoor</a></li>
+         <li id="li2"><a href="#tab-2" style="color:white" id="tab2">Outdoor</a></li>
+      </ul>
+      <div class="tab" style="width:100%">
+         <div id="tab-1" class="tab-content" style="width:100%;">
+            <h3>Indoor Survey Data</h3>
+            <button id="indoorExport" class="btn btn--primary" style="position: absolute;left: 1162px; margin-top: -38px;">Export</button>		
+            <px-data-table id="indoorTable" table-column sortable striped style="width:100%" >
+            </px-data-table>
+			
+         </div>
+         <div id="tab-2" class="tab-content" style="width:100%">
+            <px-card style="padding:2px 0rem 0rem !important">
+               <google-map id="google-map" latitude="22.7877049" longitude="86.191417" additional-map-options='{"mapTypeId":"satellite"}' style="z-index:1">
+               </google-map>
+            </px-card>
+            <px-card>
+               <div>
+                  <h3>Outdoor Survey Data</h3>
+                  <button id="outdoorExport" class="btn btn--primary" style="position: absolute;left: 1162px; margin-top: -38px;">Export</button>
+                  <px-data-table id="outdoorTable" table-column sortable striped style="width:100%" >
+                  </px-data-table>
+               </div>
+            </px-card>
+         </div>
+      </div>
+   </div>
+</px-card>
+ <script>
+ var clicks=0;
+ var temp='';
+ var gal1=''
+ function gotoLink(th,e)
+	 {
+		console.log(th.id);
+		// document.getElementById('projectid1').value  = e.innerHTML;
+		//document.getElementById('refID').value  = e.id;
+		//     Polymer.dom(document).querySelector("#five").modalButtonClicked();
+		//$('#lightgallery').lightGallery();
+		//console.log(document.querySelector("simple-gallery").;
+		
+		
+		
+		var ids = th.id;
+		var id=ids.split(',');
+		//alert(temp +'temp')
+	
+		if(temp==ids || temp=='' )
+		{
+			clicks++;
+		}
+		else if(temp!=ids && temp!='' )
+		{
+			clicks=1;
+		}
+		
+		temp= th.id;
+		console.log(id.length);
+	
+		var divdata = document.querySelector("#dialog");
+		Polymer.dom(divdata).innerHTML='';
+	
+		var gal = document.createElement("simple-gallery");
+		gal1=gal;
+		// alert(gal);
+		var container=''
+		container = gal.$.links;
+		//alert(id +"= id "); 
+		
+
+		
+		
+		
+			for(var i=0; i<id.length; i++)
+			{
+				var image = document.createElement('img');
+				image.setAttribute('data-original',id[i]);
+				image.setAttribute('data-index','s'+(i+1));
+				image.setAttribute('on-click','load_popup');
+				image.setAttribute('src',id[i]);
+				image.setAttribute('id','popId');
+				image.addEventListener('click',gal.load_popup);
+				container.appendChild(image);
+			}
+	
+		console.log(gal)
+		Polymer.dom(divdata).appendChild(gal);
+		console.log(divdata);
+		var button = e.target;
+		while (!button.hasAttribute('data-dialog') && button !== document.body) 
+		{
+		button = button.parentElement;
+		}
+		if (!button.hasAttribute('data-dialog')) {
+			return;
+		}
+		var id = button.getAttribute('data-dialog');
+		var dialog = document.getElementById(id);
+		if (dialog) {
+		  dialog.open();
+		}
+			 
+			 
+	}
+</script>
+<!-- /*<script>
+   function gotoLink(th,e){
+   //alert('fg');
+   console.log(th.id);
+             // document.getElementById('projectid1').value  = e.innerHTML;
+   //document.getElementById('refID').value  = e.id;
+        //     Polymer.dom(document).querySelector("#five").modalButtonClicked();
+   	 //$('#lightgallery').lightGallery();
+   	 
+   	 //console.log(document.querySelector("simple-gallery").;
+   	 var ids = th.id;
+   	 var id=ids.split(',');
+   	 console.log(id.length);
+   	  var divdata = document.querySelector("#dialog");
+   					 
+   					 var gal = document.createElement("simple-gallery");
+   					 var container = gal.$.links;
+   	 for(var i=0; i<id.length; i++){
+   					
+   					var image = document.createElement('img');
+   					 image.setAttribute('data-original',id[i]);
+   					 image.setAttribute('data-index','s1');
+   					 image.setAttribute('on-click','load_popup');
+   					 image.setAttribute('src',id[i]);
+   					 image.addEventListener('click',gal.load_popup);
+   					 container.appendChild(image);
+   					
+   //	 console.log(gal.getAttribute('abc'));
+   	 }
+   	  Polymer.dom(divdata).appendChild(gal);
+     var button = e.target;
+        while (!button.hasAttribute('data-dialog') && button !== document.body) {
+          button = button.parentElement;
+        }
+   
+        if (!button.hasAttribute('data-dialog')) {
+          return;
+        }
+   
+        var id = button.getAttribute('data-dialog');
+        var dialog = document.getElementById(id);
+        if (dialog) {
+          dialog.open();
+        }
+   	 
+   	 
+            }
+</script> --> 
+<script>
+if($('#tab1:visible').length == 0)
+{
+
+$("#tab-2").fadeIn()
+
+$("#li2").addClass("current");
+}
+   function clickHandler(e) {
+    
+   }
+   
+</script>

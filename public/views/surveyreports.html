@@ -1,0 +1,269 @@
+<input type="text" ng-model="overview" ng-focus="hideShowFun()" id="testing1" style="opacity:0;height:0px;" ng-disabled="isReadonly">
+<div id="summary" ng-hide = "summary" style="margin-top: -20px;">
+<px-twoup id="widgetsx2" widget-header="Overall Installation Time Reports" widget-icon="fa-bar-chart">
+	 
+      <div class=widget-1>
+       <highchart id="chart9" config="chartConfig9" class="span12"></highchart> 
+      </div>
+      <div class=widget-2>
+	  <highchart id="chart15" config="chartConfig11" class="span12"></highchart>
+        <!--<highchart id="chart11" config="chartConfig11" class="span12"></highchart>-->
+      </div>
+    </px-twoup>
+<template is="dom-bind">
+	  <iron-ajax url="../bower_components/px-data-table/dashboard.json" last-response="{{dashboarddata}}" auto></iron-ajax>     
+	  <iron-ajax url="../bower_components/px-data-table/installation.json" last-response="{{instalationdata}}" auto></iron-ajax>     
+       
+	   <px-card header-text="Ongoing Installation Data">
+	  
+<px-data-table id="mytable" selected-rows="{{mySelectedRows}}" filterable striped table-data="{{instalationdata}}">
+        <px-data-table-column
+          name="siteid" type="html"
+		  label="Site ID"
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord">
+        </px-data-table-column>
+        <px-data-table-column
+          name="customer" type="html"
+		  label="Customer"
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord">
+        </px-data-table-column>
+        <px-data-table-column
+          name="projectid"
+		  label="Project ID"
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord">
+        </px-data-table-column>
+        <px-data-table-column
+          name="units" 
+		  label="# of Units"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column>
+		<px-data-table-column
+          name="numbrInstalled" 
+		  label="# Installed"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column> 
+		<px-data-table-column
+          name="installed" type="html" 
+          label="Installed (%)"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column>						
+      </px-data-table> 
+	  </px-card>
+	   
+      <px-card header-text="Overall Installation Performance Data">
+	  
+<px-data-table id="mytable" selected-rows="{{mySelectedRows}}" filterable striped table-data="{{dashboarddata}}">
+        <px-data-table-column
+          name="siteid" type="html"
+		  label="Site ID"
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord">
+        </px-data-table-column>
+        <px-data-table-column
+          name="customer" type="html"
+		  label="Customer"
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord">
+        </px-data-table-column>
+        <px-data-table-column
+          name="projectid"
+		  label="Project ID"
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord">
+        </px-data-table-column>
+        <px-data-table-column
+          name="units" 
+		  label="# of Units"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column>
+		<px-data-table-column
+          name="numbrInstalled" 
+		  label="# Installed"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column> 
+		<px-data-table-column
+          name="installed" type="html" 
+          label="Installed (%)"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column>				
+		<px-data-table-column
+          name="plannedstartdate" 
+          label="Planned Start Date"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column>
+		<px-data-table-column
+          name="actualstartdate" 
+          label="Actual Start Date"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column>
+		<px-data-table-column
+          name="plannedtargetdate" 
+          label="Planned Completion Date"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column>
+		<px-data-table-column
+          name="actualenddate" 
+          label="Actual Completion Date"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column>
+		<px-data-table-column
+          name="gap" 
+          label="Gap"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column>
+      </px-data-table> 
+	  </px-card>
+	  </template>
+	  
+	  
+
+	<!--<px-twoup id="widgetsx2" widget-header="Overall Reports View" widget-icon="fa-bar-chart">
+	 
+      <div class=widget-1>
+      <highchart id="chart12" config="chartConfig12" class="span12"></highchart> 
+      </div> 			  
+    </px-twoup>-->
+
+</div>
+<div id="dashboard" ng-hide = "overview">
+
+<div class="layout layout--right style-scope rmd-ref-app-summary-card">
+        
+	        <div class="layout__item u-1/6 summary-box style-scope rmd-ref-app-summary-card">
+				<h4 class="summary-label caps style-scope rmd-ref-app-summary-card">Overall (asset)</h4>
+				<div class="style-scope rmd-ref-app-summary-card">
+					<span class="summary-value style-scope rmd-ref-app-summary-card">3348</span>
+					<span class="summary-uom style-scope rmd-ref-app-summary-card"></span>
+				</div>
+	        </div>
+        
+	        <div class="layout__item u-1/6 summary-box style-scope rmd-ref-app-summary-card">
+				<h4 class="summary-label caps style-scope rmd-ref-app-summary-card">Installed</h4>
+				<div class="style-scope rmd-ref-app-summary-card">
+					<span class="summary-value style-scope rmd-ref-app-summary-card">2748</span>
+					<span class="summary-uom style-scope rmd-ref-app-summary-card"></span>
+				</div>
+	        </div>
+        
+	        <div class="layout__item u-1/6 summary-box style-scope rmd-ref-app-summary-card">
+				<h4 class="summary-label caps style-scope rmd-ref-app-summary-card">Service</h4>
+				<div class="style-scope rmd-ref-app-summary-card">
+					<span class="summary-value style-scope rmd-ref-app-summary-card">600</span>
+					<span class="summary-uom style-scope rmd-ref-app-summary-card"></span>
+				</div>
+	        </div>
+        	        
+        <template is="dom-repeat" class="style-scope rmd-ref-app-summary-card"></template>
+        <div class="layout__item u-1/4 summary-box style-scope rmd-ref-app-summary-card" style="width: 28% !important;">
+        	<div style="float: left;" class="style-scope rmd-ref-app-summary-card">
+				<h4 class="summary-label caps style-scope rmd-ref-app-summary-card">Service Health</h4>
+				<div class="style-scope rmd-ref-app-summary-card">
+					<span class="summary-value style-scope rmd-ref-app-summary-card">75</span>
+					
+						<span class="summary-uom style-scope rmd-ref-app-summary-card">%</span>
+					<template is="dom-if" class="style-scope rmd-ref-app-summary-card"></template>
+				</div>
+        	</div>
+        	<div class="summary-meter style-scope rmd-ref-app-summary-card">
+			<ref-digital-meter percentage="85.3"></ref-digital-meter> 
+       		
+        	</div>
+        </div>
+      </div>
+
+
+<button class="btn btn--tertiary btn--icon float--right" style="margin-top:10px; margin-right:10px;" type="button" 
+title="Back to Summary" ng-click="summaryCall()"><i class="fa fa-times-circle"></i></button>
+ <px-fourup id="widgetsx4" widget-header="Site Overview - 0993605" widget-icon="fa-briefcase">
+    <div class=widget-1>
+<h3 style="margin: 7px 0px 0px 0px;" class="caps u-mv0 style-scope px-card-header" id="headertext">Net Installation</h3>		  
+	  <div class="summary-meter style-scope rmd-ref-app-summary-card" style="float:left;">
+			
+			<ref-digital-meter percentage="80.7"></ref-digital-meter>       		
+        	</div>
+					
+				<p class="label--inline" style="margin:10px 0px 0px 0px;">Average installation time for asset : <b class="label--inline" style="margin:0px;"> 6</b>mins</p>				
+				<p>Ideal time: <b>8-15</b>mins</p>
+	  
+      </div>
+      <div class=widget-2>
+	   <highchart id="chart7" config="chartConfig7" class="span12"></highchart>
+      </div>
+
+    <div class=widget-3>	  
+	<highchart id="chart5" config="chartConfig5" class="span12"></highchart> 
+      </div>
+      <div class=widget-4>
+	  <highchart id="chart17" config="chartConfig17" class="span12"></highchart>
+      </div>
+    </px-fourup>
+	
+	<div style="border-top: 1px solid #7c7c84; padding-top:10px; margin-top:0px;">
+<!--	 <px-twoup id="widgetsx2" widget-header="" widget-icon="fa-eye">
+	 
+      <div class=widget-1>
+       <highchart id="chart4" config="chartConfig7" class="span12"></highchart> 
+      </div>
+      <div class=widget-2>
+        <highchart id="chart5" config="chartConfig5" class="span12"></highchart> 
+      </div> 
+  </px-twoup>-->
+	</div>
+	
+<px-card header-text="Time Series Data">
+
+  <px-chart tooltip-type="condensed" series-events-width="1">
+    <px-chart-controls data-controls show-date-range="true" display-options='{ "displayType": "normal","submitButtonText": "Update", "submitButtonIcon": "icon-arrow-right" }'></px-chart-controls>
+    <px-chart-yaxis title='{"text": "Left Axis"}' id="firstAxis" offset="0"></px-chart-yaxis>
+    <px-chart-yaxis title='{"text": "Right Axis"}' id="anotherAxis" opposite="true" offset="-2.5"></px-chart-yaxis>
+    <px-chart-series-line id="Installed" axis-id="firstAxis" upper-threshold="30.5" lower-threshold="6.25">
+      <iron-ajax
+        url="../bower_components/px-chart/delta-egt-cruise.json"
+        handle-as="json" auto></iron-ajax>
+    </px-chart-series-line>
+    <px-chart-series-line id="Service" axis-id="anotherAxis">
+      <iron-ajax
+        url="../bower_components/px-chart/fan-vibration-cruise.json"
+        handle-as="json" auto></iron-ajax>
+    </px-chart-series-line>
+  </px-chart>
+</px-card>
+
+</div>
+
+<script>
+ function drilldown(evt){			
+			$('#testing1').focus();            	 	
+          }
+</script>

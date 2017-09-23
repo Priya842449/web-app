@@ -1,0 +1,206 @@
+<style>
+    table {
+        width: 100%;
+        padding-left: 1rem;
+        font-family: Arial;
+    }
+
+    .th {
+        width: 20%;
+        font-weight: bold;
+    }
+
+    #btnAttch {
+        margin-right: 1.1%;
+        width: 133px;
+        background: #ef674f;
+        border-radius: 18px;
+        color: white;
+        font-family: 'GE Inspira Regular', sans-serif;
+        text-transform: capitalize !important;
+    }
+
+    #btnSubmit {
+        width: 133px;
+        background: #ef674f;
+        border-radius: 18px;
+        font-size: 12px;
+        color: white;
+        font-family: 'GE Inspira Regular', sans-serif;
+        text-transform: capitalize !important;
+    }
+
+    #btnSB {
+        width: 133px;
+        background: #ef674f;
+        border-radius: 18px;
+        font-size: 12px;
+        color: white;
+        font-family: 'GE Inspira Regular', sans-serif;
+        text-transform: capitalize !important;
+    }
+
+    .sentSucces {
+        color: green;
+    }
+
+    .sentFail {
+        color: red
+    }
+
+    ;
+</style>
+
+<px-card>
+    <div>
+        <table>
+            <tr>
+                <td class="th">Site Id</td>
+                <td>{{siteId}}</td>
+            </tr>
+            <tr>
+                <td class="th">Surveyor</td>
+                <td>{{siteName}}</td>
+            </tr>
+            <tr>
+                <td class="th">Address</td>
+                <td>{{siteAddress}}</td>
+            </tr>
+            <tr>
+                <td class="th">PM Name</td>
+                <td>{{siteData.surveyor}}</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td class="th">Current Stage</td>
+                <td>{{currentStage}}</td>
+                <td style="float:right"> <br/> <br/><button type="submit" class="btn"
+                id="btnSubmit" ng-click="submit()" ng-disabled="disableApprove ||
+                isReadonly"><i class="fa fa-cloud-upload"></i>Submit</button>
+                    <br>
+                    <span style="color:red">{{checkboxError}}</span>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="th">Comments</td>
+                <td><textarea id="myTextarea" ng-disabled="isReadonly" placeholder="Add your comments here.." rows=3 ng-model="$parent.cmts"></textarea></td>
+                <!-- 	<td style="float:right"> <br/> <br/><button class="btn" id="btnSB" ng-click="sendBackSurvey()" ng-disabled="disableSendBack">Send Back</button>
+	<br><span ng-class="{sentSucces : isSent, sentFail: !(isSent)}">{{msgSendBack}}</span></td> disableReject -->
+                <td style="float:right"><br/><br/><button class="btn" id="btnSB" ng-click="rejectSurvey()" ng-disabled="disableReject || isReadonly">Reject</button>
+
+                </td>
+            </tr>
+
+            <tr>
+                <td class="th">Rejection Comments</td>
+                <td><textarea id="myTextarea1" rows="3" cols="30" placeholder="Add your comments here.." ng-disabled="isReadonly" required></textarea></td>
+            </tr>
+            <tr>
+                <td class="th">Estimated Ship Date</td>
+                <td id="estShipdate"></td>
+                <!--
+				 <td style="float:right"><br/><br/><button class="btn" id="btnSB" ng-click="rejectSurvey()" ng-disabled="disableSendBack">Reject</button>
+            </td> -->
+                <td style="float:right;width:180px;">
+                    <span ng-class="{sentSucces : isSent, sentFail: !(isSent)}">{{msgReject}}</span>
+                     <span style="color:red; float:right">{{msgSendBack}}</span>
+                </td>
+            </tr>
+            <td></td>
+            <tr>
+
+                <tr>
+                    <td class="th">Maintenance :</td>
+                    <td> <input type="text" id="maintenance"> </td>
+                </tr>
+                <tr>
+                    <td class="th">Rebate : </td>
+                    <td> <input type="text" id="rebate"> </td>
+
+                    <!-- 					<td style="float:right;width:180px;">
+						<span ng-class="{sentSucces : isSent, sentFail: !(isSent)}">{{msgReject}}asasfasffsfsfsasffas</span>
+					</td> -->
+                </tr>
+
+
+                <td>
+                    <!-- <px-modal btn-modal-positive="Continue" modal-heading="Attach Files">
+    <button class="btn btn--primary modal-trigger"><i class="fa fa-paperclip"> Attachment</i></button>
+    <input type="file" id="file" multiple="multiple" style="width:100%"/>
+	<div id="showFileList"></div>
+	<table>
+    <tr ng-repeat="x in fileArray">
+        <td><td>{{x.name}}</td><td><i class="fa fa-times" aria-hidden="true" ng-click="removeFile(x)" style="color:red"></i></td></td>
+    </tr>
+</table>
+</px-modal> -->
+
+                    <simple-dialog id="attach" class="uploadAlert" modal role="alertdialog" align="center">
+                        <form id="fileform">
+                            <input type="file" id="file" multiple="multiple" style="width:100%" />
+                        </form>
+                        <div id="showFileList"></div>
+                        <span ng-show="invalidFileName" style="color:red;"> {{invalidMessage}}</span>
+
+                        <table>
+                            <tr ng-repeat="x in fileArrayToUpload">
+                                <td>
+                                    <td>{{x.name}}</td>
+                                    <td><i class="fa fa-times" aria-hidden="true" ng-click="removeFile(x)" style="color:red"></i></td>
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="button" id="btnSearch" class="uploadButton" ng-click="upload()" value="Upload" dialog-dismiss></input>
+                        <input type="button" id="btnSearch" class="closePopup" value="Close" ng-click="closePopup()"></input>
+                    </simple-dialog>
+
+                    <simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center">
+                    <table>
+                            <tr>
+                                <td style="float:right">
+			                    <input type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+                            <tr>
+			                    <td><h1 class="datamsg">Data Submitted Successfully</h1></td></tr>
+                            <tr>
+			                <td><center>
+			                <button class="btn" id="btnSubmit" dialog-dismiss >Ok</button>
+			                </center></td></tr>
+                    </table>
+                    </simple-dialog>
+
+                    <simple-dialog id="submitAlertForFail" class="submitAlert" modal role="alertdialog" align="center">
+                    <table>
+                        <tr>
+                            <td style="float:right">
+			                    <input type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+                        <tr>
+			                <td><h1 class="datamsg">{{msgApprove}}</h1></td></tr>
+                        <tr>
+			                <td>
+                            <center>
+                                 <button class="btn" id="btnSubmit" dialog-dismiss >OK</button>
+			                 </center></td></tr>
+                     </table>
+                    </simple-dialog>
+                </td>
+            </tr>
+        </table>
+    </div>
+</px-card>
+
+<script>
+    $(document).ready(function() {
+        $('#btnAttch').click(function() {
+            var removeSite = document.querySelector('#attach');
+            removeSite.toggle();
+            $("#fileform")[0].reset();
+        });
+        $('#btnSubmit').click(function() {
+            //var sbRedirect=document.getElementById('sbAlert');
+            //sbRedirect.toggle();
+        });
+
+    });
+</script>

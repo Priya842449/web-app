@@ -1,0 +1,359 @@
+<head>
+
+</head>
+<style>
+    table {
+        width: 100%;
+        background-color: padding-left: 1rem;
+    }
+
+    .th {
+        width: 20%;
+        font-weight: bold;
+    }
+
+    th {
+        text-align: left;
+    }
+
+    #btnSubmit {
+        background: #ef674f;
+        border-radius: 18px;
+        color: white;
+        text-transform: capitalize !important;
+    }
+
+    #btnSave {
+        background: #ef674f;
+        border-radius: 18px;
+        color: white;
+        text-transform: capitalize !important;
+    }
+    .errors {
+      color: red; 
+    }
+    #btndelete {
+        background: #ef674f;
+        border-radius: 18px;
+        color: white;
+        text-transform: capitalize !important;
+        bottom: 35px;
+        position: relative;
+    }
+
+    #exportCSV {
+        background: #ef674f;
+        border-radius: 18px;
+        color: white;
+        text-transform: capitalize !important;
+        margin-bottom: 5px;
+    }
+
+    .headerTextStyle {
+        color: #ff9821;
+        font-size: 0.9rem;
+        font-family: 'GE Inspira Regular', sans-serif;
+        line-height: 1.3333333333;
+        text-transform: uppercase !important;
+    }
+
+    .beforeInstallation {
+        font-weight: bold;
+        display: inline-block;
+        position: relative;
+        bottom: 36px;
+    }
+
+    #totalTable tr:nth-child(odd) {
+        background-color: #d1d0d8;
+    }
+
+    .saveSucces {
+        color: green;
+    }
+
+    .saveFail {
+        color: red
+    }
+</style>
+<div style="width: 50px; top:250px; position: relative; left: 500px; z-index: 100;">
+    <paper-spinner active style="z-index:10000;postion:relative;color:white;"></paper-spinner>
+</div>
+<div data-ng-show="isAllDataLoaded">
+    <px-card header-text="Site Proposal">
+        <h3 class="headerTextStyle">Site Proposal Summary</h3>
+        <div>
+            <table>
+                <tr>
+                    <td class="th">Site Id</td>
+                    <td>{{siteId}}</td>
+                </tr>
+                <tr>
+                    <td class="th">Site Name</td>
+                    <td>{{siteName}}</td>
+                </tr>
+                <tr>
+                    <td class="th">Address</td>
+                    <td>{{siteAddress}}</td>
+                </tr>
+                <tr>
+                    <td class="th">Project Manager</td>
+                    <td>{{pm}}</td>
+                </tr>
+                <tr>
+                    <td class="th">Current Stage</td>
+                    <td>{{currentStage}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <tr>
+                        <td class="th">Estimated Ship Date</td>
+                        <td id="estShipdate">
+                            <td></td>
+                    </tr>
+
+            </table>
+
+        </div>
+        
+        <form name="stageform">
+            <div ng-hide="installationRejectStatus">
+                <span>Stage Name : </span>
+                <select  name="stageformdata"  ng-options="stagedata.stageName for stagedata in createProposalStageData" ng-model="stageselect"  style="height:25px;" required>
+            </select> 
+              
+                <span class="errors" ng-show="stageform.stageformdata.$invalid">{{stageNameSelect}}</span>
+  
+            </div>
+            <br>
+            </form>
+
+        <h3 class="headerTextStyle" ng-show="showFileUploadedSec">Files Uploaded by Designer</h3>
+        <div id="after">
+            <uploaded-files final-data="finalData"></uploaded-files>
+        </div>
+
+        <h3 class="headerTextStyle">Survey Details</h3>
+        <px-data-table id="surveyDetTbl" striped table-data={{propSurveyDet}} filterable>
+        </px-data-table>
+
+
+        <div class="beforeInstallation">Total Cost Before Installation (A) = {{surTotCost | currency}}</div>
+        <h3 class="headerTextStyle">CREATE/Edit Proposal</h3>
+        <hr>
+        <form id="propform">
+            <div>
+                <span>Saved Proposals : </span>
+                <select ng-options="item.proposalName for item in savedProposaldata" ng-model="selected" ng-change="viewproposaldata(selected)" style="height:25px;" ng-disabled="finalversion || isReadonly">
+
+            </select>
+
+                <span style="margin-left:100px;">
+                <button id="btnSearch" class="btn btn-default btn-lg btn-upload" ng-click="addNewProposal()" data-ng-disabled="isAddNewVersion || finalversion || isReadonly">Add New Version</button>
+            </span>
+                <!--<div style="color:#ef674f;font-weight:bold;">Select proposal from list to edit or update proposal</div>-->
+            </div>
+            <br>
+
+
+            <div data-ng-show="showTableNSearch">
+                <paper-material elevation="1" style="font-size:10px;margin-bottom:3px;width:350px;">
+                    <paper-typeahead-input-sku id="paperSku" max-suggestions="6" placeholder="Search by SKU Description" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/sku?filter=skuDescription=/.*%QUERY.*/&fields=skuDescription,skuId" style="font-size:10px;margin-bottom: 5px;" ng-disabled="isReadonly">
+                    </paper-typeahead-input-sku>
+                </paper-material>
+                <div>
+                    <div style="width:0px;height:0px;top:10px; position: relative; left: 100px; z-index:100;">
+                        <paper-spinner style="z-index:10000;postion:relative;color:white;" id="onDeleteSpinner"></paper-spinner>
+                    </div>
+                </div>
+                <!-- <button type="submit" class="btn btn-default btn-lg btn-upload" ng-click="submit()"> Add SKU </button> -->
+                <td><button class="btn btn-default btn-lg btn-upload" id="btnSearch" ng-click="addSku()" ng-disabled="finalversion||disableAddSKU||isReadonly"> Add SKU </button></td><br>
+                <span style="color:red;" ng-show="isDataNotFound">{{errorMessage}}</span> </form>
+        <br>
+
+        <h3 class="headerTextStyle">Proposal</h3>
+        <hr>
+        <!--</div> [TODO]-->
+        <input type="text" id="txtVersionName" name="txtPropName" ng-model="propName" placeholder="Enter Proposal Name.." ng-disabled="finalversion ||isReadonly" /><br>
+        <span ng-show="showCommonMsg" style="color:red;">{{commonMsg}}</span>
+        <div style="width:0px;height:0px;top:60px; position: relative; left: 500px; z-index:100;">
+            <paper-spinner style="z-index:10000;postion:relative;color:white;" id="view-spinner"></paper-spinner>
+        </div>
+        <px-data-table striped table-data={{jsonData2}} id="pTable" selectable editable filterable>
+        </px-data-table>
+        <button type="submit" class="btn btn-default btn-lg btn-upload" id="btndelete" ng-click="deleteSKUFromUI()" ng-disabled="finalversion||disableDeleteSKU||isReadonly"> Delete SKU </button><span ng-show="showDeleteMsg" style="margin-left:20%;color:red;">{{msgNoItemToDele}}</span>
+        <button id="btnSearch" type="submit" class="btn btn-default btn-lg btn-upload beforeInstallation" data-ng-click="savePropVersion(selected)" ng-disabled="disablesave || finalversion ||isReadonly">Save Proposal</button>
+        <input type="checkbox" ng-model="finalversion" id="check" class="beforeInstallation" ng-show="showcheck" style="margin-left:10px;" ng-disabled="isReadonly"><span class="beforeInstallation" ng-show="showcheck">&nbsp; Check to make this final</span>
+        <span class="surveymsg" ng-show="showsurveyerror" ng-class="{saveSucces : isSave, saveFail: !(isSave)}">{{surveyerr}}</span>
+        </div>
+
+        <br/>
+
+        <!--<h3 class="headerTextStyle">Search SKU</h3><hr>
+            <paper-material elevation="1" style="font-size:10px;margin-bottom:3px;width:350px;">
+                  <paper-typeahead-input-sku id="paperSku" max-suggestions="10" placeholder="Search by SKU Description" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/sku?filter=skuDescription=/.*%QUERY.*/&fields=skuDescription,skuId" style="font-size:10px;margin-bottom: 5px;">
+                    </paper-typeahead-input-sku>
+                </paper-material>
+        <div>
+            <div style="width:0px;height:0px;top:10px; position: relative; left: 100px; z-index:100;">
+         <paper-spinner style="z-index:10000;postion:relative;color:white;" id="onDeleteSpinner"></paper-spinner>
+      </div>
+        </div>
+        <td><button type="submit" class="btn btn-default btn-lg btn-upload" id="btnSearch" ng-click="addSku()"> Add SKU </button></td><br>
+				<span style="color:red;" ng-show="isDataNotFound">{{errorMessage}}</span>
+				<br>
+
+     <h3 class="headerTextStyle">Proposal List</h3>
+      <px-data-table striped table-data={{jsonData2}} id="pTable" selectable  editable filterable>
+
+    </px-data-table>
+
+
+
+    <button type="submit" class="btn btn-default btn-lg btn-upload" id="btndelete" ng-click="deleteSKUFromUI()"> Delete SKU </button><span ng-show="showDeleteMsg" style="margin-left:20%;color:red;">{{msgNoItemToDele}}</span>-->
+        <table border="1px solid" style="width:30%;border-collapse:collapse;position: relative;bottom: 10px;" id="totalTable">
+            <tr>
+                <td>
+                    <div style="font-weight:bold;">Total Cost After Installation (B)</div>
+                </td>
+                <td>{{proposalTotalCost | currency}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="font-weight:bold;">Total Material Cost (C)</div>
+                </td>
+                <td>{{materialCostTotal | currency}}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div style="font-weight:bold;">Total Labour Cost (D)</div>
+                </td>
+                <td>{{labourCostTotal | currency}}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div style="font-weight:bold;">Total Maintenance Cost (E)</div>
+                </td>
+                <td>{{maintenanceTotal | currency}}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div style="font-weight:bold;">Total Rebate (F)</div>
+                </td>
+                <td>{{rebateTotal | currency}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="font-weight:bold;">Savings (G) {A - B}</div>
+                </td>
+                <td>{{netSavings | currency}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <div style="font-weight:bold;">Payback(ROI) {(C + D) / (F + E + G)}</div>
+                </td>
+                <td>{{payBackRoi}}</td>
+            </tr>
+        </table>
+        <div style="text-align:center;">
+            <button class="btn btn-default btn-lg btn-upload" id="exportCSV" data-ng-click="exportCSV()" ng-disabled="isReadonly">Export CSV</button>
+            <button type="submit" class="btn" id="btnSubmit" ng-click="submit();" ng-disabled="disableSubmit || isReadonly" style="width:133px;"><i class="fa fa-cloud-upload">
+            </i>Submit
+        </button>
+
+        </div><span ng-show="showQuanMsg" style="float:right;margin-right:35%;color:red;">{{quantityZeroMsg}}</span>
+
+        <!-- <button type="submit" class="btn btn-default btn-lg btn-upload"  id="btnSave" ng-click="saveData()"> Save </button> --></td>
+
+    </px-card>
+</div>
+
+<simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center" style="">
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+
+    <!-- 		<!--
+            <i class="removeMsg" aria-hidden="true" ng-click="removeFile(x)" style="color:red" dialog-dism ></i> -->
+
+
+                <h1 class="datamsg">Data Submitted Successfully</h1>
+                <div class="buttons">
+                  <paper-button class="alertButton" id="okRedirect" dialog-dismiss>Ok</paper-button>
+                </div>
+        </simple-dialog>
+
+         <simple-dialog id="submitAlertForFail" class="submitAlert" modal role="alertdialog" align="center">
+               <input style="margin-left:85%" type="button" id="cross" value="X" dialog-dismiss></input>
+
+                <h1 class="datamsg">{{msgApprove}}</h1>
+                <div class="buttons">
+                        <paper-button style="margin-left: 9%" class="alertButton" id="okRedirect" dialog-dismiss>Ok</paper-button>
+                  <!-- <paper-button dialog-dismiss>Ok</paper-button> -->
+                </div>
+              </simple-dialog>
+
+<simple-dialog id="validAlert" class="submitAlert" modal role="alertdialog" align="center" style="">
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+
+    <!-- 		<!--
+            <i class="removeMsg" aria-hidden="true" ng-click="removeFile(x)" style="color:red" dialog-dism ></i> -->
+
+
+    <h1 class="datamsg">Please select atleast one proposal</h1>
+    <div class="buttons">
+        <paper-button class="alertButton" id="okRedirect" dialog-dismiss>Ok</paper-button>
+    </div>
+</simple-dialog>
+
+<simple-dialog id="validAlertForCost" class="submitAlert" modal role="alertdialog" align="center" style="">
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+
+    <!-- 		<!--
+            <i class="removeMsg" aria-hidden="true" ng-click="removeFile(x)" style="color:red" dialog-dism ></i> -->
+
+
+    <h1 class="datamsg">Cost should not be empty</h1>
+    <div class="buttons">
+        <paper-button class="alertButton" id="okRedirect" dialog-dismiss>Ok</paper-button>
+    </div>
+</simple-dialog>
+
+<simple-dialog id="validAlertForSave" class="submitAlert" modal role="alertdialog" align="center" style="">
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+
+    <!-- 		<!--
+            <i class="removeMsg" aria-hidden="true" ng-click="removeFile(x)" style="color:red" dialog-dism ></i> -->
+
+
+    <h1 class="datamsg">Data Saved Successfully</h1>
+    <div class="buttons">
+        <paper-button class="alertButton" id="okRedirect" dialog-dismiss>Ok</paper-button>
+    </div>
+</simple-dialog>
+
+<simple-dialog id="validAlertForDelete" class="submitAlert" modal role="alertdialog" align="center" style="">
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+    <!-- 		<!--
+            <i class="removeMsg" aria-hidden="true" ng-click="removeFile(x)" style="color:red" dialog-dism ></i> -->
+
+
+                <h1 class="datamsg">Data Deleted Successfully</h1>
+                <div class="buttons">
+                  <paper-button class="alertButton" id="okRedirect1" dialog-dismiss>Ok</paper-button>
+                </div>
+        </simple-dialog>
+
+
+<simple-dialog id="invalidAlertForDelete" class="submitAlert" modal role="alertdialog" align="center" style="">
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+    <!-- 		<!--
+            <i class="removeMsg" aria-hidden="true" ng-click="removeFile(x)" style="color:red" dialog-dism ></i> -->
+
+
+    <h1 class="datamsg">No Data to delete</h1>
+    <div class="buttons">
+        <paper-button class="alertButton" id="okRedirect" dialog-dismiss>Ok</paper-button>
+    </div>
+</simple-dialog>

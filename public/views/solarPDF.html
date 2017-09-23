@@ -1,0 +1,57 @@
+<div> <input type="button" id="cross" value="X" dialog-dismiss class="closeBtn" style="position: absolute;
+        right: 5px;
+        top: 4px;
+        display: inline;
+        width: 40px;
+        height: 20px;
+        background-color: #ef674f;
+        border-radius: 20px;
+        color: black"></input>
+    <div style="overflow-y: auto;height: 500px;overflow:auto;">
+
+        <!--<paper-spinner active id="pdfSpinner" style="position: absolute;left: 50%;top: 50%; "></paper-spinner>-->
+
+        <br>
+
+        
+        <div ng-repeat="pdfSurveyTypeIds in pdfSurveyTypeId" >
+        
+          <div ng-repeat= "(key, val) in pdfSurveyTypeIds">
+              
+            {{key}}: {{val}}
+          </div>
+        
+        </div>
+<!--
+        <div ng-repeat="(key, prop) in solarData ">
+            <div style="font: bold;font-size: 20px; ">{{key}}</div><br>
+            <div ng-repeat="(key1,prop1) in solarData[key] ">
+                <div style="display: flex; ">
+                    <div style="width: 200px; ">{{key1}}</div>
+                    <div style="width: 11em;word-wrap: break-word;">{{prop1}}</div>
+                    <div ng-show="{{solarData[key]|myFilter:key1}}">
+                        <div ng-repeat="(key2,prop2) in solarData[key][key1]">
+                            <div style="display: flex">
+                                <div style="width: 150px;">{{key2}} </div>
+                                <div style="width: 8em;word-wrap: break-word;">{{prop2}}</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-hide="{{solarData[key]|myFilter:key1}}">
+                        <div style="width: 11em;word-wrap: break-word;">{{prop1}}</div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            
+             <p>jhsdgfuy</p>
+
+        </div>
+-->
+        <button id="okPopupBtn " class="btn" style="background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            font-family: candara;
+            position: relative;
+            left: 45%;
+            text-transform: capitalize !important;" ng-click="generatePDF(dataForPdf) " dialog-dismiss>Export</button></div>

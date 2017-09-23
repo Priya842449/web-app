@@ -1,0 +1,101 @@
+[
+{
+  "versionId": 2,
+  "ticketsitedetailsId": 3,
+  "solution": [
+    [
+      {
+        "Replace": [
+          {
+            "SKU": "4",
+            "QTY": "1",
+            "subrow": 0
+          },
+          {
+            "SKU": "2",
+            "QTY": "2",
+            "subrow": 1
+          }
+        ],
+        "row": 0
+      },
+      {
+        "DoNothing": [
+          {
+            "SKU": "",
+            "QTY": "1",
+            "subrow": 0
+          },
+          {
+            "SKU": "",
+            "QTY": "2",
+            "subrow": 1
+          }
+        ],
+        "row": 0
+      },
+      {
+        "Retrofit": [
+          {
+            "SKU": "2",
+            "QTY": "1",
+            "subrow": 0
+          },
+          {
+            "SKU": "3",
+            "QTY": "2",
+            "subrow": 1
+          }
+        ],
+        "row": 0
+      },
+      {
+        "Replace": [
+          {
+            "SKU": "4",
+            "QTY": "1",
+            "subrow": 0
+          },
+          {
+            "SKU": "2",
+            "QTY": "2",
+            "subrow": 1
+          }
+        ],
+        "row": 1
+      },
+      {
+        "DoNothing": [
+          {
+            "SKU": "",
+            "QTY": "1",
+            "subrow": 0
+          },
+          {
+            "SKU": "",
+            "QTY": "2",
+            "subrow": 1
+          }
+        ],
+        "row": 1
+      },
+      {
+        "Retrofit": [
+          {
+            "SKU": "2",
+            "QTY": "1",
+            "subrow": 0
+          },
+          {
+            "SKU": "3",
+            "QTY": "2",
+            "subrow": 1
+          }
+        ],
+        "row": 1
+      }
+    ]
+  ],
+  "designName": "two"
+}
+]

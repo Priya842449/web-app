@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html ng-app="">
+
+  <head>
+  <style>
+  .grid input[type="file"] {
+    margin-left: 80px;
+    font-size: 14px;
+    display: inline-block;
+}
+.ui-grid-header-cell-wrapper {
+                background:#D1D0D8;
+}
+
+
+
+  </style>
+    <link rel="stylesheet" href="stylesheets/ui-grid.min.css" />
+	<link rel="stylesheet" href="stylesheets/admin.css"/>
+	<link rel="stylesheet" href="stylesheets/general.css"/>	
+	<link rel="stylesheet" href="stylesheets/please-wait.css"/>	
+	
+  </head>
+
+  <body>
+ 
+<px-card  style="height:98%;position: absolute;
+    width: 82%;">
+<form role="form" name="form1">
+    <div ng-controller="dataRequestCtrl as divCtrl" scroll="overflow-x:scroll;overflow-y:scroll">
+      <table>   <tr></tr>  <tr></tr><tr></tr>
+	  <tr><td><button type="button" class="btn" id="btnSearch" ng-click="divCtrl.reset()" ng-show="divCtrl.gridOptions.data.length" ng-disabled="isReadonly"><i class="fa fa-refresh"></i> Reset Grid</button></td>
+      <td><button type="submit" class="btn" id="btnSearch" ng-click="submit()" ng-show="divCtrl.gridOptions.data.length" ng-disabled="isReadonly"><i class="fa fa-cloud-upload"></i> Upload</button></td></tr>
+      <tr>
+	  <td><p id="uploadBar">Upload Status     :</p></td>
+	  <td><p id="uploadInpro">In Progress...</p></td>
+	  <td><p id="uploadSucc">Success !!!</p></td>
+	  <td><p id="uploadFail">Failed. Please try Again !!!</p></td> 
+	  </tr>
+	  </table>
+
+      <div id="grid1" ui-grid="divCtrl.gridOptions" class="grid">
+        <div class="grid-msg-overlay" ng-show="!divCtrl.gridOptions.data.length" style="width: 96%;">
+          <div class="msg">
+            <div class="center">  <h3 style="font-size:20px;font-family: 'GE Inspira Regular', sans-serif;">Select File to upload</h3>
+              <br/>
+              <input type="file" accept=".xls,.xlsx,.ods" fileread="" name="file" opts="divCtrl.gridOptions" multiple="true" required="true" ng-disabled="isReadonly"/> 
+			
+			</div>
+          </div>
+        </div>
+      </div> <br>
+    </div>
+	</form>
+</px-card>
+  </body>
+ <!--  <div id="plsWait" class="loading-spiner-holder" data-loading ><div class="loading_fade"></div><div class="loading"><img src="images/pleaseWait.gif" width="50" height="50" /><p>Please wait...</p></div></div> -->
+</html>

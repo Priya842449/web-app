@@ -1,0 +1,192 @@
+<style>
+table{
+width:100%;
+
+padding-left: 1rem;
+}
+.th
+{
+width:20%;
+font-weight: bold;
+}
+#btnApprove
+{
+width:133px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+
+text-transform:capitalize !important;
+}
+#btnAttch{
+margin-right: 1.1%;
+width:133px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+
+text-transform:capitalize !important;
+}
+#btnSB{
+margin-right: 1.1%;
+width:133px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+font-family: candara;text-transform:capitalize !important;
+}
+h3#headertext{
+	color:#ff9821
+}
+
+        .sentSucces {
+        color: red;
+    }
+
+    .sentFail {
+        color: red
+    }
+
+</style>
+
+<px-card header-text='Site Design Summary'>
+ <div>
+ <table>
+ <tr><td class="th">Site Id</td><td>{{siteId}}</td></tr>
+ <tr><td class="th">Site Name</td><td>{{siteName}}</td></tr>
+  <tr><td class="th">Address</td><td>{{siteAddress}}</td></tr>
+ <tr><td class="th">PM Name</td><td>{{surveyor}}</td></tr>
+  <tr><td class="th">Current Stage</td><td>{{currentStage}}</td><td></td></tr>
+
+ <tr>
+<td class="th">Comments</td><td><textarea id="myTextarea" placeholder="Add your comments here.." rows=3 ng-model="$parent.cmts"></textarea></td>
+<!--  <tr><td class="th">Completed Date</td><td>{{siteData.completedDate}}</td></tr>
+ --> <!-- <tr><td class="th">Project Manager</td><td>{{siteData.siteNm}}</td></tr> -->
+
+                <td style="float:right"><button type="submit" class="btn" id="btnApprove" ng-click="Approve()" ng-disabled="disableApprove" style="width:133px;"><i class="fa fa-check" ></i>Approve </button><br/> <br/>
+                    <button type="submit" class="btn" id="btnSB" ng-click="sendBack()" ng-disabled="disableSendBack" style="width:133px;"><i class="fa fa-reply"></i>Send Back </button>
+   </td>
+                <td></td>
+                <!-- <tr><td></td><td></td><td style="padding-left:377px"><  <button type="submit" class="btn btn--primary" ng-click="submit()"><i class="fa fa-check"></i> Approve </button> -->
+
+                <!-- <button type="submit" class="btn btn-default btn-lg btn-upload" ng-click="submit()"><i class="fa fa-reply"></i> Send Back </button> --></td>
+                <tr>
+                    <tr>
+                        <td class="th">Estimated Ship Date</td>
+                        <td id="estShipdate"></td>
+                            <td style="float:right"> <span ng-class="{sentSucces : isSent, sentFail: !(isSent)}">{{msgSendBack}} </span></td>
+                    </tr>
+                    <tr>
+                        <td class="th">Next Stage Approver</td>
+                        <td>
+                            <paper-material elevation="1" style="z-index:2;background:white;">
+                                <paper-typeahead-input-customerMaster id="paperSku" max-suggestions="5" remote-url="https://dt-contractor-master-microservice-dev.run.aws-usw02-pr.ice.predix.io/contractorList/name?contractorName=%QUERY" placeholder="Search Contractor">
+                                </paper-typeahead-input-customerMaster>
+                            </paper-material>
+                        </td>
+
+                        <!--<td>
+                            <div class="horizontal-section">
+                                <paper-radio-button id="myradio1" >Contractor Id</paper-radio-button>
+                                <paper-radio-button id="myradio2">Contractor Group</paper-radio-button>
+                            </div>
+
+                            <div id="contractorIdDiv" style="display: none;">
+                                <paper-material elevation="1" style="z-index:2;background:white;">
+                                    <paper-typeahead-input-customerMaster id="paperSku" max-suggestions="5" remote-url="https://dt-contractor-master-microservice-dev.run.aws-usw02-pr.ice.predix.io/contractorList/name?contractorName=%QUERY" placeholder="Search Contractor Id">
+                                    </paper-typeahead-input-customerMaster>
+                                </paper-material>
+                            </div>
+                            <div id="contractorGroupDiv" style="display: none;">
+                                <paper-material elevation="1" style="z-index:2;background:white;">
+                                    <paper-typeahead-input-customerMaster id="paperSku" max-suggestions="5" remote-url="https://dt-menucontrol-microservice-dev.run.aws-usw02-pr.ice.predix.io/getBucketName?bucketName=%QUERY" placeholder="Search Contractor Group" ng-disabled="isReadonly">
+                                    </paper-typeahead-input-customerMaster>
+                                </paper-material>
+                            </div>
+
+                        </td>-->
+                    </tr>
+                    <td></td>
+                    <tr>
+                        <td></td>
+                        <tr>
+
+ <td>
+
+ <simple-dialog id="attach"  class="uploadAlert" modal role="alertdialog" align="center"  >
+        <form id="fileformDesignAppr">
+            <input type="file" id="file" multiple="multiple" style="width:100%"/>
+        </form>
+	<div id="showFileList"></div>
+     <span ng-show="invalidFileName" style="color:red;"> {{invalidMessage}}</span>
+	<table>
+    <tr ng-repeat="x in fileArrayToUpload">
+        <td><td>{{x.name}}</td><td><i class="fa fa-times" aria-hidden="true" ng-click="removeFile(x)" style="color:red"></i></td></td>
+    </tr>
+	</table>
+	<input type="button" id="btnSearch" class="uploadButton" ng-click="upload()" value="Upload"></input>
+	<input type="button" id="btnSearch" class="closePopup" value="Close" ng-click="closePopup()"></input>
+
+ </td>
+ <td></td>
+ </tr>
+
+ </table> <div id="outScope"></div>
+  <simple-dialog id="invalidAlertforBoth" class="submitAlert" modal role="alertdialog" align="center">
+      <table>
+          <tr>
+          <td>
+			<input type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+            <tr>
+			<td><h1 class="datamsg">Please Select Valid Contractor</h1></td></tr>
+            <tr>
+			<td><div class="buttons">
+			<paper-button class="alertButton" dialog-dismiss >Ok</paper-button>
+			</div></td></tr>
+      </table>
+</simple-dialog>
+ </div>
+</px-card>
+<script>
+$(document).ready(function() {
+    $('#btnAttch').click(function(){
+      var removeSite = document.querySelector('#attach');
+        removeSite.toggle();
+        $("#fileformDesignAppr")[0].reset();
+    });
+	 $('#btnApprove').click(function(){
+
+    });
+
+
+});
+</script>
+<script>
+$(document).ready(function() {
+	var selectedContractorForNextStage=document.querySelector('paper-typeahead-input-customerMaster').inputValue;
+	var scopeEle2 = angular.element(document.getElementById('outScope')).scope();
+	document.querySelector('paper-typeahead-input-customerMaster').inputValue = scopeEle2.selectedContractorForNextStage;
+});
+</script>
+
+<!--<script>
+    $(document).ready(function() {
+    document.getElementById("myradio1").addEventListener("change", function(e) {
+                        //alert("radio1");
+                        if(document.getElementById("myradio1").checked=true){
+                                        document.getElementById("myradio2").checked=false;
+                        }
+                        $("#contractorGroupDiv").hide();
+                        $("#contractorIdDiv").show();
+                    });
+                    document.getElementById("myradio2").addEventListener("change", function(e) {
+                            // alert("radio2");
+                            if(document.getElementById("myradio2").checked=true){
+                                            document.getElementById("myradio1").checked=false;
+                            }
+                            $("#contractorIdDiv").hide();
+                            $("#contractorGroupDiv").show();
+                    });
+
+       });
+</script>-->

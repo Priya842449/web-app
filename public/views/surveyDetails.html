@@ -1,0 +1,630 @@
+
+<head>
+
+    <style>
+        .dataTable {
+            auto 0px auto;
+        }
+
+        .tableDiv {
+            height: 150px;
+            overflow-y: scroll;
+            margin-right: 40px;
+            margin-left: 10px;
+            margin-top: 10px;
+        }
+
+div.tab {
+    overflow: hidden;
+    border: 3px solid #ccc;
+}
+
+.outdoorTablinks{
+    width : 500px;
+}
+
+
+.outdoorTablinks:hover {
+    background-color: #47575C;
+}
+
+
+.walmartTablinks{
+    width : 525px;
+}
+
+div.tab button {
+    /*background-color: inherit;*/
+    float: left;
+    /*border: none;*/
+    color : white;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    background-color: #47575C;
+}
+
+div.tab button:hover {
+    background-color: #47575C;
+}
+
+div.tab button.active {
+    background-color : #47575C;
+}
+
+        .closeButton {
+            background: transparent;
+            border: none;
+            font-size: 30px;
+            color: gray;
+            position: absolute;
+            right: 8px;
+            margin-top: 10px;
+            cursor: pointer;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .closePopup {
+            position: fixed;
+            top: 80%;
+            left: 100%;
+            transform: translate(-80%, -100%);
+            font-size: 30px;
+            border: none;
+            cursor: pointer;
+            border-radius: 25px;
+            background: white;
+        }
+
+        .pxCardCatalogAdmin {
+            height: 650px;
+        }
+
+        .containerAll {
+            position: absolute;
+            display: none;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            background: gray;
+            opacity: 1;
+        }
+
+        .canvasContainer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10003;
+            background: gray;
+        }
+
+        .marginLeft {
+            margin-left: 20px;
+        }
+
+        .submitButton {
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            font-family: candara;
+            text-transform: capitalize !important;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .loadFloorPlanAnchor {
+            list-style: none;
+            text-decoration: none;
+            line-height: -3px;
+            color: white;
+            position: relative;
+            top: -6px;
+            left: -8px;
+        }
+
+        .loadFloorPlanLi {
+            padding-left: 20px;
+            line-height: 38px;
+            background: #ff9821;
+            display: inline-block;
+            height: 25px;
+            position: relative;
+        }
+
+        .modal-body.simple-gallery img.simple-gallery {
+            width: 100%;
+            height: 356px;
+        }
+
+        #popId {
+            height: 100px;
+            width: 100px;
+        }
+
+        #imgdyna {
+            height: 50px;
+            width: 50px;
+        }
+
+        .paper-button-0 .content.paper-button {
+            padding: 0;
+        }
+
+        google-map {
+            height: 600px;
+        }
+
+        .tabs-menu {
+            height: 30px;
+            float: left;
+            clear: both;
+            margin-left: -2.75rem !important;
+        }
+
+        .tabs-menu li {
+            height: 30px;
+            line-height: 30px;
+            float: left;
+            margin-right: 10px;
+            background-color: #ccc;
+            border-top: 1px solid #d4d4d1;
+            border-right: 1px solid #d4d4d1;
+            border-left: 1px solid #d4d4d1;
+            list-style-type: none;
+        }
+
+        .tabs-menu li.current {
+            position: relative;
+            background-color: #ff9821;
+            border-bottom: 1px solid #fff;
+            color: white;
+            z-index: 5;
+        }
+
+        .tabs-menu li a {
+            padding: 10px;
+            text-transform: uppercase;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .tabs-menu .current a {
+            color: #2e7da3;
+        }
+
+        .tab {
+            border: 1px solid #d4d4d1;
+            background-color: #fff;
+            float: left;
+            margin-bottom: 20px;
+            width: auto;
+        }
+
+        .tab-content {
+            width: 1018px;
+            padding: 20px;
+        }
+
+        #tab-1 {
+            display: block;
+        }
+
+        #tab-2 {
+            display: none;
+        }
+
+        .gm-style-iw {
+            background-color: white !important;
+        }
+
+        #indoorExport {
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            font-family: candara;
+            text-transform: capitalize !important;
+        }
+
+        #outdoorExport {
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            font-family: candara;
+            text-transform: capitalize !important;
+        }
+
+        h3 {
+            color: #ff9821;
+        }
+
+        select:hover,
+        select:focus {
+            border: 1px solid #9999a3;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+            background-color: #e4e4ea;
+        }
+
+        select {
+            border-radius: 3px;
+            padding: 0 3em 0 1em;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+            line-height: calc(2em - 2px);
+            cursor: pointer;
+            background-color: #e4e4ea;
+            background-image: url('../images/arrow.png');
+            background-repeat: no-repeat;
+            background-position: calc(100% - 1em) 50%;
+            color: #3b3b3f;
+        }
+
+        .btnClass {
+            width: 133px;
+            height: 28px;
+            background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            text-transform: capitalize !important;
+                margin-right: 72px;
+            margin-bottom: 63px;
+        }
+
+        .marker {
+            width: 27px;
+            height: 40px;
+            position: absolute;
+            left: -13px;
+            top: -35px;
+            font-weight: none;
+            line-height: 0px;
+            letter-spacing: 0px;
+            text-align: none;
+        }
+
+        .showErrMessage {
+            color: red;
+            font-size: medium;
+            text-align: center;
+            float: right;
+            padding-right: 50%;
+            color: red;
+            font-size: medium;
+        }
+
+        .marker.black {
+            background: url(../images/marker_black.png);
+        }
+        .tabContainer{
+          display:flex;
+        }
+    </style>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery_imageMap/jquery.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery_imageMap/jquery-ui.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery_imageMap/jquery.hammer.js"></script>
+
+    <script type="text/javascript" src="../bower_components/jquery_imageMap/imgViewer.min.js"></script>
+    <script type="text/javascript" src="../bower_components/jquery_imageMap/imgNotes.js"></script>
+</head>
+
+
+<div sitesummary="" data="" ng-include="'views/siteSummarySurvey.html'"></div>
+<paper-dialog id="dialog">
+    <!--     <simple-gallery >
+	 </simple-gallery>  -->
+</paper-dialog>
+
+<modal-popup imagefiles="imagePopup"></modal-popup>
+<px-card id="main" header-text="Main Survey Data">
+    <!-- <a href='#' id='bower_components/polymer-gallary/images/img03.jpg,bower_components/polymer-gallary/images/img01.jpg,https://dt-blobstore-microservice.run.asv-pr.ice.predix.io/getBlob?SiteId=95&directory=tester&filename=TestImg.jpg' onclick ='gotoLink(this,event)'><paper-button data-dialog='dialog'><img  src="https://dt-blobstore-microservice.run.asv-pr.ice.predix.io/getBlob?SiteId=95&directory=tester&filename=TestImg.jpg" /></paper-button></a> -->
+
+    <px-data-table id="mainTable" table-column sortable striped style="width:100%">
+
+    </px-data-table>
+</px-card>
+<px-card id="tabcard">
+
+
+
+    <div id="tabs-container">
+        <ul class="tabs-menu">
+            <li class="current">
+                <a href="#tab-1" id="tab1" style="color:white" ng-click="hideImage()">Indoor</a>
+            </li>
+            <li id="li2"><a href="#tab-2" style="color:white" id="tab2">Outdoor</a></li>
+        </ul>
+        <br>
+
+        <!--Indoor Survey floor plan HTML Start -->
+
+        <!-- <div class="containerAll">
+        <div class="canvasContainer">
+          <div id="imagediv">
+            <img id="imageNotes" style="border: 30px solid #ccc; padding:20px;"/>
+          </div>
+        </div>
+     </div> -->
+
+        <!-- <div class="containerAll">
+        <div class="canvasContainer">
+          <button class="closePopup" ng-click="closePopupImage()">&times;</button>
+          <canvas id="canvas" style="border:1px solid gray;"></canvas>
+          <div id="showData" style="background:white; display:none"></div>
+        </div>
+      </div> -->
+
+
+
+        <div class="tab" style="width:100%">
+
+            <!-- Indoor Floor Plan Survey HTML End -->
+            <div id="tab-1" class="tab-content" style="width:100%;">
+
+
+                <div id="tab3" style="width:100%;">
+                    <div style="display:flex; width: 100%;">
+                        <div class="loadFloorPlanLi" style="width:115px;" ng-hide="hideAnchor">
+                            <a href="" ng-click="showTab3()"  class="loadFloorPlanAnchor" style="color:white;">Load Floor Plan</a>
+
+                        </div>
+                        <div ng-show="showTabThree">
+                            <select class="marginLeft" data-ng-model="station" ng-change="getFloors(station)" ng-options="data.stationName for data in stationData"></select>
+                            <select class="marginLeft" data-ng-show="showFloors" data-ng-model="floorsModel" ng-change="getSection(floorsModel)" ng-options="data.floorNo for data in floors"></select>
+                            <select class="marginLeft" data-ng-show="showSections" data-ng-model="sectionsModel" ng-change="showApplyButton()" ng-options="data.sectionId for data in sections"></select>
+                            <button class="submitButton marginLeft" ng-show="isAllSelected" ng-click="showFloorPlan(sectionsModel)" class="">Show Floor Plan</button>
+                        </div>
+
+                    </div>
+
+                    <span ng-show="showMessage" class="showErrMessage" style="padding-top:10px;">{{errorMessage}}</span>
+                    <br>
+                    <br>
+
+                    <div id="imagediv" ng-show="showFloorPlanImage" style="border:3px solid;">
+                        <!-- <img id="imageNotes" style="border: 30px solid #ccc; padding:20px;"/> -->
+                    </div>
+
+                </div>
+
+                <!-- <img src="{{resImg}}" height="150" width="150" onerror='this.style.display = "none"'/> -->
+                <!-- <img src="https://dt-blobstore-microservice-dev.run.aws-usw02-pr.ice.predix.io/getBlob?directory=10/Survey&fileName=img_201853800.jpeg&contentType=image/png:image/jpeg;base64"> -->
+                <h3>Indoor Survey Data</h3>
+
+                <!-- 				<table>
+				 <td class="th">
+
+				 </td></tr>
+					<tr>
+				<tr>
+				 <td class="th stationTd"  style="display: ">
+				 <paper-material class="draggable1" elevation="1" style="z-index:3;background:white;">
+								<paper-typeahead-input-station id="paperStation" max-suggestions="10" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/station?filter=stationName=%QUERY*&fields=stationId,stationName"   placeholder="Station name" style="font-size:10px;margin-bottom: 5px;">
+								</paper-typeahead-input-station>
+							</paper-material>
+				 </td>
+
+				 </tr>
+					<tr>
+				<td class="th bldgfloorTd" style="display: none">
+					<select id="" ng-model="selectedFloor" ng-change="getFloor(selectedFloor)">
+						<option ng-repeat="x in floor">{{x.floorNo}}</option>
+					</select>
+				</td>
+
+				</tr>
+				<tr>
+						<td class="th sectionTd" style="display: none">
+					 <select id="" class="section" ng-model="selectedSection" ng-change="getSection(selectedSection)">
+										<option ng-repeat="x in section">{{x.sectionId}}</option>
+								</select>
+						<paper-spinner style="z-index:10000;postion:relative;" ></paper-spinner>
+				 </td>
+
+				</tr>
+				 <td class="bldgfloorTd" style="display: none">
+				 </td>
+				 <td></td>
+				 </tr>
+				 <tr>
+					<td class="bldgfloorTd" style="display: none">
+					</td>
+				</tr>
+
+
+				 </table> -->
+                <!-- 						 <div class="FloorImgDiv" style="display: none">
+ <button type="submit" class="btnClass" id="btnEdit" ng-click="edit()"><i class="fa fa-edit" ></i>Edit </button>
+  <button type="submit" class="btnClass" id="btnDelete" ng-click="deleteSection()"><i class="fa fa-delete" ></i>Delete </button>
+
+<div id="showImage" style="display:none">
+
+</div>
+
+ </div> -->
+                <button id="indoorExport" class="btn" style="position: absolute;left: 1162px; margin-top: -38px;">Export</button>
+                <px-data-table id="indoorTable" table-column sortable striped style="width:100%">
+                </px-data-table>
+
+            </div>
+            <div id="tab-2" class="tab-content" style="width:100%">
+                <select style="margin-bottom:10px;" ng-model="dropdownModel" ng-show="showImageTag" ng-change="imageTagfunction()" ng-options="item for item in imageTagID">
+                </select>
+
+                <px-card style="padding:2px 0rem 0rem !important" id="mapId">
+                    <google-map id="google-map" additional-map-options='{"mapTypeId":"satellite"}' style="z-index:1">
+                    </google-map>
+                </px-card>
+                <px-card>
+
+                        <h3>Outdoor Survey Data</h3>
+
+                        <!--<button id="outdoorExport" class="btn" style="position: absolute;left: 1162px; margin-top: -38px;">Export</button>-->
+
+<div class="tabContainer">
+  <button class="outdoorTablinks" id="outdoorId" data-ng-click="outdoorSurveyTableData()">Outdoor Survey Data</button>
+  <button class="walmartTablinks" id="walmartId" ng-show="aggregatedSurvey" data-ng-click="walmartOutdoor()">Aggregated Survey Data</button>
+</div>
+<!--OUTDOOR SURVEY DATA-->
+<div>
+<px-data-table ng-show="showOutdoor" id="outdoorTable" table-column sortable striped style="width:100%">
+                        </px-data-table>
+
+
+<!--WALMART OUTDOOR-->
+<px-data-table ng-show="showWalmart" id="dropdownOutdoorTable" table-column sortable striped style="width:100%">
+                        </px-data-table>
+
+
+</div>
+
+
+                        <button id="exportPDF" class="btn" style="position: absolute;left: 1162px; margin-top: 30px;background: #ef674f;
+            border-radius: 18px;
+            color: white;
+            font-family: candara;
+            position: relative;
+            left: 45%;
+            text-transform: capitalize !important;" ng-click="getPdfData()" >Generate PDF</button>
+                    </div>
+                </px-card>
+            </div>
+        </div>
+    </div>
+</px-card>
+</simple-dialog>
+
+<simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center">
+
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+    <!--  //alert(/surveydetails/{{redirectPage}}); -->
+    <h1 class="datamsg">Data Submitted Successfully</h1>
+    <center>
+    <div class="buttons">
+        <!-- <paper-button  class="alertButton" onclick="window.location = '/pmviewsurvey'">OK</paper-button> -->
+        <button class="btnClass" id="okRedirect" dialog-dismiss>Ok</button>
+    </div></center>
+</simple-dialog>
+
+<simple-dialog id="submitAlertForFail" class="submitAlert" modal role="alertdialog" align="center">
+    <table>
+            <tr>
+                 <td style="float:right">
+                 <input type="button" id="cross" value="X" dialog-dismiss></input></td></tr>
+            <tr>
+                <td><h1 class="datamsg">{{msgApprove}}</h1>
+                    <h1 class="datamsg">{{msgSendBack}}</h1></td></tr>
+             <tr>
+			    <td><center>
+                    <button class="btn" id="btnSubmit" dialog-dismiss>Ok</button>
+                    </center></td></tr>
+    </table>
+</simple-dialog>
+
+<simple-dialog id="sbAlert" class="submitAlert" modal role="alertdialog" align="center">
+
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+
+        <h1 class="datamsg">Data Sent Back Successfully</h1>
+    <div class="buttons">
+        <button class="btn" id="sbRedirect" dialog-dismiss>Ok</button>
+        <!-- <paper-button dialog-dismiss>Ok</paper-button> -->
+    </div>
+</simple-dialog>
+
+<simple-dialog id="pdfPopUp" modal role="alertdialog" style="margin-top: 100px;max-height: 1500px;max-width: 1500px;">
+    <div style="width:0px;height:0px;top:10px; position: relative; left: 100px; z-index:100;">
+        <paper-spinner id="spinnerPdf" style="z-index:10000;postion:relative;color:white;" id="onDeleteSpinner"></paper-spinner>
+    </div>
+    <!--<input type="button" id="cross" value="X" dialog-dismiss></input>-->
+    <pdf-directive filename="../views/solarPDF.html"></pdf-directive>
+</simple-dialog>
+
+<simple-dialog id="dialogPdf" modal role="alertdialog" align="center">
+
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+
+    <h1 class="datamsg">Data not Present </h1>
+    <div>
+        <button id="" class="btn" style="background: #ef674f;border-radius: 18px;color: white;font-family: candara;left:10%;text-transform: capitalize !important;" dialog-dismiss>
+            OK
+        </button>
+    </div>
+    <!-- <paper-button dialog-dismiss>Ok</paper-button> -->
+
+</simple-dialog>
+<script>
+    var clicks = 0;
+    var temp = '';
+    var gal1 = ''
+
+    function gotoLink(th, e) {
+        var ids = th.id;
+        var id = ids.split(',');
+        //alert(temp +'temp')
+
+        if (temp == ids || temp == '') {
+            clicks++;
+        } else if (temp != ids && temp != '') {
+            clicks = 1;
+        }
+
+        temp = th.id;
+        console.log(id.length);
+
+        var divdata = document.querySelector("#dialog");
+        Polymer.dom(divdata).innerHTML = '';
+
+        var gal = document.createElement("simple-gallery");
+        gal1 = gal;
+        // alert(gal);
+        var container = ''
+        container = gal.$.links;
+        //alert(id +"= id ");
+
+
+
+
+
+        for (var i = 0; i < id.length; i++) {
+            var image = document.createElement('img');
+            image.setAttribute('data-original', id[i]);
+            image.setAttribute('data-index', 's' + (i + 1));
+            image.setAttribute('on-click', 'load_popup');
+            image.setAttribute('src', id[i]);
+            image.setAttribute('id', 'popId');
+            image.addEventListener('click', gal.load_popup);
+            container.appendChild(image);
+        }
+
+        console.log(gal)
+        Polymer.dom(divdata).appendChild(gal);
+        console.log(divdata);
+        var button = e.target;
+        while (!button.hasAttribute('data-dialog') && button !== document.body) {
+            button = button.parentElement;
+        }
+        if (!button.hasAttribute('data-dialog')) {
+            return;
+        }
+        var id = button.getAttribute('data-dialog');
+        var dialog = document.getElementById(id);
+        if (dialog) {
+            dialog.open();
+        }
+    }
+</script>
+<script>
+    if ($('#tab1:visible').length == 0) {
+        $("#tab-2").fadeIn()
+
+        $("#li2").addClass("current");
+    }
+</script>
+
+<script>
+</script>

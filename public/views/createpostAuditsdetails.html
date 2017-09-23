@@ -1,0 +1,42 @@
+  <style>
+    :not([style-scope]):not(.style-scope):root .fa-3x {
+        padding-right: 24px;
+        font-size: 3em;
+    }
+    #btnSubmit {
+      width:133px;
+      background:#ef674f;
+      border-radius:18px;
+      color:white;
+      font-family: candara;
+      text-transform:capitalize !important;
+    }
+    .th {
+      width:20%;
+      font-weight: bold;
+    }
+  </style>
+
+  <px-card>
+    <div sitesummary="" data="" ng-include="'views/sitePostAuditSummary.html'"></div> <!-- Include Post audit summary here -->
+  </px-card>
+  
+  <simple-dialog id="submitAlert" class="submitAlert" modal role="alertdialog" align="center">
+    <input type="button" id="cross" value="X" dialog-dismiss></input>
+      <h1 class="datamsg">Data Submitted Successfully</h1>
+      <div class="buttons">
+        <paper-button class="alertButton" id="okRedirect" dialog-dismiss>Ok</paper-button>
+      </div>
+  </simple-dialog>
+  
+  <simple-dialog id="submitAlertForFail" class="submitAlert" modal role="alertdialog" align="center">
+    <input style="margin-left:85%" type="button" id="cross" value="X" dialog-dismiss></input>
+
+    <h1 class="datamsg">{{msgApprove}}</h1>
+    <div class="buttons">
+      <paper-button class="alertButton" id="okRedirect" dialog-dismiss>Ok</paper-button>
+    </div>
+  </simple-dialog>
+   
+  <paper-dialog id="dialog">
+  </paper-dialog>

@@ -1,0 +1,372 @@
+
+
+<head>
+
+
+<meta name="viewport"
+	content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+<title>Google Map demo</title>
+
+<!-- *******For Slider********** -->
+
+<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+
+
+<style type="text/css">
+
+.button_example{
+border:1px solid #25729a; -webkit-border-radius: 3px; -moz-border-radius: 3px;border-radius: 3px;font-size:12px;font-family:comic sans, comic sans ms, cursive, verdana, arial, sans-serif; padding: 10px 10px 10px 10px; text-decoration:none; display:inline-block;text-shadow: -1px -1px 0 rgba(255,233,227,0.3);font-weight:bold; color: #FFFFFF;
+ background-color: #3093c7; background-image: -webkit-gradient(linear, left top, left bottom, from(#3093c7), to(#1c5a85));
+ background-image: -webkit-linear-gradient(top, #3093c7, #1c5a85);
+ background-image: -moz-linear-gradient(top, #3093c7, #1c5a85);
+ background-image: -ms-linear-gradient(top, #3093c7, #1c5a85);
+ background-image: -o-linear-gradient(top, #3093c7, #1c5a85);
+ background-image: linear-gradient(to bottom, #3093c7, #1c5a85);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#3093c7, endColorstr=#1c5a85);
+}
+
+.button_example:hover{
+ border:2px solid #1c5675;
+ background-color: #26759e; background-image: -webkit-gradient(linear, left top, left bottom, from(#26759e), to(#133d5b));
+ background-image: -webkit-linear-gradient(top, #26759e, #133d5b);
+ background-image: -moz-linear-gradient(top, #26759e, #133d5b);
+ background-image: -ms-linear-gradient(top, #26759e, #133d5b);
+ background-image: -o-linear-gradient(top, #26759e, #133d5b);
+ background-image: linear-gradient(to bottom, #26759e, #133d5b);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#26759e, endColorstr=#133d5b);
+}
+
+
+.simple-dialog-0 > *:first-child {
+    margin-top: 6px;
+}
+
+
+
+
+
+
+
+
+</style>
+
+
+
+</head>
+
+<body fullbleed ng-init="loadmap()">
+
+ <px-card style="
+    height: 10%; height:70px;
+  height:25% !important;
+  padding-top:1px;
+  width:100% !important;
+">
+ <div id="serchselection" style="
+    height: 2px;
+	
+">
+<!-- <label></label> -->
+</div>
+
+
+
+        <paper-button raised id="ExpCol" ng-disabled="isReadonly"><i class="fa fa-search" aria-hidden="true"></i> Search </paper-button>
+    </px-card>
+    <!-- <paper-button id="Exppx" ng-click="abc()">Search</paper-button> -->
+
+	
+<!-- 	<div  class="ui-widget-content">
+<h3 class="ui-widget-header">Containment</h3>
+<div id="resizable">
+<h3 class="ui-widget-header">Draggable & Resizable</h3>
+</div>
+</div> -->
+
+
+
+
+
+
+  <demo-snippet class="centered-demo">
+   
+      <!-- <paper-button raised onclick="modalAlert.toggle()">modal alert</paper-button> -->
+      <simple-dialog id="searchAlert" modal role="alertdialog" align="center">
+        <h2>Alert</h2>
+		Search Criteria Invalid
+        <div class="buttons">
+          <paper-button onclick="searchDetails.toggle()">More details</paper-button>
+          <paper-button onclick="modal.toggle()" dialog-dismiss>Cancel</paper-button>
+        </div>
+      </simple-dialog>
+      <simple-dialog id="searchDetails" modal>
+        <h2>Details</h2>
+        <p>Please Enter Valid Search Criteria for the desired result</p>
+        <div class="buttons">
+          <paper-button dialog-confirm autofocus>OK</paper-button>
+        </div>
+      </simple-dialog>
+
+  </demo-snippet>
+
+  <demo-snippet class="centered-demo">
+   
+      <!-- <paper-button raised onclick="modalAlert.toggle()">modal alert</paper-button> -->
+      <simple-dialog id="skuAlert" modal role="alertdialog" align="center">
+        <h2>Alert</h2>
+		This combination is not valid
+        <div class="buttons">
+          <paper-button onclick="skuAlertDetails.toggle()">More details</paper-button>
+          <paper-button dialog-dismiss>Cancel</paper-button>
+        </div>
+      </simple-dialog>
+      <simple-dialog id="skuAlertDetails" modal>
+        <h2>Details</h2>
+        <p>The combination you have chosen is not a valid search criteria.Please chose another combination</p>
+        <div class="buttons">
+          <paper-button dialog-confirm autofocus>OK</paper-button>
+        </div>
+      </simple-dialog>
+
+  </demo-snippet>
+
+
+  <demo-snippet class="centered-demo">
+   
+      <!-- <paper-button raised onclick="modalAlert.toggle()">modal alert</paper-button> -->
+      <simple-dialog id="overSizeAlert" modal role="alertdialog" align="center">
+        <h2>Alert</h2>
+		Please Refine your Search Criteria to get a precise result
+        <div class="buttons">
+          <paper-button onclick="overSizeAlertDetails.toggle()">More details</paper-button>
+          <paper-button dialog-dismiss>Cancel</paper-button>
+        </div>
+      </simple-dialog>
+      <simple-dialog id="overSizeAlertDetails" modal>
+        <h2>Details</h2>
+        <p>Please select a site first before searching with Sku Description for a much precise search result </p>
+        <div class="buttons">
+          <paper-button dialog-confirm autofocus>OK</paper-button>
+        </div>
+      </simple-dialog>
+
+  </demo-snippet>
+  
+    <demo-snippet class="centered-demo">
+   
+      <!-- <paper-button raised onclick="modalAlert.toggle()">modal alert</paper-button> -->
+      <simple-dialog id="RemoveSkuAlert" modal role="alertdialog" align="center">
+        <h2>Alert</h2>
+		Please Remove Sku Description First
+        <div class="buttons">
+          <paper-button onclick="removeSkuDetails.toggle()">More details</paper-button>
+          <paper-button dialog-dismiss>Cancel</paper-button>
+        </div>
+      </simple-dialog>
+      <simple-dialog id="removeSkuDetails" modal>
+        <h2>Details</h2>
+        <p>You have to Remove the Sku Description first to be able to remove the Site from here</p>
+        <div class="buttons">
+          <paper-button dialog-confirm autofocus>OK</paper-button>
+        </div>
+      </simple-dialog>
+
+  </demo-snippet>
+
+	  
+	<simple-dialog id="modal" modal role="alertdialog" align="center">
+	 <input type="button" id="cross" value="X" dialog-dismiss></input>
+	 <h3 id="popUpH3">Search using below Options</h3>
+	 <div>
+		
+
+		<paper-material class="draggable" elevation="1" style="z-index:5;background:white;">  
+			 <paper-typeahead-input-customer id="paperName" max-suggestions="10"  remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/customer?filter=customerName1=/.*%QUERY.*/:({{custInputFilter}})&fields=customerId,customerName1" placeholder="Customer name" style="font-size:10px ;margin-bottom: 5px;"> 
+			<!-- <paper-typeahead-input-customer max-suggestions="5" remote-url="views/customer.json?filter=customerName1=%QUERY*&fields=customerId,customerName1" placeholder="Enter Customer Name" style="font-size:10px"> -->
+			</paper-typeahead-input-customer> 
+			</paper-material> 
+			
+	
+
+		
+		<paper-material class="draggable" elevation="1" style="z-index:4;background:white">  
+			 <!--<paper-typeahead-input-customer-city id="paperCity" max-suggestions="10"   remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/customer?filter=customerAddress=/.*%QUERY.*/&fields=customerId,customerAddress" placeholder="Customer city" style="font-size:10px;margin-bottom: 5px;" > -->
+			<!-- <paper-typeahead-input-customer max-suggestions="5" remote-url="views/customer.json?filter=customerName1=%QUERY*&fields=customerId,customerName1" placeholder="Enter Customer Name" style="font-size:10px"> -->
+			<paper-typeahead-input-customer-city id="paperCity" max-suggestions="10" placeholder="Customer city" style="font-size:10px;margin-bottom: 5px;" > 
+			</paper-typeahead-input-customer-city> 
+			</paper-material>
+
+			
+		
+			<paper-material class="draggable1" elevation="1" style="z-index:3;background:white;">
+				<paper-typeahead-input-site id="paperSite" max-suggestions="10" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/site?filter=siteName=/.*%QUERY.*/:({{siteInputFilter}}):&fields=siteId,siteName"   placeholder="Site name" style="font-size:10px;margin-bottom: 5px;">
+				<!-- <paper-typeahead-input-site id="paperSite" max-suggestions="5" remote-url="views/site.json?filter=siteName=%QUERY*&fields=siteId,siteName"   placeholder="Search by Site Name"> -->
+				</paper-typeahead-input-site> 
+			</paper-material> 
+
+			
+
+
+		
+	<paper-material class="draggable1" elevation="1" style="z-index:2;background:white;">
+				<paper-typeahead-input-site-city id="paperSiteCity" max-suggestions="10"   placeholder="Site city" style="font-size:10px;margin-bottom: 5px;">
+				</paper-typeahead-input-site-city> 
+			</paper-material>
+			
+
+			<paper-material class="draggable3" elevation="1" style="z-index:1;background:white;">
+				<paper-typeahead-input-sku id="paperSku" max-suggestions="10"   placeholder="Sku Description" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/sku?filter=skuDescription=/.*%QUERY.*/&fields=skuDescription,skuId" style="font-size:10px;margin-bottom: 5px;">
+				<!-- <paper-typeahead-input-sku id="paperSku" max-suggestions="5"   placeholder="Search by Sku Description" remote-url="views/sku.json?filter=skuDescription=%QUERY*&fields=skuDescription,specification"> -->
+				</paper-typeahead-input-sku> 
+			</paper-material> 
+			</div>
+		
+        <div class="" style="">
+          <paper-button dialog-dismiss  ng-click="abc()" id="btnSearch">Search</paper-button>
+		  
+
+          
+		   <paper-button ng-click="clear()" id="btnClear">Clear</paper-button>
+        </div>
+      </simple-dialog>
+
+
+
+
+
+	<div
+		style="width: 50px; top: 200px; position: relative; left: 500px; z-index: 100;">
+		<paper-spinner style="z-index:10000;postion:relative;"></paper-spinner>
+		
+	</div>
+	  <!-- additional-map-options='{"mapTypeId":"satellite"}'
+ latitude="37" longitude="-95"	  -->
+	<px-card style="margin-top: -65px; padding: 0px 0.333333rem 2rem; height: 715px;""> 
+	<!-- <google-map id="google-map" additional-map-options='{"mapTypeId":"satellite"}'  zoom="3"style="z-index:0">  -->
+	<google-map id="google-map"   zoom="4"style="z-index:0"> 
+	
+<!-- 	  <google-map-poly closed fill-color="red" fill-opacity=".25" stroke-weight="1">
+    <google-map-point latitude="37.779" longitude="-122.3892"></google-map-point>
+    <google-map-point latitude="31.804" longitude="-111.2711"></google-map-point>
+    <google-map-point latitude="21.386" longitude="-101.0837"></google-map-point>
+  </google-map-poly> -->
+	
+	</google-map> 
+	<px-card>
+	<div style=" top: 200px; position: relative; left: 500px; z-index: 100;background:white">
+		<table id="legend" style= "position: absolute;
+    z-index: 100;
+    background: #f7f7fc;
+    margin-top: -87%;
+    margin-left: 38%;
+">
+		</table>
+	</div>
+		<div style=" top: 200px; position: relative; z-index: 100;background:white">
+		<table class="legendPA" style= "position: absolute;
+    z-index: 100;
+    background: #f7f7fc;
+    margin-top: -87%;display:none;width: 146px;height:394px;
+
+">
+<tr>
+<td><img src='images/check.png'> &nbsp;&nbsp;&nbsp;&nbsp;</td>
+<td>Fixture Installed Correctly and operating</td>
+</tr>
+<tr>
+<td><img src='images/nothing.png'></td>
+<td>Fixture Missing</td>
+</tr>
+<tr>
+<td><img src='images/add.png'></td>
+<td>Extra Fixture Installed</td>
+</tr>
+<tr>
+<td><img src='images/nr.png'></td>
+<td>Fixture Not Retrofit</td>
+</tr>
+<tr>
+<td><img src='images/delete.png'></td>
+<td>Poles not Operational</td>
+</tr>
+<tr>
+<td><img src='images/wallpack.png'></td>
+<td>Pole Missing from Site</td>
+</tr>
+<tr>
+<td><img src='images/refresh.png'></td>
+<td>Wall pack not on Survey</td>
+</tr>
+<tr>
+<td><img src='images/pole_missing.png'></td>
+<td>Fixture Positioned Incorrectly</td>
+</tr>
+<tr>
+<td><img src='images/poleNotOnMap.png'></td>
+<td>Poles not On Map</td>
+</tr>
+<tr>
+<td><img src='images/cancel.png'></td>
+<td>Sides of Bldg with non working fixture</td>
+</tr>
+<tr>
+<td><img src='images/cancel.png'></td>
+<td>Fixture not Operational</td>
+</tr>
+		</table>
+	</div>
+	<script>
+	
+
+
+  function toggle(selector) {
+    document.querySelector(selector).toggle();
+  }
+
+
+	window.addEventListener('google-map-marker-click', function(e) {
+	//alert('qq');
+	$(".marker1").contents().remove();
+	
+	});
+		window.addEventListener('google-map-marker-dblclick', function(e) {
+	
+
+	});
+	
+	
+	
+	
+
+	
+		  window.addEventListener('btnModalPositiveClicked', function(e) {
+	//alert('qq');
+	alert('px');
+	
+	});
+		function btnModalPositiveClicked(evt){
+           alert('hello');
+          }
+
+$(document).ready(function() {
+    $('#ExpCol').click(function(){
+      var removeSite = document.querySelector('#modal');
+					removeSite.toggle();
+    });
+});
+
+
+
+$(document).ready(function() {
+    $('#Exppx').click(function(){
+
+    });
+});
+	
+	
+
+	</script>
+
+
+</body>
+</html>
+

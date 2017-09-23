@@ -1,0 +1,155 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+<style>
+table{
+width:100%;
+padding-left: 1rem;
+font-family:Arial;
+}
+.th
+{
+width:20%;
+font-weight: bold;
+}
+
+#btnSubmits{
+width:133px;
+background:#ef674f;
+border-radius:18px;
+    font-size: 12px;
+color:white;
+font-family: 'GE Inspira Regular', sans-serif;
+text-transform:capitalize !important;
+}
+    .submitAlert
+{
+    outline: none;
+    z-index: 103;
+    height: 171px;
+    position: absolute;
+    top: 83.5px;
+    left: 508.102px;
+    box-sizing: border-box;
+    max-height: 366px;
+    max-width: 1286px;
+	border-radius: 13px !important ;
+}
+
+.alertButtonL
+{
+	 margin-left: -170px !important;
+    color: white;
+    position: left;
+    margin-top: -13px;
+	background: #ef674f !important;
+	border-radius: 20px;
+}
+
+.alertButtonR
+{
+
+	 margin-right: -208px !important;
+    color: white;
+    position: right;
+    margin-top: -13px;
+	background: #ef674f !important;
+	border-radius: 20px;
+	 margin-top: -63px;
+    position: absolute;
+}
+</style>
+<script>
+
+</script>
+</head>
+	<body>
+        <div>
+		
+            <form id ="SubmitWorkFlowNames">
+			<px-card header-text="View Workflow">
+			<table id="tblWorkFlow">
+           
+			<tr>
+				<th align="left" style="font-family: candara;width:1px" >WorkFLow Name</th>
+				<td>:</td>
+				
+				<td style="font-family: candara">
+                 <paper-typeahead name="workFlowNames" data="{{workFlowNames}}"></paper-typeahead>
+                </td>
+			</tr>
+			
+			
+		</table> 
+            
+				<div>
+					<table>
+						<tr>
+							
+                            
+                            <td style="float:left"> <br/> <br/><button type="submit" class="btn" id="btnSubmits" ng-click="submitForm()">
+								<i class="fa fa-cloud-upload"></i>Submit</button>
+								<br>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</form>
+    </px-card>
+        </div>
+       <div id="summary" ng-hide = "summary" style="margin-top: -20px;">
+
+   
+       
+	   <px-card header-text="View Details By WorkFlowName">
+	  
+<px-data-table id="mytable" selected-rows="{{mySelectedRows}}" filterable striped table-data="{{workFlowDetails}}">
+		
+		<px-data-table-column
+          name="stages" type="html"
+		  label="Stage Name"
+         
+          sortable
+          >
+        </px-data-table-column>		
+        <px-data-table-column
+          name="sequence"
+		  label="Sequence Id"
+          
+          sortable
+         
+          >
+        </px-data-table-column>
+        <px-data-table-column
+          name="rejectButtonApplicable" 
+		  label="RejectButtonApplicable"		  
+         
+          sortable
+          >
+        </px-data-table-column>
+		 <px-data-table-column
+          name="nextStageOnReject"
+		  label="NextStageOnReject"		  
+         
+		  sortable>
+        
+        </px-data-table-column>
+		<px-data-table-column
+          name="sendBackButtonApplicable" type="html"
+		  label="SendBackButtonApplicable"
+         
+          sortable>
+        
+        </px-data-table-column>
+	  </px-card>
+	   
+      
+</div>
+ 	</body>
+</html>

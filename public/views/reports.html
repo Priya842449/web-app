@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="bower_components/google-chart/google-chart.html">
+  <link rel="import" href="bower_components/paper-typeahead-input/paper-typeahead-input-site.html">
+  <link rel="import" href="bower_components/paper-typeahead-input/paper-typeahead-input-customer.html">
+  <link rel="import" href="bower_components/paper-radio-button/paper-radio-button.html">
+  <link rel="import" href="bower_components/paper-radio-group/paper-radio-group.html">
+<style>
+	google-chart {
+	  height: 510px;
+	  width: 63em;
+	} 
+</style>
+<script>
+	$('#rdoBarGraph').click(function() {
+		$('#pieChart').hide();
+		$('#barGraph').show();
+	});
+	$('#rdoPieChart').click(function() {
+		$('#barGraph').hide();
+		$('#pieChart').show();
+	});	
+</script>
+</head>
+<body>
+	<px-card style="height: 64px;">
+		<paper-radio-group>
+			<paper-radio-button name="rdoBarGraph" id="rdoBarGraph">Bar Chart</paper-radio-button>
+			<paper-radio-button name="rdoPieChart" id="rdoPieChart">Pie Chart</paper-radio-button>
+        </paper-radio-group>
+	</px-card>
+	<px-card style="height: 64px;">
+		<paper-material class="demo"  elevation="1" style="width:47%;height:60px;font-size:20px">	
+		<paper-typeahead-input-customer max-suggestions="5"  remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/customer?filter=customerName1=%QUERY*&fields=customerId,customerName1" placeholder="Enter Customer Name" style="font-size:10px">	
+		</paper-typeahead-input-customer>
+		</paper-material>
+		<paper-material class="demo"  elevation="1" style="width:33%;height:60px; position:absolute; margin-left:35%;margin-top:-59.5px;">   
+		<paper-typeahead-input-site max-suggestions="5"  placeholder="Enter Site Name" style="font-size:10px">
+		</paper-typeahead-input-site>
+		</paper-material>
+	</px-card>
+	<px-card>
+		<google-chart id="barGraph"></google-chart>
+		<google-chart id="pieChart"></google-chart>
+	</px-card>
+</body>
+</html>

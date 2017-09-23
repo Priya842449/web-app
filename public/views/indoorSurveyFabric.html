@@ -1,0 +1,105 @@
+<style>
+   td{padding:5px 10px; height:35px;}
+  .dataTable{auto 0px auto; }
+  .tableDiv {
+    height : 90px;
+    overflow-y : scroll;
+    margin-right : 40px;
+    margin-left : 10px;
+    margin-top : 10px;
+  }
+  .closeButton {
+    background: transparent;
+    border: none;
+    font-size: 30px;
+    color: gray;
+    position: absolute;
+    right: 8px;
+    margin-top: 10px;
+    cursor:pointer;
+    margin : 0px;
+    padding : 0px;
+  }
+  .closePopup {
+    position: fixed;
+    <!--left: 1140px;  This has to be set dynamicaly using the size of the image/canvas. -->
+    top: 80%;
+    left: 100%;
+    transform: translate(-80%, -100%);
+    font-size: 30px;
+    border: none;
+    cursor:pointer;
+    border-radius: 25px;
+    background : white;
+  }
+  .pxCardCatalogAdmin {
+    height : 650px;
+  }
+  .containerAll {
+    position: absolute;
+    display : none;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        width:100%;
+        height:100%;
+        background : gray;
+        opacity : 1;
+}
+.canvasContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10003;
+    background: gray;
+  }
+  .marginLeft {
+    margin-left : 100px;
+  }
+  .submitButton {
+    width: 100px;
+  background: #ef674f;
+  border-radius: 18px;
+  color: white;
+  font-family: candara;
+  text-transform: capitalize !important;
+  position: relative;
+  top: 20px;
+  cursor:pointer;
+  }
+</style>
+<px-card style="height: 54px;margin-top: -16px;" class="ng-scope">
+  <h1 style="margin-top: 14px;font-size: 22px;">Indoor Survey</h1>
+</px-card>
+<px-card class="pxCardCatalogAdmin">
+<br>
+<div style="display:flex;">
+  <paper-material elevation="1" style="background:white;" id="indoorSite">
+		<paper-typeahead-input-site max-suggestions="10" debounce-duration="1000"
+      remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/site?filter=siteName=%QUERY*&fields=siteId,siteName" placeholder="Search Site" ng-disabled="isReadonly">
+		</paper-typeahead-input-site> 
+	</paper-material>
+  <a href="" ng-click="flushAllData()" id="changeSite" class="marginLeft" style="display:none;" ng-disabled="isReadonly">Click to change site</a>
+</div>  
+  <br>
+  <div style="display :flex;margin-top:20px;">
+    <select data-ng-show="showStations" data-ng-model="station" ng-change="getFloors(station)" ng-disabled="isReadonly" ng-options="data.stationName for data in stationData"></select>
+    <select class="marginLeft" data-ng-show="showFloors" ng-disabled="isReadonly" data-ng-model="floorsModel" ng-change="getSection(floorsModel)" ng-options="data.floorNo for data in floors"></select>
+    <select class="marginLeft" data-ng-show="showSections" data-ng-model="sectionsModel" ng-disabled="isReadonly" ng-change="showApplyButton()" ng-options="data.sectionId for data in sections"></select>
+  </div>
+  <div ng-show="isAllSelected">
+     <button  ng-click="showFloorPlan()" ng-disabled="isReadonly" class="submitButton">Show Floor Plan</button>
+  </div>
+   
+
+
+<br><br>
+<div class="containerAll">
+<div class="canvasContainer">
+<button class="closePopup" ng-click="closePopupImage()" ng-disabled="isReadonly">&times;</button>
+  <canvas id="canvas" style="border:1px solid gray;"></canvas>
+  <div id="showData" style="background:white; display:none"></div>
+  </div>
+</div>
+</px-card>

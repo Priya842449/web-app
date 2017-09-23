@@ -1,0 +1,16 @@
+{
+	"menus" : [
+			{
+				"icon": "fa-bar-chart",
+				"label": "Dashboard",
+				"state": "LP",
+				"subitems": null
+			},
+			{
+				"icon": "fa-bar-chart",
+				"label": "Survey Report",
+				"state": "pmviewsurvey",
+				"subitems": null
+			}
+	]
+}

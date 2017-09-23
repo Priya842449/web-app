@@ -1,0 +1,226 @@
+<style>
+   .paper-input-container-0 .input-content.paper-input-container label, .paper-input-container-0 .input-content.paper-input-container .paper-input-label {
+   position: absolute;
+   margin-top: 1px;
+   top: 0;
+   right: 0;
+   left: 0;
+   color: #CCCCCC;
+   -webkit-font-smoothing: antialiased;
+   text-rendering: optimizeLegibility;
+   font-size: 14px;
+   font-weight: 400;
+   line-height: 24px;
+   }
+   p{
+   color:black;
+   }
+   px-card px-card:last-of-type {
+   border-bottom:0.3333333333rem solid #8b8d8f;
+   padding-bottom:31px;
+   }
+   a{
+   color: #0e0e0e;
+   }
+   #btnSearch1
+   {
+   background: #ef674f;
+   border-radius: 18px;
+   color: white;
+   margin-top: -57px;
+   float: right;
+   text-transform: capitalize !important
+   }
+   #line1
+   {
+   margin-top:20px;
+   position:absolute;
+   font-family:GE Inspira Bold;
+   font-size:22px;
+   color:#0e0e0e;
+   }
+   #line2
+   {
+   margin-top:20px;
+   position:absolute;
+   font-family:GE Inspira Regular;
+   font-size:18px;
+   color:#0e0e0e;
+   }
+   #line3
+   {
+   margin-top:20px;
+   position:absolute;
+   font-family:GE Inspira Regular;
+   font-size:18px;
+   color:#0e0e0e;
+   }
+   #line4
+   {
+   margin-top:20px;
+   position:absolute;
+   font-family:GE Inspira Regular;
+   font-size:18px;
+   color:#0e0e0e;
+   }
+   #line5
+   {
+   margin-top:20px;
+   position:absolute;
+   font-family:GE Inspira Regular;
+   font-size:18px;
+   color:#0e0e0e;
+   }
+   #tabholder1{
+   border:5px;
+   border-style:solid;
+   border-left-color: #30c8e9;
+   border-right-color: #d6d6d6;
+   border-top-color: #d6d6d6;
+   border-bottom-color: #d6d6d6;
+   border-left-width:7px;
+   background-color:#fffffff;
+   }
+
+   #load
+   {
+   position: absolute;
+   margin-top: 1251px;
+   margin-left: 900px;
+   }
+   #prev
+   {
+   position: absolute;
+   margin-top: 1251px;
+   margin-left: 920px;
+   }
+   label
+   {
+   margin-top: 26px;
+   font-size: 32px;
+   position: absolute;
+   }
+</style>
+<!-- <px-card id="table"><p id="line1">Fixture Name</p><br>
+   <p id="line2">10020020-1</p><br>
+   <p id="line3">Company Name</p><br>
+   <p id="line4">Site Name</p><br>
+   <p id="line5">City</p><br>
+   
+   </px-card> -->
+<body>
+   <px-card style="height: 54px;
+      margin-top: -16px;">
+      <h1 style="margin-top: 14px;font-size: 22px;">Twin Catalog</h1>
+      <paper-button raised id="btnSearch1" ><i class="fa fa-search" aria-hidden="true"></i> Locate Twin</paper-button>
+   </px-card>
+   <px-card style="height:1211px;" id="content">
+      <input type='hidden' id='current_page' />  
+      <input type='hidden' id='show_per_page' />
+      <div style="width: 50px; top: 200px; position: relative; left: 500px; z-index: 100;">
+         <paper-spinner active style="z-index:10000;postion:relative;"></paper-spinner>
+      </div>
+      <a href="/twinVisual" id="first"></a>
+      <br></br>
+      <a href="/twinVisual" id="second"></a>
+      <br></br>
+      <a href="/twinVisual" id="third"></a>
+      <div style="    position: absolute;
+         margin-top: 289px;" id='page_navigation'></div>
+   </px-card>
+
+   <simple-dialog id="modal" modal role="alertdialog" align="center">
+      <input type="button" id="cross" value="X" dialog-dismiss></input>
+      <h3 id="popUpH3">Search using below Options</h3>
+      <div>
+         <paper-material class="draggable" elevation="1" style="z-index:5;background:white;">
+            <paper-typeahead-input-customer id="paperName" max-suggestions="10"  remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/customer?filter=customerName1=%QUERY*&fields=customerId,customerName1" placeholder="Customer name" style="font-size:10px ;margin-bottom: 5px;">
+               <!-- <paper-typeahead-input-customer max-suggestions="5" remote-url="views/customer.json?filter=customerName1=%QUERY*&fields=customerId,customerName1" placeholder="Enter Customer Name" style="font-size:10px"> -->
+            </paper-typeahead-input-customer>
+         </paper-material>
+         <paper-material class="draggable" elevation="1" style="z-index:4;background:white">
+            <paper-typeahead-input-customer-city id="paperCity" max-suggestions="10"   remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/customer?filter=customerAddress=%QUERY*&fields=customerId,customerAddress" placeholder="Customer city" style="font-size:10px;margin-bottom: 5px;" >
+               <!-- <paper-typeahead-input-customer max-suggestions="5" remote-url="views/customer.json?filter=customerName1=%QUERY*&fields=customerId,customerName1" placeholder="Enter Customer Name" style="font-size:10px"> -->
+            </paper-typeahead-input-customer-city>
+         </paper-material>
+         <paper-material class="draggable1" elevation="1" style="z-index:3;background:white;">
+            <paper-typeahead-input-site id="paperSite" max-suggestions="10" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/site?filter=siteName=%QUERY*&fields=siteId,siteName"   placeholder="Site name" style="font-size:10px;margin-bottom: 5px;">
+               <!-- <paper-typeahead-input-site id="paperSite" max-suggestions="5" remote-url="views/site.json?filter=siteName=%QUERY*&fields=siteId,siteName"   placeholder="Search by Site Name"> -->
+            </paper-typeahead-input-site>
+         </paper-material>
+         <paper-material class="draggable1" elevation="1" style="z-index:2;background:white;">
+            <paper-typeahead-input-site-city id="paperSiteCity" max-suggestions="10"   placeholder="Site city" style="font-size:10px;margin-bottom: 5px;">
+            </paper-typeahead-input-site-city>
+         </paper-material>
+         <paper-material class="draggable3" elevation="1" style="z-index:1;background:white;">
+            <paper-typeahead-input-sku id="paperSku" max-suggestions="10"   placeholder="Sku Description" remote-url="https://predix-asset.run.aws-usw02-pr.ice.predix.io/sku?filter=skuDescription=%QUERY&fields=skuDescription,skuId" style="font-size:10px;margin-bottom: 5px;">
+               <!-- <paper-typeahead-input-sku id="paperSku" max-suggestions="5"   placeholder="Search by Sku Description" remote-url="views/sku.json?filter=skuDescription=%QUERY*&fields=skuDescription,specification"> -->
+            </paper-typeahead-input-sku>
+         </paper-material>
+      </div>
+      <div class="" style="">
+         <paper-button dialog-dismiss  ng-click="getSiteId()" style="margin-top:1px" id="btnSearch1">Search</paper-button>
+         <paper-button ng-click="clear()" id="btnClear">Clear</paper-button>
+      </div>
+   </simple-dialog>
+   <simple-dialog  id="error" error role="alertdialog" align="center">
+      <input type="button" id="cross" value="X" dialog-dismiss></input>
+      <px-card header-text="Alert">No device for this Site</px-card>
+   </simple-dialog>
+   <simple-dialog id="customerError" customerError role="alertdialog" align="center">
+      <input type="button" id="cross" value="X" dialog-dismiss></input>
+      <px-card header-text="Alert">Please search using Site Name</px-card>
+   </simple-dialog>
+   <script>
+      function toggle(selector) {
+        document.querySelector(selector).toggle();
+      }
+      
+      
+      window.addEventListener('google-map-marker-click', function(e) {
+      //alert('qq');
+      $(".marker1").contents().remove();
+      
+      });
+      window.addEventListener('google-map-marker-dblclick', function(e) {
+      
+      
+      });
+      
+      
+      
+      
+      
+      
+        window.addEventListener('btnModalPositiveClicked', function(e) {
+      //alert('qq');
+      alert('px');
+      
+      });
+      function btnModalPositiveClicked(evt){
+               alert('hello');
+              }
+      
+      $(document).ready(function() {
+        $('#btnSearch1').click(function(){
+          var removeSite = document.querySelector('#modal');
+      			removeSite.toggle();
+        });
+      });
+      
+      
+      
+      $(document).ready(function() {
+        $('#Exppx').click(function(){
+      
+        });
+      });
+      
+      
+      
+      
+      
+      
+   </script>
+</body>
+</html>

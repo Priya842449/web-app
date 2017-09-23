@@ -1,0 +1,130 @@
+
+<!-- <script type="text/javascript">
+      function ExcelReport() {
+            var tab_text = "<table border='2px'><tr bgcolor='#FFFFFF'>";
+            var textRange;
+            var j = 0;
+            tab = document.getElementById('tableid'); // id of table
+			console.log(tab)
+			alert(tab + 'tab.rows.length')
+            for (j = 0; j < tab.rows.length; j++) {
+                  tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+            }
+
+            tab_text = tab_text + "</table>";
+            tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");
+            tab_text = tab_text.replace(/<img[^>]*>/gi, "");
+            tab_text = tab_text.replace(/-/gi, "0 ");
+            tab_text = tab_text.replace(/0 0 >/gi, "");
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+                  txtArea1.document.open("txt/html", "replace");
+                  txtArea1.document.write(tab_text);
+                  txtArea1.document.close();
+                  txtArea1.focus();
+                  sa = txtArea1.document.execCommand("SaveAs", true, "Excel.xls");
+            } else
+                  sa = window.open('data:application/vnd.ms-excel,'
+                              + encodeURIComponent(tab_text));
+
+            return (sa);
+      }
+</script> -->
+<!-- 
+<script>
+
+$( document ).ready(function() {
+
+    var c, r, t;
+    t = document.createElement('table');
+	t.setAttribute("id","tableid")
+    r = t.insertRow(0); 
+    c = r.insertCell(0);
+    c.innerHTML = 123;
+    c = r.insertCell(1);
+    c.innerHTML = 456;
+    document.getElementById("div").appendChild(t);
+	
+
+});
+
+</script>
+<script>
+$("#btnExport").click(function (e) {
+console.log($('#tableid').html())
+    window.open('data:application/vnd.ms-excel,' + $('#tableid').html());e.preventDefault();
+    
+});
+</script> --> 
+
+<px-card header-text="Survey Report" >
+
+
+  <button id="btnExport" class="btn btn--primary" style="position: absolute;right: 25px;top: 32px;"><!-- style="background: #3973ac; font-size: 13px; height: 21px; font-family: Candara, Trebuchet MS, sans-serif; border: 1px; padding: 1px; cursor: pointer; width: 98px; color: white;position: absolute;right: 25px;top: 40px;"--->Export Report</button>
+
+ <px-data-table filterable table-column striped table-data="{{completedsurvey}}" id="dvData">
+
+	<px-data-table-column
+              name="ticketId"
+		      label="Job Id"
+			  type="html"
+          filterable >
+       </px-data-table-column> 
+		
+		<px-data-table-column
+               name="siteId"
+		      label="Site Id"
+          filterable>
+        </px-data-table-column> 
+	
+	<px-data-table-column
+               name="surveyType"
+		      label="Project Type"
+          filterable>
+        </px-data-table-column> 
+		
+		<px-data-table-column
+               name="surveyor"
+		      label="Surveyor Name"
+          filterable>
+        </px-data-table-column> 
+	
+  </px-data-table>
+
+</px-card>
+
+<div id="div" style="display: none;">
+</div>
+
+<!-- <px-card>
+ <px-tab-set id="demo-tab-set" selected="{{selected}}">
+        <px-tab>Tab 1</px-tab>
+        <px-tab>Tab 2</px-tab>
+        <px-tab>Tab 3</px-tab>
+    </px-tab-set>
+ <px-tab-pages id="demo-tab-set" selected="{{selected}}">
+            <div class="tab-page">
+              <p>PX Tab Page One</p>
+              <p>Some interesting content goes here...</p>
+            </div>
+            <div class="tab-page">
+              <p>PX Tab Page Two</p>
+              <p>Cool stuff goes here...</p>
+            </div>
+            <div class="tab-page">
+              <p>PX Tab Page Three</p>
+              <p>Fun stuff goes here...</p>
+            </div>
+            <div class="tab-page">
+              <p>PX Tab Page Four</p>
+              <p>Exciting stuff goes here...</p>
+            </div>
+          </px-tab-pages>
+
+
+</px-card> -->
+
+
+

@@ -1,0 +1,124 @@
+<head>
+    <style>
+        .modal__content.px-modal {
+            width: 50.3333333333rem;
+            max-width: 50.3333333333rem;
+        }
+    </style>
+</head>
+
+<body>
+    <px-card header-text="Inventory Overview">
+
+        <px-modal id="four" modal-heading="">
+            <h3 class="caps u-mv0 style-scope px-card-header" id="headertext" style="margin: 0px 0px 0px 18px;">{{custName}}</h3>
+            <px-card header-text="Material Details" style="margin: -18px 0px 0px 0px;">
+                <button class="btn btn--tertiary btn--icon float--right" style="margin-top:-53px;" title="Back to Summary" onclick="editcancelForm()" ng-disabled="isReadonly"><i class="fa fa-times-circle"></i></button>
+
+
+
+
+
+
+
+
+                <px-data-table id="popUpTable" filterable striped table-data="{{popUp}}">
+
+
+
+                    <px-data-table-column name="siteId" type="html" label="LOCATION" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+                    </px-data-table-column>
+
+                    <px-data-table-column name="skuId" type="html" label="SKU ID" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+                    </px-data-table-column>
+                    <px-data-table-column name="status" type="html" label="STATUS" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                    </px-data-table-column>
+
+                    <px-data-table-column name="plannedQty" type="html" label="PLANNED" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                    </px-data-table-column>
+
+                    <px-data-table-column name="inTransitToSPQty" type="html" label="IN TRANSIT TO SP" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                    </px-data-table-column>
+                    <px-data-table-column name="serviceProviderQty" type="html" label="SERVICE PROVIDER" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                    </px-data-table-column>
+
+                    <px-data-table-column name="inTransitToCustQty" type="html" label="IN TRANSIT TO CUST" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                    </px-data-table-column>
+                    <px-data-table-column name="onSiteQty" type="html" label="ON SITE" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                    </px-data-table-column>
+
+
+                    <px-data-table-column name="installedQty" type="html" label="INSTALLED" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                    </px-data-table-column>
+                    <px-data-table-column name="scheduleDate" type="html" label="SCHEDULE DATE" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                    </px-data-table-column>
+                    <px-data-table-column name="leadTime" type="html" label="LEAD TIME" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                    </px-data-table-column>
+                    <px-data-table-column name="projectedDate" type="html" label="PROJECTED DATE" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                    </px-data-table-column>
+
+                </px-data-table>
+            </px-card>
+
+        </px-modal>
+
+
+
+
+
+
+
+
+
+
+        <px-data-table id="mytable" filterable striped table-data="{{inventoryData}}">
+
+
+
+            <px-data-table-column name="siteId" type="html" label="LOCATION" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <px-data-table-column name="status" type="html" label="STATUS" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+            </px-data-table-column>
+            <px-data-table-column name="plannedQty" type="html" label="PLANNED" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+            </px-data-table-column>
+            <px-data-table-column name="inTransitToSPQty" type="html" label="IN TRANSIT TO SP" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+            </px-data-table-column>
+
+            <px-data-table-column name="serviceProviderQty" type="html" label="SERVICE PROVIDER" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+            </px-data-table-column>
+            <px-data-table-column name="inTransitToCustQty" type="html" label="IN TRANSIT TO CUST" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+            </px-data-table-column>
+
+            <px-data-table-column name="onSiteQty" type="html" label="ON SITE" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+            </px-data-table-column>
+
+            <px-data-table-column name="installedQty" type="html" label="INSTALLED" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+            </px-data-table-column>
+            <px-data-table-column name="scheduleDate" type="html" label="SCHEDULE DATE" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+            </px-data-table-column>
+            <px-data-table-column name="leadTime" type="html" label="LEAD TIME" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+            </px-data-table-column>
+            <px-data-table-column name="projectedDate" type="html" label="PROJECTED DATE" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+            </px-data-table-column>
+
+        </px-data-table>
+    </px-card>
+
+
+    <script>
+        function popUp(location) {
+            //alert("clicked")		  ;
+            $("#myModal1").css("visibility", "visible");
+            $("#myModal1").show();
+
+
+            var scopeEle2 = angular.element(document.getElementById('locationId')).scope();
+            //alert(this.columnCount);
+            scopeEle2.locationPopUp(location);
+        }
+
+        function editcancelForm(evt) {
+            $("#myModal1").css("visibility", "hidden");
+        }
+    </script>
+</body>

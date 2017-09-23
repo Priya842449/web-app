@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="stylesheets/please-wait.css"/>       
+  <link rel="import" href="/bower_components/px-modal/px-modal.html"/>
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
+  
+<style>
+table{
+width:100%;
+padding-left: 1rem;
+font-family:Arial;
+}
+.th
+{
+width:20%;
+}
+#btnAttch{
+
+width:133px;
+background:#ef674f;
+border-radius:18px;
+color:white;
+font-family: candara;
+text-transform:capitalize !important;
+}
+</style>
+
+<!-- <px-card header-text='PM Design Summary' style="padding:0 1.3333333333rem 0rem;font-family:Arial">
+
+
+</px-card> -->
+<!-- <px-card id="after" header-text='Files Uploaded by Designer' style="padding:0 1.3333333333rem 0rem;font-family:Arial" >
+<a href="https://dt-blobstore-microservice.run.asv-pr.ice.predix.io/getBlob?SiteId=101&filename=Reusability-of-services.xlsx&directory=testing" onclick
+="printClick(this.href)"><i class="fa fa-file-excel-o fa-3x" aria-hidden="true" style="color:green"></i></a>&nbsp;&nbsp;&nbsp;
+<a href="https://dt-blobstore-microservice.run.asv-pr.ice.predix.io/getBlob?SiteId=95&filename=TestFile.pdf&directory=tester" onclick="printClick(this.href)"><i class="fa fa-file-pdf-o fa-3x" aria-hidden="true" style="color:red"></i></a>&nbsp;&nbsp;&nbsp;
+<a          id="mediaData" onclick="printClick(this.href)" ></a>
+                
+</div> 
+</px-card> -->
+<px-card id="after" header-text='Files Uploaded By PM' >
+<a id="mediaData" onclick="printClick(this.href)" ></a>&nbsp;&nbsp;&nbsp;
+<a id="mediaData" onclick="printClick(this.href)"></a>&nbsp;&nbsp;&nbsp;
+<a id="mediaData" onclick="printClick(this.href)" ></a>
+
+</px-card>
+<div>
+
+</div>
+
+<script>
+   function clickHandler(e) {
+    
+   }
+  $(document).ready(function() {
+  
+	 $('#btnSubmit').click(function(){
+	 
+      var alert1 = document.querySelector('#submitAlert');
+	  //alert(alert1);
+					alert1.toggle();
+    });
+	
+});
+   
+</script>

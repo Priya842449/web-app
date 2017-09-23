@@ -1,0 +1,714 @@
+
+<style>
+    <link rel="import" href="../bower_components/paper-toolbar/paper-toolbar.html"><link rel="import" href="../bower_components/paper-tabs/paper-tab.html"><link rel="import" href="../bower_components/paper-tabs/paper-tabs.html">px-twoup [class^="widget-"] {
+        width: 100%;
+        padding-bottom: 0px;
+        padding-right: 0px;
+    }
+    
+    px-twoup .widget-1 {
+        height: 409px;
+    }
+    
+    .u-mb.px-card-header {
+        height: 38px;
+    }
+    
+    *.px-twoup,
+    *.px-twoup:before,
+    *.px-twoup:after {
+        box-sizing: content-box;
+    }
+    
+    .layout--right.rmd-ref-app-summary-card {
+        justify-content: flex-end;
+        padding-left: 10px !important;
+    }
+    
+    .layout.rmd-ref-app-summary-card {
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    @media screen and (min-width: 80rem) {
+        .layout.rmd-ref-app-summary-card>.layout__item.rmd-ref-app-summary-card {
+            -webkit-flex-basis: 0;
+            -ms-flex-preferred-size: 0;
+            flex-basis: 0;
+        }
+    }
+    
+    .layout.rmd-ref-app-summary-card>.layout__item.rmd-ref-app-summary-card {
+        padding-left: 1rem;
+        -webkit-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        -webkit-flex-basis: 20rem;
+        -ms-flex-preferred-size: 20rem;
+        flex-basis: 20rem;
+    }
+    
+    .u-1\/6.rmd-ref-app-summary-card {
+        width: 18.6666666667% !important;
+        -webkit-flex: none !important;
+        -ms-flex: none !important;
+        flex: none !important;
+    }
+    
+    .summary-box.rmd-ref-app-summary-card {
+        padding-left: 5px !important;
+    }
+    
+    .summary-label.rmd-ref-app-summary-card {
+        color: white;
+        font-size: 17px;
+        margin: 0;
+        padding-top: 8px;
+        padding-bottom: 0;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    
+    .caps.rmd-ref-app-summary-card {
+        text-transform: uppercase !important;
+    }
+    
+    .summary-value.rmd-ref-app-summary-card {
+        color: white;
+        font-size: 19px;
+        font-weight: bold;
+    }
+    
+    .summary-uom.rmd-ref-app-summary-card {
+        color: lightgray;
+        font-size: 30px;
+        font-weight: bold;
+    }
+    
+    .summary-meter.rmd-ref-app-summary-card {
+        height: 60px;
+        width: 160px;
+        padding: 10px 5px 0 5px;
+        float: right;
+    }
+    
+    .digital-meter.ref-digital-meter {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .bar-empty.ref-digital-meter {
+        float: left;
+        background-color: #9999a3;
+        margin: 0 2px 0 1px;
+        min-width: 5px;
+        height: 100%;
+        position: relative;
+    }
+    
+    .ulStyle {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        background: #aaaaaa;
+    }
+    
+    .listStyle {
+        display: inline-block;
+        width: 34%;
+        border-right: 1px solid;
+        text-align: center;
+        height: 40px
+    }
+    
+    .anchorStyle {
+        text-decoration: none;
+        font-size: medium;
+        display: block;
+    }
+    
+    .ulStyle li:hover {
+        background: #47575C;
+    }
+    
+    .activeTab {
+        background: #47575C;
+        border-bottom: 4px solid #ffff8d;
+    }
+    
+    .customerSummary {
+        display: block;
+        padding: 10px;
+        margin-right: 6%
+    }
+    
+    .commonChild {
+        margin-bottom: 6px;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+    }
+    
+    .commonHeaderSummData {
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+    }
+    
+    sub {
+        color: lightgray;
+        font-weight: bold;
+        font-size: 100%;
+        margin-left: 5px;
+    }
+    .trancheOkBtn {
+        font-size: medium;
+    margin-bottom: 10px;
+    background-color: #ff9821;
+    width: 50px;
+    border: none;
+    height: 21px;
+    border-radius: 6px;
+}
+    
+    #chartDiv {
+        width: 100%;
+        border: 1px solid #ccc;
+        transition: width 2s;
+    }
+    
+    #chartDiv.clicked {
+        width: 70%;
+    }
+</style>
+<!--
+    <style is="custom-style">
+      :root {
+        --paper-toolbar-background: #ffff8d;
+      }
+
+      paper-tabs, paper-toolbar {
+        background-color: #0d47a1;
+        color: #fff;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      paper-toolbar paper-tabs {
+        box-shadow: none;
+      }
+
+      paper-tabs[noink][no-bar] paper-tab.iron-selected {
+        color: #ffff8d;
+          
+      }
+
+      paper-tabs[alignBottom] {
+        box-shadow: 0px -2px 6px red;
+      }
+    </style>-->
+<input type="text" ng-model="selectedCustomerId" ng-disabled="isReadonly" id="selectedCustomerId" style="opacity:0;height:0px;display:none;">
+<input type="text" ng-model="selectedSiteId" ng-disabled="isReadonly" id="selectedSiteId" style="opacity:0;height:0px;display:none;">
+<div id="outScope"></div>
+<!--<input type="text" ng-model="overview" ng-focus="hideShowFun()" id="testing1">
+ <input type="text" ng-model="siteoverview" ng-focus="hideShowFun1()" id="testing2"> -->
+<!--<input type="text" ng-model="selectedCustomerId" id="selectedCustomerId" style="opacity:0;height:0px;"> 
+<input type="text" ng-model="selectedSiteId" id="selectedSiteId" style="opacity:0;height:0px;">-->
+
+
+<div id="summary" ng-hide="summary" style="margin-top:10px;">
+    <!-- <template is="dom-bind">
+	  <iron-ajax url="../bower_components/px-data-table/dashboard.json" last-response="{{dashboarddata}}" auto></iron-ajax>     	    
+       -->
+
+
+
+    <px-card header-text="Customer Overview">
+
+
+        <px-data-table id="mytable" selected-rows="{{mySelectedRows}}" filterable striped table-data="{{customerData}}">
+
+
+
+            <px-data-table-column name="customerId" type="html" label="Customer ID" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <px-data-table-column name="customerName" type="html" label="Customer Name" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord" id="highlight">
+                <!-- 					<px-data-table-highlight highlight-method="wordBeginsWithLetterW" highlight-type="row" highlight-value="medium" import="bower_components/px-data-table/px-example-highlight.html">
+  </px-data-table-highlight>
+	<px-data-table-highlight highlight-method="wordBeginsWithLetterW" highlight-type="row" highlight-value="low" import="bower_components/px-data-table/px-example-highlight.html">
+  </px-data-table-highlight> -->
+                <!-- 	<px-data-table-highlight highlight-method="wordBeginsWithLetterW"  highlight-color="rgb(244,86,66,1)"  highlight-type="row"  highlight-value="medium" import="bower_components/px-data-table/px-example-highlight.html"></px-data-table-highlight>
+					<px-data-table-highlight highlight-color="rgb(244,66,238,0.25)" highlight-method="wordBeginsWithLetterW"  highlight-color="rgb(244,86,66,1)"  highlight-type="row"  highlight-value="high" import="bower_components/px-data-table/px-example-highlight.html"></px-data-table-highlight> -->
+            </px-data-table-column>
+            <px-data-table-column name="noOfSurveys" label="# of Surveys" filterable sortable hide filter-function-name="myTableCustomFunctions.filterWholeWord">
+
+            </px-data-table-column>
+            <px-data-table-column name="noOfFixtures" label="#Surveyed" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <px-data-table-column name="actualStartDate" label="Actual Start Date" filterable sortable hide filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <!-- 		<px-data-table-column
+          name="actualEndDate" 
+          label="Actual Completion Date"		  
+          filterable
+          sortable          
+          filter-function-name="myTableCustomFunctions.filterWholeWord">
+        </px-data-table-column>
+				 -->
+            <px-data-table-column name="installationCount" label="#Installed" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+
+            <px-data-table-column name="postauditCount" label="#Post Audited" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <!--<px-data-table-column
+          name="avgTime" 
+          label="Avg Time Taken in Mins"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord">
+        </px-data-table-column>-->
+        </px-data-table>
+
+        <!-- 	  </template> -->
+        <px-twoup id="widgetsx2">
+            <div class=widget-1>
+                <highchart id="chartForDeadline" config="chartConfigForDeadline" class="span12"></highchart>
+                <center>
+                    <div id="chartDiv2" style="margin:0 auto;"></div>
+                </center>
+            </div>
+            <div class=widget-2>
+                <highchart id="chartForDifferentPhases" config="chartConfigForDifferentPhases" class="span12"></highchart>
+                <center>
+                    <div id="chartDiv1" style="margin:0 auto;"></div>
+                </center>
+            </div>
+
+        </px-twoup>
+        <px-twoup id="widgetsx2" widget-header="FIXTURES COUNT REPORT fOR CUSTOMERS" widget-icon="fa-bar-chart">
+            <div class=widget-1>
+                <highchart id="chart15" config="chartConfig11" class="span12"></highchart>
+            </div>
+            <div class=widget-2>
+                <highchart id="chart9" config="chartConfig9" class="span12"></highchart>
+            </div>
+
+        </px-twoup>
+    </px-card>
+</div>
+
+
+
+<div id="dashboard" ng-hide="overview">
+
+    <div style="display:flex;height:70px;">
+        <div class="customerSummary">
+            <div class="commonChild">CUSTOMER</div>
+            <div class="commonHeaderSummData">{{selectedCustomerName}}</div>
+        </div>
+        <div class="customerSummary">
+            <div class="commonChild">TOTAL SITES</div>
+            <div class="commonHeaderSummData">{{totalnoofsites}}</div>
+        </div>
+        <div class="customerSummary">
+            <div class="commonChild">#SURVEYED</div>
+            <div class="commonHeaderSummData">{{selectedCusNoOfFixtures}}</div>
+        </div>
+
+        <div class="customerSummary">
+            <div class="commonChild">#INSTALLED</div>
+            <div class="commonHeaderSummData">{{totalinstallationcountofcust}}</div>
+        </div>
+        <div style="padding:10px;">
+            <div class="commonChild">#POST AUDITED</div>
+            <div class="commonHeaderSummData">{{totalpostauditcountofcust}}</div>
+        </div>
+    </div>
+
+    <!--<div class="layout layout--right style-scope rmd-ref-app-summary-card">
+        
+		 
+		
+	        <div class="layout__item u-1/6 summary-box style-scope rmd-ref-app-summary-card">
+				<h4 class="summary-label caps style-scope rmd-ref-app-summary-card">Customer</h4>
+				<div class="style-scope rmd-ref-app-summary-card">
+					<span class="summary-value style-scope rmd-ref-app-summary-card">{{selectedCustomerName}}</span>
+					<span class="summary-uom style-scope rmd-ref-app-summary-card"></span>
+				</div>
+	        </div>
+        
+		     <div class="layout__item u-1/6 summary-box style-scope rmd-ref-app-summary-card">
+				<h4 class="summary-label caps style-scope rmd-ref-app-summary-card">Total Sites</h4>
+				<div class="style-scope rmd-ref-app-summary-card">
+					<span class="summary-value style-scope rmd-ref-app-summary-card">{{totalnoofsites}}</span>
+					<span class="summary-uom style-scope rmd-ref-app-summary-card"></span>
+				</div>
+	        </div>
+		
+		
+	    
+			
+			<div class="layout__item u-1/6 summary-box style-scope rmd-ref-app-summary-card">
+				<h4 class="summary-label caps style-scope rmd-ref-app-summary-card">#Surveys</h4>
+				<div class="style-scope rmd-ref-app-summary-card">
+					<span class="summary-value style-scope rmd-ref-app-summary-card">{{selectedCusActualStartDate}}</span>
+					<span class="summary-uom style-scope rmd-ref-app-summary-card"></span>
+				</div>
+				</div>-->
+
+    <!--<div class="layout__item u-1/6 summary-box style-scope rmd-ref-app-summary-card">
+				<h4 class="summary-label caps style-scope rmd-ref-app-summary-card">Actual End Date</h4>
+				<div class="style-scope rmd-ref-app-summary-card">
+					<span class="summary-value style-scope rmd-ref-app-summary-card">{{selectedCusActualEndDate}}</span>
+					<span class="summary-uom style-scope rmd-ref-app-summary-card"></span>
+				</div> 
+				</div>-->
+
+
+
+    <!-- <div class="layout__item u-1/6 summary-box style-scope rmd-ref-app-summary-card">
+				<h4 class="summary-label caps style-scope rmd-ref-app-summary-card">Avg Time Taken</h4>
+				<div class="style-scope rmd-ref-app-summary-card">
+					<span class="summary-value style-scope rmd-ref-app-summary-card">{{selectedCusAvgTime}}</span>
+					<span class="summary-uom style-scope rmd-ref-app-summary-card"></span>
+				</div>
+	        </div> -->
+
+
+
+    <!--<template is="dom-repeat" class="style-scope rmd-ref-app-summary-card"></template>
+        <div class="layout__item u-1/4 summary-box style-scope rmd-ref-app-summary-card" style="width: 28% !important;">
+        	<div style="float: left;" class="style-scope rmd-ref-app-summary-card">
+				<h4 class="summary-label caps style-scope rmd-ref-app-summary-card">Site Health</h4>
+				<div class="style-scope rmd-ref-app-summary-card">
+					<span class="summary-value style-scope rmd-ref-app-summary-card">100</span>
+					
+						<span class="summary-uom style-scope rmd-ref-app-summary-card">%</span>
+					<template is="dom-if" class="style-scope rmd-ref-app-summary-card"></template>
+				</div>
+        	</div>
+        	<div class="summary-meter style-scope rmd-ref-app-summary-card">
+			<ref-digital-meter percentage="100"></ref-digital-meter> 
+       		
+        	</div>
+        </div>-->
+
+    <button ng-disabled="isReadonly" class="btn btn--tertiary btn--icon float--right" style="margin-top:10px; margin-right:10px;" type="button" title="Back to Summary" ng-click="summaryCall()"><i class="fa fa-times-circle"></i></button>
+
+    <!--  <template is="dom-bind">	     
+	  <iron-ajax url="../bower_components/px-data-table/installation.json" last-response="{{instalationdata}}" auto></iron-ajax>      -->
+    <px-card header-text="{{selectedCustomerName}} – Sites - Snapshot">
+
+        <px-data-table id="mytable" selected-rows="{{mySelectedRows}}" filterable striped table-data="{{siteListData}}">
+
+
+
+            <px-data-table-column name="siteId" type="html" label="Site ID" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <px-data-table-column name="siteName" type="html" label="Site Name" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <px-data-table-column name="currentJob" label="Job ID" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+
+            <px-data-table-column name="estimatedInsDate" label="Est. Install Date" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+
+            <px-data-table-column name="progress" label="Progress" type="html" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <px-data-table-column name="stageName" label="Status" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <!--       <px-data-table-column
+          name="noOfSurveys" 
+		  label="# of Surveys"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column> -->
+            <px-data-table-column name="noOfFixtures" label="#Surveyed" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <px-data-table-column name="installcount" label="#Installed" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <px-data-table-column name="postauditcount" label="#Post Audited" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+
+            <px-data-table-column name="refKey" label="Tranche" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <px-data-table-column name="actualStartDate" label="Actual Start Date" filterable sortable hide filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+            <px-data-table-column name="actualEndDate" type="html" label="Actual End Date" filterable sortable hide filter-function-name="myTableCustomFunctions.filterWholeWord">
+            </px-data-table-column>
+
+
+
+
+            <!-- <px-data-table-column
+          name="avgTime" type="html" 
+          label="Avg Time Taken in Mins"		  
+          filterable
+          sortable
+          filter-function-name="myTableCustomFunctions.filterWholeWord"">
+        </px-data-table-column>	 -->
+
+        </px-data-table>
+
+        <input type="text" name="txtRefKey" ng-model="refKey" placeholder="Enter Tranche..">
+            <button ng-click="updateCountByRefKey(refKey)" class="trancheOkBtn" ng-disabled="isReadonly || disableTrancheOk">OK</button>
+
+
+        <!--CREATE THE TABS HERE-->
+        <!-- <div>
+            <ul class="tabUL" style="margin-left: 0;">
+                <li class="tabLI">
+                    <a href="" class="tabAnchor">TAB 1 Longer Tiltke </a>
+                </li>
+                <li class="tabLI">
+                    <a href="" class="tabAnchor">TAB 2</a>
+                </li>
+                <li class="tabLI">
+                    <a href="" class="tabAnchor">TAB 1 Longer Tiltke</a>
+                </li>
+                <li class="tabLI">
+                    <a href="" class="tabAnchor">TAB 1 Longer Tiltke</a>
+                </li>
+            </ul>
+            </div>-->
+
+        <!--TODO take in tab-->
+        <!-- <div data-ng-show="showSiteCountStatus">
+        <h3 class="caps u-mv0 style-scope px-card-header" id="headertext">SITE COUNT BY STATUS</h3>   
+            <highchart id="chartStage" config="stagesChart" class="span12"></highchart>       
+   </div>-->
+        <h3 class="caps u-mv0 style-scope px-card-header" id="headertext">SITE COUNT BY STATUS</h3>
+        <div style="width: 100%">
+            <highchart id="chartStage" config="stagesChart " class="span12 "></highchart>
+
+        </div>
+        <div style="width: 50%;margin:0 auto;">
+
+
+            <px-data-table ng-show="showDataCountTable" id="" striped table-data="{{dataCount}}">
+
+
+
+                <px-data-table-column name="status" type="html" label="Status" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+                </px-data-table-column>
+                <px-data-table-column name="site" type="html" label="Site Id" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+                </px-data-table-column>
+                <px-data-table-column name="noOfDays" label="No of Days" filterable sortable filter-function-name="myTableCustomFunctions.filterWholeWord">
+                </px-data-table-column>
+            </px-data-table>
+        </div>
+
+
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="tabsContent1">
+            <div data-ng-show="showTabs" id="focusHere">
+                <!-- <paper-tabs selected="0">
+            <paper-tab link>
+        <a href="" id="siteOverview" data-ng-click="showThisSection($event)" class="horizontal center-center layout"            style="color:white;text-decoration:none;font-size:medium;">Site Overview - {{selectedSiteId}}</a>
+      </paper-tab>
+      <paper-tab link>
+        <a href="" id="assetDetails" data-ng-click="showThisSection($event)" class="horizontal center-center layout"  style="color:white;text-decoration:none;font-size:medium;">Asset Details</a>
+      </paper-tab>
+      <paper-tab link>
+        <a href="" id="jobDetails" data-ng-click="showThisSection($event)" class="horizontal center-center layout"  style="color:white;text-decoration:none;font-size:medium;">Job Details</a>
+      </paper-tab>
+            
+</paper-tabs>
+  <br><br>-->
+                <ul class="ulStyle" style="margin-left:0;">
+                    <li class="listStyle" id="siteOverview1">
+                        <a href="" id="siteOverview" data-ng-click="showThisSection($event)" class="anchorStyle" style="color:white;" ng-disabled="isReadonly">Site Overview - {{selectedSiteId}}</a>
+                    </li>
+                    <li class="listStyle" id="assetDetails1">
+                        <a href="" id="assetDetails" data-ng-click="showThisSection($event)" class="anchorStyle" style="color:white;" ng-disabled="isReadonly">Asset Details</a>
+                    </li>
+                    <li class="listStyle" id="jobDetails1">
+                        <a href="" class="anchorStyle" id="jobDetails" data-ng-click="showThisSection($event)" style="color:white;" ng-disabled="isReadonly">Job Details</a>
+                    </li>
+                    <li class="listStyle" id="progressReport1">
+                        <a href="" class="anchorStyle" id="progressReport" data-ng-click="showThisSection($event)" style="color:white;" ng-disabled="isReadonly">Progress Report</a>
+                    </li>
+                </ul>
+
+            </div>
+
+
+
+
+
+
+            <br>
+
+
+            <!--SITE OVERVIEW SECTION-->
+            <div data-ng-show="showSiteOverview">
+                <!--<px-twoup id="widgetsx3" widget-icon="fa-briefcase">-->
+                <div style="display:flex;width:100%;">
+                    <div class="widget-1" style="width:50%;">
+                        <highchart id="chart7" config="chartConfig7" class="span12"></highchart>
+                    </div>
+                    <div class="widget-2" style="width:50%;">
+                        <highchart id="chart5" config="chartConfig5" class="span12"></highchart>
+                    </div>
+                </div>
+
+                <!--</px-twoup>-->
+            </div>
+
+
+            <!--ASSET DETAILS-->
+            <div data-ng-show="showAssetDetails" style="margin-left: 9%">
+                <!--<px-twoup id="widgetsx2" widget-icon="fa-bar-chart">
+            <div style="display:flex;width:100%;">
+               <div class="widget-1">-->
+                <highchart id="chart15" config="assetChartConfig" class="span12"></highchart>
+
+                <!-- <div class="widget-2" style="width:500px;"> -->
+                <highchart id="chart15" config="postAuditConfig" class="span12"></highchart>
+                <!--                 </div> -->
+                <!-- </px-twoup>-->
+
+            </div>
+
+
+
+            <div data-ng-show="showJobDetails">
+
+                <!--JOB DETAILS SECTION-->
+                <!--<h3 class="caps u-mv0 style-scope px-card-header" id="headertext">Job details per site</h3>-->
+                <px-data-table filterable striped table-data="{{finalJobsDetail}}" id="mytable">
+                    <px-data-table-column name="ticketId" label="Job Id" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="currentStage" label="Status" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="surveyor" label="Surveyor" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="designer" label="Designer" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="installer" label="Installer" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="fixtureCount" label="#Surveyed" filterable sortable>
+                    </px-data-table-column>
+                    <!--  <px-data-table-column
+          name="pm"
+          label="Assigned To"
+          filterable
+          sortable>
+        </px-data-table-column> -->
+
+                    <px-data-table-column name="assetInstalled" label="#Installed" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="postAudited" label="#Post Audited" filterable sortable>
+                    </px-data-table-column>
+
+                    <px-data-table-column name="surveyCompletedDate" label="Survey Completed" filterable sortable>
+                    </px-data-table-column>
+
+
+                    <px-data-table-column name="designSubmittedDate" label="Design Completed" filterable sortable>
+                    </px-data-table-column>
+
+
+                    <px-data-table-column name="installCompletedDate" label="Installation Completed" filterable sortable>
+                    </px-data-table-column>
+
+
+                </px-data-table>
+                <!-- <div class="showJobsStageGraph">
+          <div id="chart_div"></div>
+        </div> -->
+            </div>
+
+            <!--Ruby - Survey Dashboard Progress Report start-->
+            <div data-ng-show="progressReport">
+
+                <px-data-table filterable striped table-data="{{finalProgressReport}}">
+                    <px-data-table-column name="location" label="Location" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="area" label="Area" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="room" label="Room/Element" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="elementNo" label="Element #" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="existingFixture" label="Existing Fixture" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="Action" label="Action" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="solution" label="Solution" filterable sortable>
+                    </px-data-table-column>
+                    <px-data-table-column name="description" label="Description" filterable sortable>
+                    </px-data-table-column>
+
+                    <px-data-table-column name="addedAfteraudit" label="Added After Audit" filterable sortable>
+                    </px-data-table-column>
+
+
+                    <px-data-table-column name="plannedQty" label="Planned Qty" filterable sortable>
+                    </px-data-table-column>
+
+
+                    <px-data-table-column name="installedQty" label="Installed Qty" filterable sortable>
+                    </px-data-table-column>
+
+                    <px-data-table-column name="remainingQty" label="Remaining Qty" filterable sortable>
+                    </px-data-table-column>
+
+                    <px-data-table-column name="complete" label="% Complete" filterable sortable>
+                    </px-data-table-column>
+
+
+                </px-data-table>
+
+            </div>
+            <!--Ruby - Survey Dashboard Progress Report end-->
+        </div>
+</div>
+</div>
+</px-card>
+
+<script>
+    function drilldown(evt) {
+        //alert("drilldown2"); 
+        //alert(evt.innerHTML);
+        document.getElementById('selectedSiteId').value = "";
+        document.getElementById('selectedCustomerId').value = evt.innerHTML;
+        //$('#testing2').focus(); 
+        //$('#testing1').focus();	
+        //angular.element('#testing1').trigger('click');
+        var scopeEle = angular.element(document.getElementById('outScope')).scope();
+        //console.log(el);  
+        scopeEle.hideShowFun();
+    }
+    var counter = 0
+
+    function drilldownSite(e) {
+        if (counter == 0) {
+            //alert('in ' +counter)
+            setTimeout(function() {
+                counter++;
+                $.scrollTo($('#focusHere'), 500);
+            }, 1000);
+        } else {
+            $.scrollTo($('#focusHere'), 500);
+        }
+        document.getElementById('selectedCustomerId').value = "";
+        document.getElementById('selectedSiteId').value = e.innerHTML;
+        var scopeEle2 = angular.element(document.getElementById('outScope')).scope();
+        scopeEle2.hideShowFun1();
+
+    }
+</script>
